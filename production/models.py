@@ -10,9 +10,10 @@ class WorkOrder(models.Model):
     goal = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
     active = models.BooleanField(default=False)
+    priority = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     class Meta:
-        ordering = ['stock_date']
+        ordering = ['priority']
 
     def __str__(self):
         return self.name

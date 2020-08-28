@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from adminsortable2.admin import SortableAdminMixin
 from .models import WorkOrder, WorkOrderCheckPoint
 
 
@@ -8,8 +8,8 @@ class WorkOrderCheckpointInline(admin.StackedInline):
     extra = 1
 
 
-class WorkOrderAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'active', 'current', 'goal', 'brand', 'stock_date']
+class WorkOrderAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ['__str__', 'active', 'current', 'goal', 'brand', 'stock_date', 'priority']
 
     inlines = [WorkOrderCheckpointInline]
 
