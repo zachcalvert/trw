@@ -23,13 +23,15 @@
                   <p class="checkpoint-date">{{ checkpoint.short_date }}</p>
                 </div>
               {% endfor %}
+               <div class="checkpoint" style="left: 100%">
+                  <p class="checkpoint-goal work-order-goal lead">{{ order.goal }}</p>
+                  <div class="checkpoint-marker order-goal-marker" ></div>
+                  <p class="checkpoint-date work-order-date">{{ order.short_date }}</p>
+                </div>
               <div class="progress">
                 <div class="progress-bar" style="background: {{ order.color }}; width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
               </div>
             </div>
-
-            <div class="work-order-goal">{{ order.goal }}</div>
-            <div class="work-order-date">{{ order.short_date }}</div>
           </div>
         {% endfor %}
       </div>
