@@ -1,0 +1,49 @@
+html, body {
+  height: 100%;
+}
+
+.container {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.header-logo {
+  width: 25%;
+}
+
+.production-target {
+  margin: auto;
+  padding: 20px;
+  position: relative;
+}
+
+.production-target-commitment-amount {
+  padding: 0 0 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.production-target-commitment-date {
+  padding: 20px 0;
+}
+
+.bubble-wrapper {
+  position: relative;
+  height: auto;
+}
+
+.ldBar {
+  margin: auto;
+  height: 200px!important;
+  width: 200px!important;
+}
+
+.ldBar-label:after {
+  content: ""!important; /* change from % */
+}
+
+.checkpoint {
+  position: absolute;
+  z-index: 30;
+  right: -70px;
+}

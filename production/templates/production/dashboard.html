@@ -1,0 +1,36 @@
+{% load static %}
+
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/style.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/bootstrap.min.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/loading-bar.min.css" %}'/>
+    <script type="text/javascript" src='{% static "/production/loading-bar.min.js" %}'></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <img class="header-logo" src="{% static '/production/trw_logo.jpg' %}">
+      <div class="row justify-content-center">
+        {% for target in targets %}
+          <div class="production-target">
+            <h4>{{ target.name }}</h4>
+            <span>{{ target.date }}</span>
+
+            <div class="bubble-wrapper">
+              {% for checkpoint in target.checkpoints.all %}
+                <span class="checkpoint" style="bottom: {{ checkpoint.percent_of_total }}%">{{ checkpoint.short_date }} - {{ checkpoint.goal }}</span>
+              {% endfor %}
+              <div class="ldBar label-center" data-preset="bubble"
+                   data-min="0" data-max="{{ target.commitment }}" data-value="{{ target.current }}">
+              </div>
+            </div>
+
+            <div class="production-target-commitment-amount">{{ target.commitment }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

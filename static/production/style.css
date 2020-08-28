@@ -1,0 +1,34 @@
+html, body {
+  height: 100%;
+}
+
+.container {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.header-logo {
+  width: 40%;
+}
+
+.production-target {
+  margin: auto;
+  padding: 20px 0;
+  position: relative;
+}
+
+.production-target-commitment-amount {
+  padding: 0 0 20px;
+}
+
+.production-target-commitment-date {
+  padding: 20px 0;
+}
+
+.ldBar {
+  margin: auto;
+}
+
+.ldBar-label:after {
+  content: ""!important; /* change from % */
+}
