@@ -5,7 +5,6 @@ from brands.models import Brand
 
 class WorkOrder(models.Model):
     name = models.CharField(max_length=100)
-    brand = models.ForeignKey(Brand, null=True, blank=True, on_delete=models.CASCADE)
     stock_date = models.DateField()
     goal = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
