@@ -12,24 +12,27 @@
   <body>
     <div class="container">
       <img class="header-logo" src="{% static '/production/trw_logo.jpg' %}">
+      {{ missed_checkpoints }}
       <div class="row justify-content-center">
         {% for order in orders %}
-          <div class="production-target">
+          <div class="work-order">
             <h4>{{ order.name }}</h4>
-            <span>{{ order.date }}</span>
 
             <div class="work-order-progress-wrapper">
               {% for checkpoint in order.checkpoints.all %}
-              <span class="work-order-checkpoint" style="left: {{ checkpoint.percent_of_total }}%">
-                <p class="lead">{{ checkpoint.short_date }} - <b>{{ checkpoint.goal }}</b></p>
-              </span>
+                <div class="{% if checkpoint.id in missed_checkpoints %}missed-checkpoint{% else %}checkpoint{% endif %}" style="left: {{ checkpoint.percent_of_total }}%">
+                  <p class="checkpoint-goal lead">{{ checkpoint.goal }}</p>
+                  <div class="checkpoint-marker" ></div>
+                  <p class="checkpoint-date">{{ checkpoint.short_date }}</p>
+                </div>
               {% endfor %}
               <div class="progress">
                 <div class="progress-bar progress-bar-animated" style="width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
               </div>
             </div>
 
-            <div class="work-order-goal"><p class="lead">{{ order.short_date }} - <strong>{{ order.goal }}</strong></p></div>
+            <div class="work-order-goal">{{ order.goal }}</div>
+            <div class="work-order-date">{{ order.short_date }}</div>
           </div>
         {% endfor %}
       </div>
