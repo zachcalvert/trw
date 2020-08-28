@@ -9,8 +9,9 @@ class WorkOrder(models.Model):
     stock_date = models.DateField()
     goal = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
-    active = models.BooleanField(default=False)
     priority = models.PositiveIntegerField(default=0, blank=False, null=False)
+    color = models.CharField(max_length=7, default='#28a745')
+    active = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['priority']

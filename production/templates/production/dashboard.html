@@ -5,8 +5,6 @@
   <head>
     <link rel="stylesheet" type="text/css" href='{% static "/production/style.css" %}'>
     <link rel="stylesheet" type="text/css" href='{% static "/production/bootstrap.min.css" %}'>
-    <link rel="stylesheet" type="text/css" href='{% static "/production/loading-bar.min.css" %}'/>
-    <script type="text/javascript" src='{% static "/production/loading-bar.min.js" %}'></script>
   </head>
 
   <body>
@@ -26,7 +24,7 @@
                 </div>
               {% endfor %}
               <div class="progress">
-                <div class="progress-bar bg-success" style="width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
+                <div class="progress-bar" style="background: {{ order.color }}; width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
               </div>
             </div>
 
