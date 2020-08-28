@@ -18,16 +18,18 @@
             <h4>{{ order.name }}</h4>
             <span>{{ order.date }}</span>
 
-            <div class="bubble-wrapper">
+            <div class="work-order-progress-wrapper">
               {% for checkpoint in order.checkpoints.all %}
-                <span class="checkpoint" style="bottom: {{ checkpoint.percent_of_total }}%">{{ checkpoint.short_date }} - {{ checkpoint.goal }}</span>
+              <span class="work-order-checkpoint" style="left: {{ checkpoint.percent_of_total }}%">
+                <p class="lead">{{ checkpoint.short_date }} - <b>{{ checkpoint.goal }}</b></p>
+              </span>
               {% endfor %}
-              <div class="ldBar label-center" data-preset="bubble"
-                   data-min="0" data-max="{{ target.goal }}" data-value="{{ target.current }}">
+              <div class="progress">
+                <div class="progress-bar progress-bar-animated" style="width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
               </div>
             </div>
 
-            <div class="production-target-commitment-amount">{{ order.stock_date }}</div>
+            <div class="work-order-goal"><p class="lead">{{ order.short_date }} - <strong>{{ order.goal }}</strong></p></div>
           </div>
         {% endfor %}
       </div>

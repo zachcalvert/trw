@@ -15,6 +15,7 @@ html, body {
   margin: auto;
   padding: 20px;
   position: relative;
+  width: 100%;
 }
 
 .production-target-commitment-amount {
@@ -27,23 +28,27 @@ html, body {
   padding: 20px 0;
 }
 
-.bubble-wrapper {
+.work-order-progress-wrapper {
   position: relative;
   height: auto;
 }
 
-.ldBar {
-  margin: auto;
-  height: 200px!important;
-  width: 200px!important;
-}
-
-.ldBar-label:after {
-  content: ""!important; /* change from % */
-}
-
-.checkpoint {
+.work-order-checkpoint {
   position: absolute;
-  z-index: 30;
-  right: -70px;
+  top: 30px;
+}
+
+.work-order-goal {
+  position: absolute;
+  right: 0;
+}
+
+.progress {
+  height: 30px!important;
+  font-size: 24px!important;
+}
+
+.progress-bar {
+  text-align: right!important;
+  padding-right: 5px!important;
 }

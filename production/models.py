@@ -21,6 +21,10 @@ class WorkOrder(models.Model):
     def percent_complete(self):
         return (self.current/self.goal) * 100
 
+    @property
+    def short_date(self):
+        return '{}/{}'.format(self.stock_date.month, self.stock_date.day)
+
 
 class WorkOrderCheckPoint(models.Model):
     overall_target = models.ForeignKey(WorkOrder, on_delete=models.CASCADE, related_name='checkpoints')
