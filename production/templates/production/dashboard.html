@@ -12,7 +12,6 @@
   <body>
     <div class="container">
       <img class="header-logo" src="{% static '/production/trw_logo.jpg' %}">
-      {{ missed_checkpoints }}
       <div class="row justify-content-center">
         {% for order in orders %}
           <div class="work-order">
@@ -27,7 +26,7 @@
                 </div>
               {% endfor %}
               <div class="progress">
-                <div class="progress-bar progress-bar-animated" style="width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
+                <div class="progress-bar bg-success" style="width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
               </div>
             </div>
 

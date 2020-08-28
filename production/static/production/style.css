@@ -13,7 +13,7 @@ html, body {
 
 .work-order {
   margin: auto;
-  padding: 20px;
+  padding: 30px 20px;
   position: relative;
   width: 100%;
 }
@@ -32,11 +32,14 @@ html, body {
   top: -40px;
   position: absolute;
   font-size: 20px!important;
+  font-weight: bold;
+  left: -8px;
 }
 
 .checkpoint-date {
   top: 40px;
   position: absolute;
+  left: -10px;
 }
 
 .checkpoint-marker {
@@ -67,14 +70,14 @@ html, body {
 
 .work-order-goal {
   position: absolute;
-  right: -50px;
-  bottom: 13px;
+  left: 99%;
+  bottom: 22px;
   font-size: 32px;
 }
 
 .work-order-date {
   position: absolute;
-  right: 0;
+  right: 15px;
 }
 
 .progress {
