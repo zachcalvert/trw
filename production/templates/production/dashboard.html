@@ -5,6 +5,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href='{% static "/production/style.css" %}'>
     <link rel="stylesheet" type="text/css" href='{% static "/production/bootstrap.min.css" %}'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -44,10 +45,10 @@
                 </div>
               <div class="progress" style="width: {{ order.width }}px">
                 {% if order.stocked %}
-                  <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
+                  <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005;" data-width="{{ order.percent_stocked }}" aria-valuemin="0" aria-valuenow="0" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
                 {% endif %}
-                {% if order.qad %}
-                  <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
+                {% if order.qad and order.qad != order.stocked %}
+                  <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453;" data-width="{{ order.percent_qad }}" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
                 {% endif %}
               </div>
             </div>
@@ -55,4 +56,25 @@
         {% endfor %}
     </div>
   </body>
+
+<script>
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('.progress .progress-bar').each(function() {
+        let bar = $(this);
+        let target_percent = bar.attr("data-width");
+        let current_percent = 0;
+
+        var progress = setInterval(function() {
+          if (current_percent>=target_percent) {
+            clearInterval(progress);
+          } else {
+            current_percent +=1;
+            bar.css('width', (current_percent)+'%');
+          }
+        }, 1);
+      });
+    }, 200);
+  })
+</script>
 </html>
