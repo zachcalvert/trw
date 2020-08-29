@@ -7,7 +7,7 @@ from .models import WorkOrder, WorkOrderCheckPoint
 
 class WorkOrderCheckpointInline(admin.StackedInline):
     model = WorkOrderCheckPoint
-    extra = 1
+    extra = 0
 
 
 class WorkOrderAdmin(SortableAdminMixin, admin.ModelAdmin):

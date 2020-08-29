@@ -9,7 +9,6 @@ class WorkOrder(models.Model):
     qad = models.IntegerField(default=0, verbose_name="QA'd")
     stocked = models.IntegerField(default=0)
     priority = models.PositiveIntegerField(default=0, blank=False, null=False)
-    color = models.CharField(max_length=7, default='#28a745')
     active = models.BooleanField(default=False)
 
     class Meta:
