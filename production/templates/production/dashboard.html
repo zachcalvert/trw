@@ -10,31 +10,32 @@
   <body>
     <div class="container">
       <img class="header-logo" src="{% static '/production/trw_logo.jpg' %}">
-      <div class="row justify-content-center">
         {% for order in orders %}
-          <div class="work-order">
-            <h4>{{ order.name }}</h4>
+          <div class="work-order row" style="left: {{ order.start_position }}px; width: {{ order.width }}px">
+            <h4 class="work-order-name">{{ order.name }}</h4>
 
             <div class="work-order-progress-wrapper">
-              {% for checkpoint in order.checkpoints.all %}
+              <div class="checkpoint" style="left: 0">
+                <p class="checkpoint-date work-order-date">{{ order.start_date }}</p>
+              </div>
+              {% for checkpoint in order.checkpoints %}
                 <div class="{% if checkpoint.id in missed_checkpoints %}missed-checkpoint{% else %}checkpoint{% endif %}" style="left: {{ checkpoint.percent_of_total }}%">
                   <p class="checkpoint-goal lead">{{ checkpoint.goal }}</p>
                   <div class="checkpoint-marker" ></div>
                   <p class="checkpoint-date">{{ checkpoint.short_date }}</p>
                 </div>
               {% endfor %}
-               <div class="checkpoint" style="left: 100%">
+               <div class="checkpoint" style="left: {{ order.width }}px">
                   <p class="checkpoint-goal work-order-goal lead">{{ order.goal }}</p>
-                  <div class="checkpoint-marker order-goal-marker" ></div>
-                  <p class="checkpoint-date work-order-date">{{ order.short_date }}</p>
+                  <div class="checkpoint-marker work-order-goal-marker" ></div>
+                  <p class="checkpoint-date work-order-date">{{ order.stock_date }}</p>
                 </div>
-              <div class="progress">
-                <div class="progress-bar" style="background: {{ order.color }}; width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
+              <div class="progress" style="width: {{ order.width }}px">
+                <div id="work-order-{{ order.id }}-progress" class="progress-bar" style="background: {{ order.color }}; width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
               </div>
             </div>
           </div>
         {% endfor %}
-      </div>
     </div>
   </body>
 </html>
