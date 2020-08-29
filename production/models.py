@@ -5,6 +5,7 @@ from brands.models import Brand
 
 class WorkOrder(models.Model):
     name = models.CharField(max_length=100)
+    start_date = models.DateField(null=True)
     stock_date = models.DateField()
     goal = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
@@ -23,7 +24,11 @@ class WorkOrder(models.Model):
         return (self.current/self.goal) * 100
 
     @property
-    def short_date(self):
+    def short_start_date(self):
+        return '{}/{}'.format(self.start_date.month, self.start_date.day)
+
+    @property
+    def short_stock_date(self):
         return '{}/{}'.format(self.stock_date.month, self.stock_date.day)
 
 

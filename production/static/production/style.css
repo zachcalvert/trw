@@ -13,9 +13,13 @@ html, body {
 
 .work-order {
   margin: auto;
-  padding: 30px 20px;
+  padding: 30px 0;
   position: relative;
   width: 100%;
+}
+
+.work-order-name {
+  margin: auto;
 }
 
 .work-order-progress-wrapper {
@@ -32,7 +36,6 @@ html, body {
   top: -35px;
   position: absolute;
   font-size: 20px!important;
-  font-weight: bold;
   left: -8px;
 }
 
@@ -68,18 +71,18 @@ html, body {
 
 .work-order-goal {
   left: -17px;
-  top: -50px;
+  top: -45px;
   font-size: 24px!important;
 }
 
-.order-goal-marker {
+.work-order-goal-marker {
   right: 0;
   height: 60px;
   top: -15px;
 }
 
 .work-order-date {
-  top: 50px;
+  top: 45px;
   left: -15px;
   font-size: 16px;
 }
