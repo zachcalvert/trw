@@ -9,7 +9,19 @@
 
   <body>
     <div class="container">
-      <img class="header-logo" src="{% static '/production/trw_logo.jpg' %}">
+      <div class="row">
+        <div class="logo-wrapper col-6">
+          <img class="logo pull-right" src="{% static '/production/trw_logo.jpg' %}" />
+        </div>
+        <div class="legend col-6">
+          <div class="swatch">
+            <div class="stocked-swatch"></div><span>Stocked</span>
+          </div>
+          <div class="swatch">
+            <div class="qad-swatch"></div><span>QA'd</span>
+          </div>
+        </div>
+      </div>
         {% for order in orders %}
           <div class="work-order row" style="left: {{ order.start_position }}px; width: {{ order.width }}px">
             <h4 class="work-order-name">{{ order.name }}</h4>
@@ -31,7 +43,12 @@
                   <p class="checkpoint-date work-order-date">{{ order.stock_date }}</p>
                 </div>
               <div class="progress" style="width: {{ order.width }}px">
-                <div id="work-order-{{ order.id }}-progress" class="progress-bar" style="background: {{ order.color }}; width: {{ order.percent_complete }}%" aria-valuemin="0" aria-valuenow="{{ order.current }}" aria-valuemax="{{ order.goal }}">{{ order.current }}</div>
+                {% if order.stocked %}
+                <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
+                {% endif %}
+                {% if order.qad %}
+                <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
+                {% endif %}
               </div>
             </div>
           </div>

@@ -21,14 +21,6 @@ def dashboard(request):
         width = end_position - start_position
 
         order_data = {
-            "id": order.id,
-            "current": order.current,
-            "goal": order.goal,
-            "name": order.name,
-            "start_date": order.short_start_date,
-            "start_position": start_position*20,
-            "stock_date": order.short_stock_date,
-            "end_position": end_position*20,
             "checkpoints": [
                 {
                     "date": checkpoint.date,
@@ -39,13 +31,23 @@ def dashboard(request):
                     "short_date": checkpoint.short_date
                 } for checkpoint in order.checkpoints.all()
             ],
-            "percent_complete": order.percent_complete,
+            "end_position": end_position * 20,
+            "goal": order.goal,
+            "id": order.id,
+            "name": order.name,
+            "percent_qad": order.percent_qad,
+            "percent_stocked": order.percent_stocked,
+            "qad": order.qad,
+            "start_date": order.short_start_date,
+            "start_position": start_position * 20,
+            "stock_date": order.short_stock_date,
+            "stocked": order.stocked,
             "width": width*20
         }
         orders.append(order_data)
 
         missed_checkpoints.extend(
-            list(order.checkpoints.filter(date__lt=today, goal__gt=order.current).values_list('id', flat=True))
+            list(order.checkpoints.filter(date__lt=today, goal__gt=order.stocked).values_list('id', flat=True))
         )
 
     print('orders: {}'.format(orders))

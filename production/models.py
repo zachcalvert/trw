@@ -1,14 +1,13 @@
 from django.db import models
 
-from brands.models import Brand
-
 
 class WorkOrder(models.Model):
     name = models.CharField(max_length=100)
     start_date = models.DateField(null=True)
     stock_date = models.DateField()
     goal = models.IntegerField(default=0)
-    current = models.IntegerField(default=0)
+    qad = models.IntegerField(default=0, verbose_name="QA'd")
+    stocked = models.IntegerField(default=0)
     priority = models.PositiveIntegerField(default=0, blank=False, null=False)
     color = models.CharField(max_length=7, default='#28a745')
     active = models.BooleanField(default=False)
@@ -20,8 +19,16 @@ class WorkOrder(models.Model):
         return self.name
 
     @property
-    def percent_complete(self):
-        return (self.current/self.goal) * 100
+    def percent_qad(self):
+        """This method is used in the dashboard, it returns the percent of items that have been QA'd and not stocked,
+        so that the different progress bars can be rendered sequentially.
+        """
+        diff = self.qad - self.stocked
+        return (diff/self.goal) * 100
+
+    @property
+    def percent_stocked(self):
+        return (self.stocked/self.goal) * 100
 
     @property
     def short_start_date(self):
