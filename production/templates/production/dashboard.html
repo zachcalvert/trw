@@ -11,7 +11,7 @@
     <div class="container">
       <div class="row">
         <div class="logo-wrapper col-6">
-          <img class="logo pull-right" src="{% static '/production/trw_logo.jpg' %}" />
+          <img class="logo pull-right" src="{% static '/production/logo.png' %}" />
         </div>
         <div class="legend col-6">
           <div class="swatch">
@@ -44,10 +44,10 @@
                 </div>
               <div class="progress" style="width: {{ order.width }}px">
                 {% if order.stocked %}
-                <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
+                  <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
                 {% endif %}
                 {% if order.qad %}
-                <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
+                  <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
                 {% endif %}
               </div>
             </div>

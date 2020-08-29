@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  background: #fff3e0;
 }
 
 .container {
@@ -7,28 +8,132 @@ html, body {
   padding: 0 20px;
 }
 
-.header-logo {
+.logo-wrapper {
+  text-align: right;
+}
+.logo {
   width: 40%;
 }
 
-.production-target {
+.legend {
+  text-align: left;
   margin: auto;
-  padding: 20px 0;
+}
+
+.swatch {
+  display: flex;
+  padding: 5px;
+}
+
+.swatch span {
+ padding:  0 10px 5px
+}
+
+.qad-swatch {
+  background: #7da453;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.stocked-swatch {
+  background: #005005;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.legend ul {
+  list-style: none;
+  margin: auto;
+}
+
+.work-order {
+  margin: auto;
+  padding: 30px 0;
   position: relative;
+  width: 100%;
 }
 
-.production-target-commitment-amount {
-  padding: 0 0 20px;
-}
-
-.production-target-commitment-date {
-  padding: 20px 0;
-}
-
-.ldBar {
+.work-order-name {
   margin: auto;
+  padding-bottom: 5px;
 }
 
-.ldBar-label:after {
-  content: ""!important; /* change from % */
+.work-order-progress-wrapper {
+  position: relative;
+  height: auto;
+  padding: 30px 0 0;
+}
+
+.checkpoint {
+  position: absolute;
+}
+
+.checkpoint-goal {
+  top: -35px;
+  position: absolute;
+  font-size: 20px!important;
+  left: -8px;
+}
+
+.checkpoint-date {
+  top: 40px;
+  position: absolute;
+  left: -10px;
+}
+
+.checkpoint-marker {
+  border-left: 2px solid black;
+  border-radius: 10px;
+  height: 50px;
+  position: absolute;
+  top: -10px;
+}
+
+.missed-checkpoint {
+  position: absolute;
+}
+
+.missed-checkpoint .checkpoint-marker {
+  border-left: 8px solid red;
+}
+
+.missed-checkpoint .checkpoint-goal {
+  color: red;
+}
+
+.missed-checkpoint .checkpoint-date {
+  color: red;
+}
+
+.work-order-goal {
+  left: -17px;
+  top: -45px;
+  font-size: 24px!important;
+}
+
+.work-order-goal-marker {
+  right: 0;
+  height: 60px;
+  top: -15px;
+}
+
+.work-order-date {
+  top: 45px;
+  left: -15px;
+  font-size: 16px;
+}
+
+.progress {
+  height: 30px!important;
+  font-size: 16px!important;
+  border: 1px solid #3B3B3B;
+  border-bottom-left-radius: 15px!important;
+  border-top-left-radius: 15px!important;
+}
+
+.progress-bar {
+  text-align: right!important;
+  padding-right: 5px!important;
 }
