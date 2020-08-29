@@ -46,7 +46,7 @@
                 {% if order.stocked %}
                   <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
                 {% endif %}
-                {% if order.qad %}
+                {% if order.qad and order.qad != order.stocked %}
                   <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
                 {% endif %}
               </div>
