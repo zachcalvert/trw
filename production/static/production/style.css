@@ -7,8 +7,44 @@ html, body {
   padding: 0 20px;
 }
 
-.header-logo {
-  width: 20%;
+.logo-wrapper {
+  text-align: right;
+}
+.logo {
+  width: 40%;
+}
+
+.legend {
+  text-align: left;
+  margin: auto;
+}
+
+.swatch {
+  display: flex;
+  padding: 5px;
+}
+
+.swatch span {
+ padding:  0 10px 5px
+}
+
+.qad-swatch {
+  background: #7da453;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.stocked-swatch {
+  background: #005005;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.legend ul {
+  list-style: none;
+  margin: auto;
 }
 
 .work-order {
@@ -20,6 +56,7 @@ html, body {
 
 .work-order-name {
   margin: auto;
+  padding-bottom: 5px;
 }
 
 .work-order-progress-wrapper {
@@ -46,7 +83,7 @@ html, body {
 }
 
 .checkpoint-marker {
-  border-left: 8px solid black;
+  border-left: 2px solid black;
   border-radius: 10px;
   height: 50px;
   position: absolute;
@@ -89,7 +126,7 @@ html, body {
 
 .progress {
   height: 30px!important;
-  font-size: 24px!important;
+  font-size: 16px!important;
   border: 1px solid #3B3B3B;
   border-bottom-left-radius: 15px!important;
   border-top-left-radius: 15px!important;
