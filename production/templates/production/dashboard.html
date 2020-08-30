@@ -5,6 +5,9 @@
   <head>
     <link rel="stylesheet" type="text/css" href='{% static "/production/style.css" %}'>
     <link rel="stylesheet" type="text/css" href='{% static "/production/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src='{% static "/production/jquery.min.js" %}'></script>
+    <script src='{% static "/production/jquery-ui.min.js" %}'></script>
   </head>
 
   <body>
@@ -22,6 +25,7 @@
           </div>
         </div>
       </div>
+        <div id="slider"></div>
         {% for order in orders %}
           <div class="work-order row" style="left: {{ order.start_position }}px; width: {{ order.width }}px">
             <h4 class="work-order-name">{{ order.name }}</h4>
@@ -31,23 +35,26 @@
                 <p class="checkpoint-date work-order-date">{{ order.start_date }}</p>
               </div>
               {% for checkpoint in order.checkpoints %}
-                <div class="{% if checkpoint.id in missed_checkpoints %}missed-checkpoint{% else %}checkpoint{% endif %}" style="left: {{ checkpoint.percent_of_total }}%">
+                <div class="{% if checkpoint.id in missed_checkpoints %}missed-checkpoint{% else %}a-checkpoint{% endif %}"
+                    data-percent="{{ checkpoint.percent_of_total }}">
                   <p class="checkpoint-goal lead">{{ checkpoint.goal }}</p>
                   <div class="checkpoint-marker" ></div>
                   <p class="checkpoint-date">{{ checkpoint.short_date }}</p>
                 </div>
               {% endfor %}
-               <div class="checkpoint" style="left: {{ order.width }}px">
+               <div class="checkpoint" data-left="{{ order.width }}"  style="left: {{ order.width }}px">
                   <p class="checkpoint-goal work-order-goal lead">{{ order.goal }}</p>
                   <div class="checkpoint-marker work-order-goal-marker" ></div>
                   <p class="checkpoint-date work-order-date">{{ order.stock_date }}</p>
                 </div>
-              <div class="progress" style="width: {{ order.width }}px">
+              <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width}}" style="width: {{ order.width }}px">
                 {% if order.stocked %}
                   <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
                 {% endif %}
                 {% if order.qad and order.qad != order.stocked %}
-                  <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%" aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
+                  <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #7da453; width: {{ order.percent_qad }}%"
+                       data-width="{{ order.percent_qad }}"
+                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
                 {% endif %}
               </div>
             </div>
@@ -55,4 +62,50 @@
         {% endfor %}
     </div>
   </body>
+
+  <script>
+    $(function() {
+      $( "#slider" ).slider({
+        value: 40,
+        change:function(event, ui) {
+          drawWorkOrders(ui.value)
+        }
+      });
+    });
+
+    function drawWorkOrders(scale) {
+      $('.progress').each(function(){
+        let order = $(this);
+        // order.css('width', order.attr('data-width')*scale)
+        order.animate({
+          'width' : order.attr('data-width')*scale,
+        }, 300);
+      });
+
+      setTimeout(function(){
+        $('.checkpoint').each(function(){
+          let checkpoint = $(this);
+          // $(checkpoint).css('left', checkpoint.attr('data-left') * scale);
+          checkpoint.animate({
+            'left': checkpoint.attr('data-left') * scale,
+          }, 300);
+        });
+
+        $('.a-checkpoint').each(function(){
+          let checkpoint = $(this);
+          let checkpoint_percent = checkpoint.attr('data-percent');
+          let order_progress_width = checkpoint.parent().find('.progress').width();
+          let new_checkpoint_position = (order_progress_width * checkpoint_percent) / 100;
+          // $(checkpoint).css('left', new_checkpoint_position);
+          checkpoint.animate({
+            'left': new_checkpoint_position,
+          }, 300);
+        });
+      }, 300);
+    }
+
+    $( document ).ready(function() {
+      drawWorkOrders(40);
+    });
+  </script>
 </html>
