@@ -35,7 +35,7 @@
                 <p class="checkpoint-date work-order-date">{{ order.start_date }}</p>
               </div>
               {% for checkpoint in order.checkpoints %}
-                <div class="{% if checkpoint.id in missed_checkpoints %}missed-checkpoint{% else %}a-checkpoint{% endif %}"
+                <div class="{% if checkpoint.id in missed_checkpoints %}missed-checkpoint a-checkpoint{% else %}a-checkpoint{% endif %}"
                     data-percent="{{ checkpoint.percent_of_total }}">
                   <p class="checkpoint-goal lead">{{ checkpoint.goal }}</p>
                   <div class="checkpoint-marker" ></div>
