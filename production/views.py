@@ -12,13 +12,13 @@ def dashboard(request):
     today = datetime.today()
     first_day = active_orders.aggregate(Min('start_date'))
     last_day = active_orders.aggregate(Max('stock_date'))
+    total_days = (last_day['stock_date__max'] - first_day['start_date__min']).days
 
     orders = []
     missed_checkpoints = []
     for order in active_orders:
         start_position = (order.start_date - first_day['start_date__min']).days
-        end_position = (order.stock_date - first_day['start_date__min']).days
-        width = end_position - start_position
+        width = (order.stock_date - first_day['start_date__min']).days - start_position
 
         order_data = {
             "checkpoints": [
@@ -27,22 +27,22 @@ def dashboard(request):
                     "goal": checkpoint.goal,
                     "id": checkpoint.id,
                     "percent_of_total": checkpoint.percent_of_total,
-                    "position": (checkpoint.date - order.start_date).days*20,
-                    "short_date": checkpoint.short_date
+                    "position": (checkpoint.date - order.start_date).days,
+                    "short_date": checkpoint.short_date,
                 } for checkpoint in order.checkpoints.all()
             ],
-            "end_position": end_position * 20,
             "goal": order.goal,
             "id": order.id,
             "name": order.name,
             "percent_qad": order.percent_qad,
             "percent_stocked": order.percent_stocked,
             "qad": order.qad,
+            "scale": 20,
             "start_date": order.short_start_date,
             "start_position": start_position * 20,
             "stock_date": order.short_stock_date,
             "stocked": order.stocked,
-            "width": width*20
+            "width": width
         }
         orders.append(order_data)
 
