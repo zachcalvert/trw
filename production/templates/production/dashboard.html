@@ -79,7 +79,7 @@
         // order.css('width', order.attr('data-width')*scale)
         order.animate({
           'width' : order.attr('data-width')*scale,
-        }, 250);
+        }, 300);
       });
 
       setTimeout(function(){
@@ -88,7 +88,7 @@
           // $(checkpoint).css('left', checkpoint.attr('data-left') * scale);
           checkpoint.animate({
             'left': checkpoint.attr('data-left') * scale,
-          }, 250);
+          }, 300);
         });
 
         $('.a-checkpoint').each(function(){
@@ -99,9 +99,9 @@
           // $(checkpoint).css('left', new_checkpoint_position);
           checkpoint.animate({
             'left': new_checkpoint_position,
-          }, 250);
+          }, 300);
         });
-      }, 250);
+      }, 300);
     }
 
     $( document ).ready(function() {
