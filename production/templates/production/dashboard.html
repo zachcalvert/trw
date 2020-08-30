@@ -76,29 +76,32 @@
     function drawWorkOrders(scale) {
       $('.progress').each(function(){
         let order = $(this);
-        order.css('width', order.attr('data-width')*scale)
-        // order.animate({
-        //   'width' : order.attr('data-width')*scale,
-        // }, 'slow');
+        // order.css('width', order.attr('data-width')*scale)
+        order.animate({
+          'width' : order.attr('data-width')*scale,
+        }, 250);
       });
 
-      $('.checkpoint').each(function(){
-        let checkpoint = $(this);
-        $(checkpoint).css('left', checkpoint.attr('data-left') * scale);
-      });
+      setTimeout(function(){
+        $('.checkpoint').each(function(){
+          let checkpoint = $(this);
+          // $(checkpoint).css('left', checkpoint.attr('data-left') * scale);
+          checkpoint.animate({
+            'left': checkpoint.attr('data-left') * scale,
+          }, 250);
+        });
 
-      $('.a-checkpoint').each(function(){
-        let checkpoint = $(this);
-        let order_progress_width = checkpoint.parent().find('.progress').width();
-        console.log('order width: ' + order_progress_width);
-
-        let checkpoint_percent = checkpoint.attr('data-percent');
-        console.log('checkpoint position: ' + checkpoint.attr('data-percent'));
-
-        let new_checkpoint_position = (order_progress_width * checkpoint_percent) / 100;
-        console.log('new_checkpoint_position: ' + new_checkpoint_position);
-        $(checkpoint).css('left', new_checkpoint_position);
-      });
+        $('.a-checkpoint').each(function(){
+          let checkpoint = $(this);
+          let checkpoint_percent = checkpoint.attr('data-percent');
+          let order_progress_width = checkpoint.parent().find('.progress').width();
+          let new_checkpoint_position = (order_progress_width * checkpoint_percent) / 100;
+          // $(checkpoint).css('left', new_checkpoint_position);
+          checkpoint.animate({
+            'left': new_checkpoint_position,
+          }, 250);
+        });
+      }, 250);
     }
 
     $( document ).ready(function() {
