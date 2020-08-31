@@ -101,6 +101,12 @@
             'left': new_checkpoint_position,
           }, 300);
         });
+
+        $('.work-order-name').each(function() {
+          let order_name = $(this);
+          let order_progress_width = order_name.parent().find('.progress').width();
+          $(order_name).parent().css('width', order_progress_width);
+        })
       }, 300);
     }
 
