@@ -39,7 +39,7 @@ def dashboard(request):
             "qad": order.qad,
             "scale": 20,
             "start_date": order.short_start_date,
-            "start_position": start_position * 20,
+            "start_position": start_position,
             "stock_date": order.short_stock_date,
             "stocked": order.stocked,
             "width": width

@@ -29,7 +29,7 @@
         </div>
       </div>
         {% for order in orders %}
-          <div class="work-order row" style="left: {{ order.start_position }}px; width: {{ order.width }}px">
+          <div class="work-order row" data-left="{{ order.start_position }}" style="left: {{ order.start_position }}px; width: {{ order.width }}px">
             <h4 class="work-order-name">{{ order.name }}</h4>
 
             <div class="work-order-progress-wrapper">
@@ -77,10 +77,15 @@
 
     function drawWorkOrders(scale) {
       $('.progress').each(function(){
-        let order = $(this);
-        // order.css('width', order.attr('data-width')*scale)
+        let progress = $(this);
+        let order = progress.parent().parent();
         order.animate({
-          'width' : order.attr('data-width')*scale,
+          'left' : order.attr('data-left')*scale,
+        }, 300);
+
+        // progress.css('width', order.attr('data-width')*scale);
+        progress.animate({
+          'width' : progress.attr('data-width')*scale,
         }, 300);
       });
 
@@ -113,7 +118,7 @@
     }
 
     $( document ).ready(function() {
-      drawWorkOrders(40);
+      drawWorkOrders(20);
     });
   </script>
 </html>
