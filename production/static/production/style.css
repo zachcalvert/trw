@@ -8,6 +8,12 @@ html, body {
   padding: 0 20px;
 }
 
+#trw-jumbotron {
+  padding-top: 0;
+  padding-bottom: 20px;
+  background: transparent;
+}
+
 .logo-wrapper {
   text-align: right;
   padding: 20px 0 0;
@@ -33,14 +39,14 @@ html, body {
 .qad-swatch {
   background: #7da453;
   height: 30px;
-  width: 30px;
+  width: 80px;
   border-radius: 15px;
 }
 
 .stocked-swatch {
   background: #005005;
   height: 30px;
-  width: 30px;
+  width: 80px;
   border-radius: 15px;
 }
 
