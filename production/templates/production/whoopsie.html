@@ -1,0 +1,17 @@
+{% load static %}
+
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/style.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/bootstrap.min.css" %}'>
+  </head>
+
+  <body>
+    <div class="container">
+      <p>Oh heavens! </p>
+      <img class="featherbottom" src="https://gifrific.com/wp-content/uploads/2013/05/Mrs-Featherbottom-Falls-to-Ground-Arrested-Development.gif" />
+      <p>I've never heard of that factory. Click <a href="{% url 'dashboard' 'us' %}">here</a> to see the US factory work orders.</p>
+    </div>
+  </body>
+</html>

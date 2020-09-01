@@ -7,11 +7,13 @@ from django.shortcuts import render
 from production.models import Factory, WorkOrder
 
 
-def dashboard(request, factory):
+def dashboard(request, factory=None):
+    if not factory:
+        return render(request, 'production/whoopsie.html')
     try:
         factory = Factory.objects.get(name=factory.upper())
     except Factory.DoesNotExist:
-        raise Http404('Whoopsie Daisy! That factory doesn\'t exist!')
+        return render(request, 'production/whoopsie.html')
 
     active_orders = WorkOrder.objects.filter(active=True, factory=factory)
 
