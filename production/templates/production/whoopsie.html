@@ -9,8 +9,17 @@
 
   <body>
     <div class="container">
+      <div id="trw-jumbotron" class="jumbotron">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">
+            <img class="logo" src="{% static '/production/logo2.png' %}" />
+          </div>
+          <div class="col-3"></div>
+        </div>
+      </div>
       <p>Oh heavens! </p>
-      <img class="featherbottom" src="https://gifrific.com/wp-content/uploads/2013/05/Mrs-Featherbottom-Falls-to-Ground-Arrested-Development.gif" />
+      <img style="padding-bottom: 20px"  class="featherbottom" src="https://gifrific.com/wp-content/uploads/2013/05/Mrs-Featherbottom-Falls-to-Ground-Arrested-Development.gif" />
       <p>I've never heard of that factory. Click <a href="{% url 'dashboard' 'us' %}">here</a> to see the US factory work orders.</p>
     </div>
   </body>
