@@ -1,18 +1,23 @@
 from datetime import datetime, timedelta
 
+
 from django.db.models import Max, Min
+from django.http import Http404
 from django.shortcuts import render
 
-from production.models import WorkOrder
+from production.models import Factory, WorkOrder
 
 
-def dashboard(request):
-    active_orders = WorkOrder.objects.filter(active=True)
+def dashboard(request, factory):
+    try:
+        factory = Factory.objects.get(name=factory.upper())
+    except Factory.DoesNotExist:
+        raise Http404('Whoopsie Daisy! That factory doesn\'t exist!')
+
+    active_orders = WorkOrder.objects.filter(active=True, factory=factory)
 
     today = datetime.today()
     first_day = active_orders.aggregate(Min('start_date'))
-    last_day = active_orders.aggregate(Max('stock_date'))
-    total_days = (last_day['stock_date__max'] - first_day['start_date__min']).days
 
     orders = []
     missed_checkpoints = []
@@ -50,6 +55,5 @@ def dashboard(request):
             list(order.checkpoints.filter(date__lt=today, goal__gt=order.stocked).values_list('id', flat=True))
         )
 
-    print('orders: {}'.format(orders))
     context = {'today': datetime.today(), 'orders': orders, 'missed_checkpoints': missed_checkpoints}
     return render(request, 'production/dashboard.html', context)
