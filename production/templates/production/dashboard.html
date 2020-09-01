@@ -68,9 +68,13 @@
   <script>
     $(function() {
       $( "#slider" ).slider({
-        value: 40,
+        value: 20,
+        max: 60,
         change:function(event, ui) {
           drawWorkOrders(ui.value)
+        },
+        classes: {
+          "ui-slider": "highlight"
         }
       });
     });

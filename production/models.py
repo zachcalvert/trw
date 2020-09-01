@@ -1,8 +1,20 @@
 from django.db import models
 
 
+class Factory(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.CharField
+
+    class Meta:
+        verbose_name_plural = "factories"
+
+    def __str__(self):
+        return self.name
+
+
 class WorkOrder(models.Model):
     name = models.CharField(max_length=100)
+    factory = models.ForeignKey(Factory, null=True, on_delete=models.SET_NULL)
     start_date = models.DateField(null=True)
     stock_date = models.DateField()
     goal = models.IntegerField(default=0)
