@@ -1,5 +1,4 @@
-from datetime import datetime, timedelta
-
+from datetime import datetime
 
 from django.db.models import Max, Min
 from django.http import Http404
@@ -42,7 +41,6 @@ def dashboard(request, factory):
             "percent_qad": order.percent_qad,
             "percent_stocked": order.percent_stocked,
             "qad": order.qad,
-            "scale": 20,
             "start_date": order.short_start_date,
             "start_position": start_position,
             "stock_date": order.short_stock_date,
