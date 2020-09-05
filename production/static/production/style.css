@@ -145,4 +145,5 @@ html, body {
 .progress-bar {
   text-align: right!important;
   padding-right: 5px!important;
+  z-index: 2;
 }
