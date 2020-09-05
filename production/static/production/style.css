@@ -104,7 +104,7 @@ html, body {
 }
 
 .missed-checkpoint .checkpoint-marker {
-  border-left: 8px solid red;
+  border-left: 3px solid red;
 }
 
 .missed-checkpoint .checkpoint-goal {
