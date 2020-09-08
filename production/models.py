@@ -19,6 +19,7 @@ class WorkOrder(models.Model):
     stock_date = models.DateField()
     goal = models.IntegerField(default=0)
     qad = models.IntegerField(default=0, verbose_name="QA'd")
+    published = models.IntegerField(default=0)
     stocked = models.IntegerField(default=0)
     priority = models.PositiveIntegerField(default=0, blank=False, null=False)
     active = models.BooleanField(default=False)
@@ -34,7 +35,12 @@ class WorkOrder(models.Model):
         """This method is used in the dashboard, it returns the percent of items that have been QA'd and not stocked,
         so that the different progress bars can be rendered sequentially.
         """
-        diff = self.qad - self.stocked
+        diff = self.qad - self.published
+        return (diff/self.goal) * 100
+
+    @property
+    def percent_published(self):
+        diff = self.published - self.stocked
         return (diff/self.goal) * 100
 
     @property

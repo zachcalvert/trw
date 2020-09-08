@@ -12,7 +12,7 @@ class WorkOrderCheckpointInline(admin.StackedInline):
 
 class WorkOrderAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = WorkOrderForm
-    list_display = ['__str__', 'active', 'qad', 'stocked', 'goal', 'stock_date', 'factory', 'priority']
+    list_display = ['__str__', 'active', 'qad', 'published', 'stocked', 'goal', 'stock_date', 'factory', 'priority']
     list_filter = ('factory',)
     inlines = [WorkOrderCheckpointInline]
 
