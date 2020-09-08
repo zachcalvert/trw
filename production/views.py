@@ -57,3 +57,7 @@ def dashboard(request, factory=None):
 
     context = {'today': datetime.today(), 'orders': orders, 'missed_checkpoints': missed_checkpoints}
     return render(request, 'production/dashboard.html', context)
+
+
+def referrer_test(request):
+    return render(request, 'production/referrer_test.html')

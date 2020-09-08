@@ -1,0 +1,23 @@
+{% load static %}
+
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/style.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/production/bootstrap.min.css" %}'>
+  </head>
+
+  <body>
+    <div class="container">
+        <div id="jumbotron" class="jumbotron">
+          <h3>
+            Welcome to the Referrer Auth tester!
+            <small class="text-muted">Click below to test a given environment.</small>
+          </h3>
+          <a class="btn btn-primary" href="http://localhost:8003/library/view/temporary-access/" role="button">localhost</a>
+          <a class="btn btn-primary" href="https://learning.oreilly.local/library/view/temporary-access/" role="button">Local Platform</a>
+          <a class="btn btn-primary" href="https://learning.oreilly.review/library/view/temporary-access/" role="button">QA</a>
+        </div>
+    </div>
+  </body>
+</html>
