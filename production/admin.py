@@ -12,7 +12,7 @@ class WorkOrderCheckpointInline(admin.StackedInline):
 
 class WorkOrderAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = WorkOrderForm
-    list_display = ['__str__', 'active', 'qad', 'published', 'stocked', 'goal', 'stock_date', 'factory', 'priority']
+    list_display = ['__str__', 'active', 'goal', 'stocked', 'published', 'qad', 'stock_date', 'factory', 'priority']
     list_filter = ('factory',)
     inlines = [WorkOrderCheckpointInline]
 
@@ -20,6 +20,8 @@ class WorkOrderAdmin(SortableAdminMixin, admin.ModelAdmin):
 class WorkOrderInline(admin.TabularInline):
     model = WorkOrder
     show_change_link = True
+    readonly_fields = ['__str__', 'active', 'goal', 'stocked', 'published', 'qad', 'stock_date', 'factory', 'priority']
+    exclude = ['name', 'start_date']
     extra = 0
 
 
