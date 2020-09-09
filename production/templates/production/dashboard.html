@@ -54,17 +54,22 @@
                 </div>
               <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width}}" style="width: {{ order.width }}px">
                 {% if order.stocked %}
-                <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}"><span class="progress-text">{{ order.stocked }}</span></div>
+                  <div id="{{ order.id }}-stocked-progress" class="progress-bar stocked-progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%"
+                      data-width="{{ order.percent_stocked }}">
+                    <span class="progress-text stocked-text">{{ order.stocked }} stocked</span>
+                  </div>
                 {% endif %}
                 {% if order.published and order.published != order.stocked %}
                   <div id="{{ order.id }}-published-progress" class="progress-bar" style="background: #338a3e; width: {{ order.percent_published }}%"
-                       data-width="{{ order.percent_published }}"
-                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}"><span class="progress-text">{{ order.published }}</span></div>
+                       data-width="{{ order.percent_published }}">
+                    <span class="progress-text published-text">{{ order.published }} published</span>
+                  </div>
                 {% endif %}
                 {% if order.qad and order.qad != order.published %}
                   <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #66bb6a; width: {{ order.percent_qad }}%"
-                       data-width="{{ order.percent_qad }}"
-                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}"><span class="progress-text">{{ order.qad }}</span></div>
+                       data-width="{{ order.percent_published }}">
+                    <span class="progress-text qad-text">{{ order.qad }} QA'd</span>
+                  </div>
                 {% endif %}
               </div>
             </div>
@@ -128,6 +133,22 @@
         })
       }, 300);
     }
+
+    // run through the array forever
+    var arr = [".stocked-text", ".published-text", ".qad-text"];
+    (function recurse(counter) {
+      var text = arr[counter];
+      $('.progress-text').fadeOut("slow");
+      $(text).fadeIn("slow");
+      delete arr[counter];
+      // add the value at the end of the array
+      arr.push(text);
+      // run it again for the next number
+      setTimeout(function() {
+        recurse(counter + 1);
+      }, 2000);
+    // start it for the first text.
+    })(0);
 
     $( document ).ready(function() {
       drawWorkOrders(15);
