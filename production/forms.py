@@ -16,14 +16,14 @@ class WorkOrderForm(forms.ModelForm):
         start_date = self.cleaned_data.get('start_date')
         stock_date = self.cleaned_data.get('stock_date')
 
+        if qad > goal:
+            raise forms.ValidationError("The number of QA'd items cannot be greater than the overall goal.")
+
         if published > qad:
             raise forms.ValidationError("The number of published items cannot be greater than the number of QA'd items.")
 
         if stocked > published:
             raise forms.ValidationError("The number of stocked items cannot be greater than the number of published items.")
-
-        if stocked > goal:
-            raise forms.ValidationError("The number of stocked items cannot be greater than the overall goal.")
 
         if start_date > stock_date:
             raise forms.ValidationError("Stock date must be after Start date.")
