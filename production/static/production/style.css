@@ -9,8 +9,8 @@ html, body {
 }
 
 #trw-jumbotron {
-  padding-top: 0;
-  padding-bottom: 20px;
+  padding: 0;
+  margin: 0;
   background: transparent;
 }
 
@@ -18,7 +18,7 @@ html, body {
   text-align: right;
 }
 .logo {
-  width: 40%;
+  width: 50%;
 }
 
 .legend {
@@ -36,16 +36,23 @@ html, body {
 }
 
 .qad-swatch {
-  background: #7da453;
-  height: 30px;
-  width: 80px;
+  background: #66bb6a;
+  height: 20px;
+  width: 100px;
+  border-radius: 15px;
+}
+
+.published-swatch {
+  background: #338a3e;
+  height: 20px;
+  width: 100px;
   border-radius: 15px;
 }
 
 .stocked-swatch {
   background: #005005;
-  height: 30px;
-  width: 80px;
+  height: 20px;
+  width: 100px;
   border-radius: 15px;
 }
 
@@ -135,15 +142,23 @@ html, body {
 
 .progress {
   height: 30px!important;
-  font-size: 16px!important;
+  font-size: 22px!important;
   background-color: #ffffff!important;
   border: 1px solid #3B3B3B;
   border-bottom-left-radius: 15px!important;
   border-top-left-radius: 15px!important;
+  /*text-shadow:*/
+  /*  -1px -1px 0 #E1E2E1,*/
+  /*  1px -1px 0 #E1E2E1,*/
+  /*  -1px 1px 0 #E1E2E1,*/
+  /*  1px 1px 0 #E1E2E1;*/
 }
 
 .progress-bar {
   text-align: right!important;
   padding-right: 5px!important;
+}
+
+.progress-text {
   z-index: 2;
 }
