@@ -61,18 +61,21 @@
                   <div id="{{ order.id }}-stocked-progress" class="progress-bar stocked-progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%"
                       data-width="{{ order.percent_stocked }}">
                     <span class="progress-text stocked-text">{{ order.stocked }}</span>
+                    <span class="progress-text verbose-text">{{ order.stocked }} stocked</span>
                   </div>
                 {% endif %}
                 {% if order.published and order.published != order.stocked %}
                   <div id="{{ order.id }}-published-progress" class="progress-bar" style="background: #338a3e; width: {{ order.percent_published }}%"
                        data-width="{{ order.percent_published }}">
                     <span class="progress-text published-text">{{ order.published }}</span>
+                    <span class="progress-text verbose-text">{{ order.published }} published</span>
                   </div>
                 {% endif %}
                 {% if order.qad and order.qad != order.published %}
                   <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #66bb6a; width: {{ order.percent_qad }}%"
                        data-width="{{ order.percent_qad }}">
                     <span class="progress-text qad-text">{{ order.qad }}</span>
+                    <span class="progress-text verbose-text">{{ order.qad }} QA'd</span>
                   </div>
                 {% endif %}
               </div>
@@ -141,7 +144,8 @@
         doTheFade = false;
         $(this).removeClass('active');
         $(this).find('.fa-repeat').removeClass('fa-spin');
-        $('.progress-text').fadeIn();
+        $('.progress-text').fadeIn("slow");
+        $('.verbose-text').fadeOut("slow");
       } else {
         doTheFade = true;
         $(this).addClass('active');
@@ -151,7 +155,7 @@
           (function recurse(counter) {
             var status = arr[counter];
             $('.progress-text').fadeOut("slow");
-            $(status).fadeIn("slow");
+            $(status).parent().find('.verbose-text').fadeIn("slow");
             delete arr[counter];
             arr.push(status);
             setTimeout(function() {

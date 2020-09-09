@@ -175,3 +175,7 @@ html, body {
   width: 250px;
   text-align: left;
 }
+
+.verbose-text {
+  display: none;
+}
