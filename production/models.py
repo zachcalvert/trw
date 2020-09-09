@@ -17,10 +17,10 @@ class WorkOrder(models.Model):
     factory = models.ForeignKey(Factory, null=True, on_delete=models.SET_NULL)
     start_date = models.DateField(null=True)
     stock_date = models.DateField()
-    goal = models.IntegerField(default=0)
     qad = models.IntegerField(default=0, verbose_name="QA'd")
     published = models.IntegerField(default=0)
     stocked = models.IntegerField(default=0)
+    goal = models.IntegerField(default=0)
     priority = models.PositiveIntegerField(default=0, blank=False, null=False)
     active = models.BooleanField(default=False)
 
