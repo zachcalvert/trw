@@ -22,6 +22,9 @@
               <div class="stocked-swatch"></div><span>Stocked</span>
             </div>
             <div class="swatch">
+              <div class="published-swatch"></div><span>Published</span>
+            </div>
+            <div class="swatch">
               <div class="qad-swatch"></div><span>QA'd</span>
             </div>
           </div>
@@ -51,17 +54,17 @@
                 </div>
               <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width}}" style="width: {{ order.width }}px">
                 {% if order.stocked %}
-                  <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}">{{ order.stocked }}</div>
+                <div id="{{ order.id }}-stocked-progress" class="progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%" aria-valuemin="0" aria-valuenow="{{ order.stocked }}" aria-valuemax="{{ order.goal }}"><span class="progress-text">{{ order.stocked }}</span></div>
                 {% endif %}
                 {% if order.published and order.published != order.stocked %}
                   <div id="{{ order.id }}-published-progress" class="progress-bar" style="background: #338a3e; width: {{ order.percent_published }}%"
                        data-width="{{ order.percent_published }}"
-                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.published }}</div>
+                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}"><span class="progress-text">{{ order.published }}</span></div>
                 {% endif %}
                 {% if order.qad and order.qad != order.published %}
                   <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #66bb6a; width: {{ order.percent_qad }}%"
                        data-width="{{ order.percent_qad }}"
-                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}">{{ order.qad }}</div>
+                       aria-valuemin="0" aria-valuenow="{{ order.qad }}" aria-valuemax="{{ order.goal }}"><span class="progress-text">{{ order.qad }}</span></div>
                 {% endif %}
               </div>
             </div>

@@ -18,7 +18,7 @@ html, body {
   text-align: right;
 }
 .logo {
-  width: 40%;
+  width: 50%;
 }
 
 .legend {
@@ -36,16 +36,23 @@ html, body {
 }
 
 .qad-swatch {
-  background: #7da453;
-  height: 30px;
-  width: 80px;
+  background: #66bb6a;
+  height: 20px;
+  width: 100px;
+  border-radius: 15px;
+}
+
+.published-swatch {
+  background: #338a3e;
+  height: 20px;
+  width: 100px;
   border-radius: 15px;
 }
 
 .stocked-swatch {
   background: #005005;
-  height: 30px;
-  width: 80px;
+  height: 20px;
+  width: 100px;
   border-radius: 15px;
 }
 
@@ -150,5 +157,8 @@ html, body {
 .progress-bar {
   text-align: right!important;
   padding-right: 5px!important;
+}
+
+.progress-text {
   z-index: 2;
 }
