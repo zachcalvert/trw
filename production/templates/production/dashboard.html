@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src='{% static "/production/jquery.min.js" %}'></script>
     <script src='{% static "/production/jquery-ui.min.js" %}'></script>
+    <script src="https://use.fontawesome.com/b06c553d43.js"></script>
   </head>
 
   <body>
@@ -28,7 +29,10 @@
               <div class="qad-swatch"></div><span>QA'd</span>
             </div>
           </div>
-        <div id="slider"></div>
+          <button id="fade-control" type="button" class="btn btn-success" data-toggle="button">
+            <i class="fa fa-repeat"></i>
+          </button>
+          <div id="slider"></div>
         </div>
       </div>
         {% for order in orders %}
@@ -52,23 +56,23 @@
                   <div class="checkpoint-marker work-order-goal-marker" ></div>
                   <p class="checkpoint-date work-order-date">{{ order.stock_date }}</p>
                 </div>
-              <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width}}" style="width: {{ order.width }}px">
+              <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width }}" style="width: {{ order.width }}px">
                 {% if order.stocked %}
                   <div id="{{ order.id }}-stocked-progress" class="progress-bar stocked-progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%"
                       data-width="{{ order.percent_stocked }}">
-                    <span class="progress-text stocked-text">{{ order.stocked }} stocked</span>
+                    <span class="progress-text stocked-text">{{ order.stocked }}</span>
                   </div>
                 {% endif %}
                 {% if order.published and order.published != order.stocked %}
                   <div id="{{ order.id }}-published-progress" class="progress-bar" style="background: #338a3e; width: {{ order.percent_published }}%"
                        data-width="{{ order.percent_published }}">
-                    <span class="progress-text published-text">{{ order.published }} published</span>
+                    <span class="progress-text published-text">{{ order.published }}</span>
                   </div>
                 {% endif %}
                 {% if order.qad and order.qad != order.published %}
                   <div id="{{ order.id }}-qa-progress" class="progress-bar" style="background: #66bb6a; width: {{ order.percent_qad }}%"
-                       data-width="{{ order.percent_published }}">
-                    <span class="progress-text qad-text">{{ order.qad }} QA'd</span>
+                       data-width="{{ order.percent_qad }}">
+                    <span class="progress-text qad-text">{{ order.qad }}</span>
                   </div>
                 {% endif %}
               </div>
@@ -79,10 +83,12 @@
   </body>
 
   <script>
+    let doTheFade = false;
+
     $(function() {
       $( "#slider" ).slider({
         value: 15,
-        max: 30,
+        max: 50,
         change:function(event, ui) {
           drawWorkOrders(ui.value)
         },
@@ -99,8 +105,6 @@
         order.animate({
           'left' : order.attr('data-left')*scale,
         }, 300);
-
-        // progress.css('width', order.attr('data-width')*scale);
         progress.animate({
           'width' : progress.attr('data-width')*scale,
         }, 300);
@@ -109,7 +113,6 @@
       setTimeout(function(){
         $('.checkpoint').each(function(){
           let checkpoint = $(this);
-          // $(checkpoint).css('left', checkpoint.attr('data-left') * scale);
           checkpoint.animate({
             'left': checkpoint.attr('data-left') * scale,
           }, 300);
@@ -120,7 +123,6 @@
           let checkpoint_percent = checkpoint.attr('data-percent');
           let order_progress_width = checkpoint.parent().find('.progress').width();
           let new_checkpoint_position = (order_progress_width * checkpoint_percent) / 100;
-          // $(checkpoint).css('left', new_checkpoint_position);
           checkpoint.animate({
             'left': new_checkpoint_position,
           }, 300);
@@ -133,25 +135,37 @@
         })
       }, 300);
     }
-    
-    // run through the array forever
-    var arr = [".stocked-text", ".published-text", ".qad-text"];
-    (function recurse(counter) {
-      var text = arr[counter];
-      $('.progress-text').fadeOut("slow");
-      $(text).fadeIn("slow");
-      delete arr[counter];
-      // add the value at the end of the array
-      arr.push(text);
-      // run it again for the next number
-      setTimeout(function() {
-        recurse(counter + 1);
-      }, 2000);
-    // start it for the first text.
-    })(0);
+
+    $('#fade-control').click(function (event) {
+      if ($(this).hasClass('active')) {
+        doTheFade = false;
+        $(this).removeClass('active');
+        $(this).find('.fa-repeat').removeClass('fa-spin');
+        $('.progress-text').fadeIn();
+      } else {
+        doTheFade = true;
+        $(this).addClass('active');
+        $(this).find('.fa-repeat').addClass('fa-spin');
+          // cycle through this list forever
+          var arr = [".stocked-text", ".published-text", ".qad-text"];
+          (function recurse(counter) {
+            var status = arr[counter];
+            $('.progress-text').fadeOut("slow");
+            $(status).fadeIn("slow");
+            delete arr[counter];
+            arr.push(status);
+            setTimeout(function() {
+              if (doTheFade) {
+                recurse(counter + 1);
+              }
+            }, 2000);
+          })(0);
+      }
+      document.activeElement.blur();
+    });
 
     $( document ).ready(function() {
-      drawWorkOrders(15);
+      drawWorkOrders(25);
     });
   </script>
 </html>
