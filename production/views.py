@@ -9,7 +9,7 @@ from production.models import Factory, WorkOrder
 
 def dashboard(request, factory=None):
     if not factory:
-        return render(request, 'production/whoopsie.html')
+        factory = 'us'
     try:
         factory = Factory.objects.get(name=factory.upper())
     except Factory.DoesNotExist:
