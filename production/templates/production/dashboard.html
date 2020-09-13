@@ -58,21 +58,21 @@
                 </div>
               <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width }}" style="width: {{ order.width }}px">
                 {% if order.stocked %}
-                  <div id="{{ order.id }}-stocked-progress" class="progress-bar stocked-progress-bar" style="background: #005005; width: {{ order.percent_stocked }}%"
+                  <div id="{{ order.id }}-stocked-progress" class="progress-bar rounded-bar" style="background: #005005; width: {{ order.percent_stocked }}%"
                       data-width="{{ order.percent_stocked }}">
                     <span class="progress-text stocked-text">{{ order.stocked }}</span>
                     <span class="progress-text verbose-text">{{ order.stocked }} stocked</span>
                   </div>
                 {% endif %}
                 {% if order.published and order.published != order.stocked %}
-                  <div id="{{ order.id }}-published-progress" class="progress-bar qad-progress-bar" style="background: #338a3e; width: {{ order.percent_published }}%"
+                  <div id="{{ order.id }}-published-progress" class="progress-bar {% if order.stocked == 0 %}rounded-bar{% endif %}" style="background: #338a3e; width: {{ order.percent_published }}%"
                        data-width="{{ order.percent_published }}">
                     <span class="progress-text published-text">{{ order.published }}</span>
                     <span class="progress-text verbose-text">{{ order.published }} published</span>
                   </div>
                 {% endif %}
                 {% if order.qad and order.qad != order.published %}
-                  <div id="{{ order.id }}-qa-progress" class="progress-bar published-progress-bar" style="background: #66bb6a; width: {{ order.percent_qad }}%"
+                  <div id="{{ order.id }}-qa-progress" class="progress-bar {% if order.stocked == 0 && order.qad == 0 %}rounded-bar{% endif %}" style="background: #66bb6a; width: {{ order.percent_qad }}%"
                        data-width="{{ order.percent_qad }}">
                     <span class="progress-text qad-text">{{ order.qad }}</span>
                     <span class="progress-text verbose-text">{{ order.qad }} QA'd</span>

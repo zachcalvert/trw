@@ -163,7 +163,7 @@ html, body {
   padding-right: 5px!important;
 }
 
-.stocked-progress-bar, .qad-progress-bar, .published-progress-bar {
+.rounded-bar {
   border-bottom-left-radius: 12px!important;
   border-top-left-radius: 12px!important;
 }
