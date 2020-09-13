@@ -72,7 +72,7 @@
                   </div>
                 {% endif %}
                 {% if order.qad and order.qad != order.published %}
-                  <div id="{{ order.id }}-qa-progress" class="progress-bar {% if order.stocked == 0 && order.qad == 0 %}rounded-bar{% endif %}" style="background: #66bb6a; width: {{ order.percent_qad }}%"
+                  <div id="{{ order.id }}-qa-progress" class="progress-bar {% if order.stocked == 0 and order.qad == 0 %}rounded-bar{% endif %}" style="background: #66bb6a; width: {{ order.percent_qad }}%"
                        data-width="{{ order.percent_qad }}">
                     <span class="progress-text qad-text">{{ order.qad }}</span>
                     <span class="progress-text verbose-text">{{ order.qad }} QA'd</span>
