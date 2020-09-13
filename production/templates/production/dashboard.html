@@ -57,6 +57,7 @@
                   <p class="checkpoint-date work-order-date">{{ order.stock_date }}</p>
                 </div>
               <div class="progress" id="order-progress-{{ order.id }}" data-width="{{ order.width }}" style="width: {{ order.width }}px">
+                <span class="flashing-progress-text"></span>
                 {% if order.stocked %}
                   <div id="{{ order.id }}-stocked-progress" class="progress-bar rounded-bar" style="background: #005005; width: {{ order.percent_stocked }}%"
                       data-width="{{ order.percent_stocked }}">
@@ -145,7 +146,7 @@
         $(this).removeClass('active');
         $(this).find('.fa-repeat').removeClass('fa-spin');
         $('.progress-text').fadeIn("slow");
-        $('.verbose-text').fadeOut("slow");
+        $('.verbose-text').hide();
       } else {
         doTheFade = true;
         $(this).addClass('active');

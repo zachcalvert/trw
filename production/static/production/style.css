@@ -103,11 +103,15 @@ html, body {
 }
 
 .checkpoint-marker {
-  border-left: 2px solid black;
+  border-left: 2px solid #868686;
   border-radius: 10px;
   height: 50px;
   position: absolute;
   top: -10px;
+}
+
+.goal-marker {
+  height: 65px;
 }
 
 .missed-checkpoint {
@@ -128,7 +132,7 @@ html, body {
 
 .work-order-goal {
   left: -17px;
-  top: -45px;
+  top: -60px;
   font-size: 24px!important;
 }
 
@@ -148,7 +152,7 @@ html, body {
   height: 36px!important;
   font-size: 28px!important;
   background-color: #ffffff!important;
-  border: 1px solid #3B3B3B;
+  border: 1px solid #868686;
   border-bottom-left-radius: 15px!important;
   border-top-left-radius: 15px!important;
   overflow: inherit!important;
@@ -172,10 +176,13 @@ html, body {
   z-index: 5;
   color: #FFF!important;
   padding-left: 5px;
-  width: 250px;
-  text-align: left;
+  width: auto;
+  text-align: right;
 }
 
 .verbose-text {
   display: none;
+  left: 0;
+  padding-left: 10px;
+  position: absolute;
 }
