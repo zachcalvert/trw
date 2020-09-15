@@ -92,14 +92,14 @@ html, body {
 .checkpoint-goal {
   top: -35px;
   position: absolute;
-  font-size: 20px!important;
-  left: -8px;
+  font-size: 18px!important;
+  left: -15px;
 }
 
 .checkpoint-date {
   top: 40px;
   position: absolute;
-  left: -10px;
+  left: -12px;
 }
 
 .checkpoint-marker {
@@ -131,20 +131,26 @@ html, body {
 }
 
 .work-order-goal {
-  left: -17px;
-  top: -60px;
+  left: 0;
+  top: -45px;
   font-size: 24px!important;
 }
 
 .work-order-goal-marker {
   right: 0;
-  height: 60px;
+  height: 65px;
   top: -15px;
+  border-left: 3px solid #868686;
 }
+
+.work-order-goal-success-marker {
+  border-left: 3px solid #66bb6a;
+}
+
 
 .work-order-date {
   top: 45px;
-  left: -15px;
+  left: 0;
   font-size: 16px;
 }
 
