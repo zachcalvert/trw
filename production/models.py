@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Factory(models.Model):
@@ -23,12 +24,23 @@ class WorkOrder(models.Model):
     goal = models.IntegerField(default=0)
     priority = models.PositiveIntegerField(default=0, blank=False, null=False)
     active = models.BooleanField(default=False)
+    last_updated = models.DateTimeField(default=timezone.now(), verbose_name="Counts last updated")
 
     class Meta:
         ordering = ['priority']
 
     def __str__(self):
         return self.name
+
+    __original_qad = None
+    __original_published = None
+    __original_stocked = None
+
+    def __init__(self, *args, **kwargs):
+        super(WorkOrder, self).__init__(*args, **kwargs)
+        self.__original_qad = self.qad
+        self.__original_published = self.published
+        self.__original_stocked = self.stocked
 
     @property
     def percent_qad(self):
@@ -54,6 +66,12 @@ class WorkOrder(models.Model):
     @property
     def short_stock_date(self):
         return '{}/{}'.format(self.stock_date.month, self.stock_date.day)
+
+    def save(self, *args, **kwargs):
+        if (self.qad != self.__original_qad or self.published != self.__original_published or self.stocked != self.__original_stocked):
+            self.last_updated = timezone.now()
+
+        super(WorkOrder, self).save(*args, **kwargs)
 
 
 class WorkOrderCheckPoint(models.Model):
