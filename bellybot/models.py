@@ -54,11 +54,14 @@ class GroupMeBot:
                 response = f"I had trouble gif searching '{search_terms}', sorry!"
             else:
                 response = gif
+        elif 'salt' in message:
+            success, image = image_search('so salty')
+            response = "someone feeling salty?"
         elif 'commercial' in message:
             response = "We don't do commercials in the pit!"
         elif 'shotgun' in message:
             success, image = image_search('shotgun beer')
-            response = "Did someone say shotgun?"
+            response = "did someone say shotgun"
         elif 'ice' in message:
             success, image = image_search('smirnoff ice')
             response = f"For you, {sender}"
