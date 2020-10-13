@@ -19,5 +19,13 @@ services:
     depends_on:
       - db
 
+  tests:
+    build: .
+    command: python manage.py test
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
 volumes:
   pgdata:
