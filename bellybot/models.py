@@ -65,6 +65,9 @@ class GroupMeBot:
         elif 'ice' in message:
             success, image = image_search('smirnoff ice')
             response = f"For you, {sender}"
+        elif 'ducks' in message:
+            success, image = image_search('go ducks!')
+            response = "SCO"
 
         if response:
             self.send_message(response, image)
