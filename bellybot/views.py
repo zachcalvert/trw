@@ -11,12 +11,14 @@ def new_message(request):
     # if 'group_id' not in request.POST or request.POST['group_id'] != '63320852':
     #     return HttpResponse(status=204)
 
+    print(request.POST)
+
     try:
         message_content = request.POST['text']
         sender = request.POST['name']
     except KeyError:
         print('ERROR parsing GroupMe message: {}'.format(request.POST))
-        return
+        return HttpResponse(status=204)
 
     GroupMeBot().respond(sender, message_content)
     return HttpResponse(status=204)
