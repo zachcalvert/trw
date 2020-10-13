@@ -23,7 +23,9 @@ def new_message(request):
         print('ERROR parsing GroupMe message: {}'.format(request.POST))
         return HttpResponse(status=204)
 
-    GroupMeBot().respond(sender, message_content)
+    if sender not in ["Bobby Bottleservice", "Belly Bot"]:
+        GroupMeBot().respond(sender, message_content)
+
     return HttpResponse(status=204)
 
 
