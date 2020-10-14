@@ -78,6 +78,8 @@ class GroupMeBot:
         elif 'ibm ' in message or 'watson' in message:
             response = "IBM's Watson is a steaming pile of shit"
 
+        print('received {}, so I am sending a response of {}'.format(message, response))
+
         if response:
             self.send_message(response, image)
 
