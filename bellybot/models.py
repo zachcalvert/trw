@@ -40,6 +40,8 @@ class GroupMeBot:
         response = None
         image = None
 
+        message = message.lower()
+
         if message.startswith('bb image '):
             _, search_terms = message.split('bb image ')
             response = search_terms
@@ -60,9 +62,14 @@ class GroupMeBot:
         elif 'commercial' in message:
             response = "We don't do commercials in the pit!"
         elif 'shotgun' in message:
-            success, image = image_search('shotgun beer')
-            response = "did someone say shotgun"
-        elif 'ice' in message:
+            success, gif = gif_search('beer shotgun')
+            if success:
+                response = gif
+        elif 'strikeout' in message:
+            success, gif = gif_search('beer strikeout')
+            if success:
+                response = gif
+        elif 'ice' in message or 'smirnoff' in message:
             success, image = image_search('smirnoff ice')
             response = f"For you, {sender}"
         elif 'ducks' in message:
