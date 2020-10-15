@@ -80,7 +80,7 @@ class GroupMeBot:
             success, gif = gif_search('beer strikeout')
             if success:
                 response = gif
-        elif 'ducks' in message:
+        elif 'duck' in message:
             success, image = image_search('go ducks!')
             response = "SCO"
         elif 'ibm ' in message or 'watson' in message:
