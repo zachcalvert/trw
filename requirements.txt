@@ -6,3 +6,5 @@ django-admin-sortable2
 giphy_client
 mock
 requests
+
+wolframalpha

@@ -4,16 +4,20 @@ import requests
 
 import giphy_client
 from giphy_client.rest import ApiException
+import wolframalpha
 
 from bellybot.phrases import BB_PHRASES
-
-giphy_api_instance = giphy_client.DefaultApi()
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
 GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 GIS_ID = "cc646ee172e69377d"
 GIPHY_API_KEY = "qUzMZY2GSYY8y"
 GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
+WOLFRAMALPHA_KEY = "EW5XY2-H2U9WT7Y6X"
+QUESTION_WORDS = ['who', 'what', 'where', 'when', 'how', 'why']
+
+giphy_api_instance = giphy_client.DefaultApi()
+wolframalpha_instance = wolframalpha.Client(WOLFRAMALPHA_KEY)
 
 
 class GroupMeBot:
@@ -46,26 +50,39 @@ class GroupMeBot:
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ')
+            try:
+                first_word, _ = command.split(" ", 1)
+            except ValueError:
+                first_word = command
 
-            if command.startswith('speak'):
+            if first_word == 'speak':
                 response = random.choice(BB_PHRASES)
 
-            elif command.startswith('image '):
+            elif first_word == 'image':
                 _, search_terms = message.split('bbot image ')
                 response = search_terms
 
                 success, image = image_search(search_terms)
                 if not success:
                     response = f"I had trouble image searching '{search_terms}', sorry!"
-            elif command.startswith('gif '):
+
+            elif first_word == 'gif':
                 _, search_terms = message.split('bbot gif ')
                 success, gif = gif_search(search_terms)
                 if not success:
                     response = f"I had trouble gif searching '{search_terms}', sorry!"
                 else:
                     response = gif
+
+            elif first_word in QUESTION_WORDS:
+                wolfram_response = wolframalpha_instance.query(command)
+                try:
+                    response = next(wolfram_response.results).text
+                except StopIteration:
+                    response = 'sorry {}, I don\'t know enough to answer that question.'.format(sender)
+
             else:
-                response = f"sorry {sender}, I didn't understand that"
+                response = None
 
         elif 'salt' in message:
             success, image = image_search('salty')

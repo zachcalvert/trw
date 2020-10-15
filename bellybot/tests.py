@@ -54,6 +54,24 @@ class BellyBotTestCase(TestCase):
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_called_once()
 
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_questions(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot where do the saints play"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_questions(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot what is the meaning of life"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_questions(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot what day of the week is the super bowl this year"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
     # def test_real_message(self):
     #     GROUPME_CALLBACK["text"] = "whos doing an ice?"
     #     self.client.post(self.url, GROUPME_CALLBACK)
