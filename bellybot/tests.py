@@ -48,14 +48,22 @@ class BellyBotTestCase(TestCase):
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_called_once()
 
-    # def test_real_message(self):
-    #     GROUPME_CALLBACK["text"] = "whos doing an ice?"
-    #     self.client.post(self.url, GROUPME_CALLBACK)
-    #
-    # def test_real_image(self):
-    #     GROUPME_CALLBACK["text"] = "bb image aww yeaa"
-    #     self.client.post(self.url, GROUPME_CALLBACK)
-    #
-    # def test_real_gif(self):
-    #     GROUPME_CALLBACK["text"] = "bb gif yaw!"
-    #     self.client.post(self.url, GROUPME_CALLBACK)
+    def test_real_message(self):
+        GROUPME_CALLBACK["text"] = "whos doing an ice?"
+        self.client.post(self.url, GROUPME_CALLBACK)
+
+    def test_real_image(self):
+        GROUPME_CALLBACK["text"] = "bb image aww yeaa"
+        self.client.post(self.url, GROUPME_CALLBACK)
+
+    def test_real_gif(self):
+        GROUPME_CALLBACK["text"] = "bb gif yaw!"
+        self.client.post(self.url, GROUPME_CALLBACK)
+
+    def test_speak(self):
+        GROUPME_CALLBACK["text"] = "BB SPeaK"
+        self.client.post(self.url, GROUPME_CALLBACK)
+
+    def test_unknown(self):
+        GROUPME_CALLBACK["text"] = "BB what are you doing"
+        self.client.post(self.url, GROUPME_CALLBACK)

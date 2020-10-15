@@ -5,6 +5,8 @@ import requests
 import giphy_client
 from giphy_client.rest import ApiException
 
+from bellybot.phrases import BB_PHRASES
+
 giphy_api_instance = giphy_client.DefaultApi()
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
@@ -17,7 +19,7 @@ GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
 class GroupMeBot:
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        self.identifier = "0ea167539344c9b1e822186071"
 
     def send_message(self, message, image=None):
         body = {
@@ -42,20 +44,29 @@ class GroupMeBot:
 
         message = message.lower()
 
-        if message.startswith('bb image '):
-            _, search_terms = message.split('bb image ')
-            response = search_terms
+        if message.startswith('bb '):
+            _, command = message.split('bb ')
 
-            success, image = image_search(search_terms)
-            if not success:
-                response = f"I had trouble image searching '{search_terms}', sorry!"
-        elif message.startswith('bb gif '):
-            _, search_terms = message.split('bb gif ')
-            success, gif = gif_search(search_terms)
-            if not success:
-                response = f"I had trouble gif searching '{search_terms}', sorry!"
+            if command.startswith('speak'):
+                response = random.choice(BB_PHRASES)
+
+            elif command.startswith('image '):
+                _, search_terms = message.split('bb image ')
+                response = search_terms
+
+                success, image = image_search(search_terms)
+                if not success:
+                    response = f"I had trouble image searching '{search_terms}', sorry!"
+            elif command.startswith('gif '):
+                _, search_terms = message.split('bb gif ')
+                success, gif = gif_search(search_terms)
+                if not success:
+                    response = f"I had trouble gif searching '{search_terms}', sorry!"
+                else:
+                    response = gif
             else:
-                response = gif
+                response = f"sorry {sender}, I didn't understand that"
+
         elif 'salt' in message:
             success, image = image_search('so salty')
             response = "someone feeling salty?"

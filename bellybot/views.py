@@ -14,7 +14,12 @@ def new_message(request):
     #     return HttpResponse(status=204)
 
     print(request.body)
-    content = json.loads(request.body)
+    try:
+        content = json.loads(request.body)
+    except json.decoder.JSONDecodeError:
+        content = request.POST
+    except Exception:
+        return HttpResponse(status=204)
 
     try:
         message_content = content['text']
