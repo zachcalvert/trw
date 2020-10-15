@@ -124,5 +124,24 @@ BB_PHRASES = [
     'The thought manifests as the word. The word manifests as the deed. The deed develops into habit. And the habit hardens into a massive L.',
     'If the single man plant himself indomitably on his instincts, and there abide, the huge world will sweat round to him.',
     'Peace is not something you wish for. It\'s something you make, something you do, something you are, and something you put in waivers for.',
-    'Dreams pass into the reality of action. From the actions stems the dream again; and this interdependence produces the highest form of football.'
+    'Dreams pass into the reality of action. From the actions stems the dream again; and this interdependence produces the highest form of football.',
+    'What we see depends mainly on what we sweat for.',
+    'There surely is in human nature an inherent propensity to extract all the sweat out of all the bellies.',
+    'It\'s not who you are that fleeces you, it\'s who you think you\'re not.',
+    'If you have been fleeced, there is always another chance for you. You may have a fresh start any moment you choose.',
+    'Getting fleeced causes some men to break, others to break records.',
+    'Be not angry that you cannot make the waiver order as you wish it to be, since you cannot make yourself as you wish to be.',
+    'I have never fleeced hurt by anything I didn\'t say.',
+    'The greatest fleece in life is to be continually fearing you will be fleeced.',
+    'Slow down and enjoy football. It\'s not only the scenery you miss by going too fast you also miss the sense of where you are going and why.',
+    'It is impossible for a belly to learn what he thinks he already knows.',
+    'If you find yourself in a fleece, the first thing to do is stop digging.',
+    'Sweatiness can be severed from both vicious sectarianism and thoughtless banalities. Sweatiness, I have come to see, is nothing less than the thoughtful love of life.',
+    'The winner ain\'t the one with the dryest belly car it\'s the one who refuses to lose.',
+    'When I dare to be powerful, to use my strength in the service of my vision, then it becomes less and less important whether I am fleeced.',
+    'When one door of happiness fleeces us, another opens; but often we look so long at the fleece that we do not see the one which has been opened for us.',
+    'Staying in one place is the best path to be taken over and fleeced by many.',
+    'You are never given a wish without also being given the belly to make it come true. You may have to work for it, however.'
+
+
 ]
