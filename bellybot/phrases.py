@@ -67,5 +67,10 @@ BB_PHRASES = [
     'If I know what sweaty is, it is because of you.',
     'Things that were hard to bear are sweaty to remember.',
     'Learn to listen. Football could be knocking at your door very softly.',
-    'There are only two ways to live your life. One is as though nothing is a belly. The other is as though everything is a belly.'
+    'There are only two ways to live your life. One is as though nothing is a belly. The other is as though everything is a belly.',
+    'Turn your belly toward the sun and the shadows will fall behind you.',
+    'Never say there is nothing sweaty in the world any more. There is always something to make you wonder in the shape of a tree, the trembling of a leaf.',
+    'All waivers are easy to understand once they are discovered; the point is to discover them.',
+    'What do we live for, if it is not to make life less sweaty for each other?',
+    'We may encounter many defeats but we must not be pierced.'
 ]
