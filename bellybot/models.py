@@ -51,14 +51,14 @@ class GroupMeBot:
                 response = random.choice(BB_PHRASES)
 
             elif command.startswith('image '):
-                _, search_terms = message.split('bb image ')
+                _, search_terms = message.split('bbot image ')
                 response = search_terms
 
                 success, image = image_search(search_terms)
                 if not success:
                     response = f"I had trouble image searching '{search_terms}', sorry!"
             elif command.startswith('gif '):
-                _, search_terms = message.split('bb gif ')
+                _, search_terms = message.split('bbot gif ')
                 success, gif = gif_search(search_terms)
                 if not success:
                     response = f"I had trouble gif searching '{search_terms}', sorry!"
