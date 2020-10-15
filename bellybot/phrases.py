@@ -141,7 +141,8 @@ BB_PHRASES = [
     'When I dare to be powerful, to use my strength in the service of my vision, then it becomes less and less important whether I am fleeced.',
     'When one door of happiness fleeces us, another opens; but often we look so long at the fleece that we do not see the one which has been opened for us.',
     'Staying in one place is the best path to be taken over and fleeced by many.',
-    'You are never given a wish without also being given the belly to make it come true. You may have to work for it, however.'
-
-
+    'You are never given a wish without also being given the belly to make it come true. You may have to work for it, however.',
+    'When you discover your mission, you will feel its sweat. It will fill you with enthusiasm and a burning desire to get to work on it.',
+    'Do not wait for leaders; do it alone, belly to belly.',
+    'To self-fleece is human, to fleece divine.',
 ]

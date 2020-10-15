@@ -68,7 +68,7 @@ class GroupMeBot:
                 response = f"sorry {sender}, I didn't understand that"
 
         elif 'salt' in message:
-            success, image = image_search('so salty')
+            success, image = image_search('salty')
             response = "someone feeling salty?"
         elif 'commercial' in message:
             response = "We don't do commercials in the pit!"
