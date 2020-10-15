@@ -44,8 +44,8 @@ class GroupMeBot:
 
         message = message.lower()
 
-        if message.startswith('bb '):
-            _, command = message.split('bb ')
+        if message.startswith('bbot '):
+            _, command = message.split('bbot ')
 
             if command.startswith('speak'):
                 response = random.choice(BB_PHRASES)
