@@ -145,4 +145,11 @@ BB_PHRASES = [
     'When you discover your mission, you will feel its sweat. It will fill you with enthusiasm and a burning desire to get to work on it.',
     'Do not wait for leaders; do it alone, belly to belly.',
     'To self-fleece is human, to fleece divine.',
+    'The greater part of human pain is unnecessary. It is a self-fleece as long as the unobserved mind runs your life.',
+    'A sweaty belly has the effect of eliciting talents, which in prosperous circumstances would have lain dormant.',
+    'Some think it\'s holding that makes one strong, sometimes it\'s letting go.',
+    'It is only with the belly that one can see rightly, what is essential is invisible to the eye.',
+    'A life spent taking massive Ls is not only more honourable but more useful than a life spent in doing nothing.',
+    'Be not afraid of sweatiness: some are born sweaty, some achieve sweatiness, and some have sweatiness thrust upon them.',
+    'Good people are good because they\'ve come to wisdom through massive Ls. We get very little wisdom from success, you know.',
 ]
