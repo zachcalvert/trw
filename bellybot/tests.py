@@ -16,7 +16,7 @@ GROUPME_CALLBACK = {
   "sender_type": "user",
   "source_guid": "GUID",
   "system": False,
-  "text": "Hello world ☃☃Ω",
+  "text": "Hello world",
   "user_id": "1234567890"
 }
 
@@ -69,6 +69,12 @@ class BellyBotTestCase(TestCase):
     @mock.patch('bellybot.models.GroupMeBot.send_message')
     def test_questions(self, mock_send):
         GROUPME_CALLBACK["text"] = "bbot what day of the week is the super bowl this year"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_multiple_bbots(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot gif bbot"
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_called_once()
 

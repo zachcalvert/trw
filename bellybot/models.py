@@ -49,7 +49,7 @@ class GroupMeBot:
         message = message.lower()
 
         if message.startswith('bbot '):
-            _, command = message.split('bbot ')
+            _, command = message.split('bbot ', 1)
             try:
                 first_word, _ = command.split(" ", 1)
             except ValueError:
@@ -134,6 +134,9 @@ def gif_search(search_terms):
         return False, None
 
     index = random.choice(range(20))
-    gif = api_response.data[index]
+    try:
+        gif = api_response.data[index]
+    except IndexError:
+        return False, None
     url = gif.images.downsized_large.url
     return True, url
