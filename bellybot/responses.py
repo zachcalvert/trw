@@ -56,7 +56,7 @@ RESPONSES = [
     'i wanna change my name to antonio bitch',
     'baybeee shenault me timbers! love it! im good now peace botch',
     'bullshit NFL_PLAYER honestly go fuck yourself',
-    'obviously not BBR_MEMBER since there were 1000 messages in my ass',
+    'obviously BBR_MEMBER. there are 1000 messages in my ass right now',
     'the cunt punt the twat swat the hammer jammer',
     'sounds good looks like we got a blockbuster trade offer fuck you BBR_MEMBER i love you',
     'eating a bag of dicks should be a nice handcuff for NFL_PLAYER',
@@ -103,7 +103,7 @@ RESPONSES = [
     'good ol college parties ... ill hopefully be there . rome was our inaugural pierced location',
     'ya boy NFL_PLAYER been booked. yuppppp bbr takes vegas ! bring the puss ! we lit !',
     'yo. seeing NFL_PLAYER out there is working for me',
-    'NFL_PLAYER. wow. i want to see any thiqqy icky wehrle birds. thinny testaverde more like thincent',
+    'NFL_PLAYER. wow. my ass!!!',
     'NFL_PLAYER looks legit. god damnit why do i play scrubs just to see if they remember how to get pierced',
     'eyawww how you like that ! NFL_PLAYER with a live tug',
     '😂 BBR_MEMBER you just did n’t want me to swoop NFL_PLAYER',
@@ -282,5 +282,8 @@ RESPONSES = [
     'haha shout out to BBR_MEMBER your team is garbage',
     'dilly dilly i had the under im fucked',
     '🤤 jesus please send NFL_PLAYER to the university of pouregon',
-    'sorry BBR_MEMBER lollll hahaha. just do nt believe youll find a chick with huge tits'
+    'sorry BBR_MEMBER lollll hahaha. just do nt believe youll find a chick with huge tits',
+    'im a big sunday guy so still feeling good about it',
+    'NFL_PLAYER, a legendary both sides of the fence fuccboi',
+    'BBR_MEMBER tryin to sell high on either of the 2 aaron ’s in his ass'
 ]
