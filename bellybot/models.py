@@ -8,6 +8,7 @@ import spacy
 import wolframalpha
 
 from bellybot.phrases import BB_PHRASES
+from bellybot.responses import RESPONSES
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
 GROUPME_URL = "https://api.groupme.com/v3/bots/post"
@@ -17,6 +18,7 @@ GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
 WOLFRAMALPHA_KEY = "EW5XY2-H2U9WT7Y6X"
 QUESTION_WORDS = ['who', 'what', 'where', 'when', 'how', 'why']
 
+
 giphy_api_instance = giphy_client.DefaultApi()
 wolframalpha_instance = wolframalpha.Client(WOLFRAMALPHA_KEY)
 
@@ -25,6 +27,9 @@ nlp = spacy.load("en_core_web_sm")
 
 with open('bigram_to_bigram_model.json') as f:
     model = json.load(f)
+
+with open('bellybot/data/rostered_players.json') as f:
+    rostered_players = json.load(f)
 
 
 class GroupMeBot:
@@ -49,7 +54,24 @@ class GroupMeBot:
         if response.status_code < 200 or response.status_code > 299:
             print('ERROR posting to GroupMe: {}: {}'.format(response.status_code, response.content))
 
-    def smart_respond(self, sender, message):
+    def generate_player_response(self, sender, player):
+        random.shuffle(RESPONSES)
+        message = next(response for response in RESPONSES if 'NFL_PLAYER' in response)
+        message = message.replace('NFL_PLAYER', player)
+
+        if 'BBR_MEMBER' in message:
+            message = message.replace('BBR_MEMBER', sender)
+
+        return message
+
+    def generate_bbr_response(self, sender):
+        random.shuffle(RESPONSES)
+        message = next(response for response in RESPONSES if 'BBR_MEMBER' in response and 'NFL_PLAYER' not in response)
+        message = message.replace('BBR_MEMBER', sender)
+
+        return message
+
+    def markov_respond(self, sender, message):
         # doc = nlp(message)
         # noun = random.choice(list(doc.noun_chunks))
         # lookup = str(noun).lower()
@@ -59,7 +81,7 @@ class GroupMeBot:
         last_two = ' '.join(message.split()[-2:])
         response = []
 
-        sentence_length = random.choice(range(3, 8))
+        sentence_length = random.choice(range(6, 15))
         for i in range(sentence_length):
             try:
                 phrase = random.choice(model["bigram_model"][last_two])
@@ -67,14 +89,11 @@ class GroupMeBot:
                 break
 
             response.append(phrase)
-
-            # _, lookup = phrase.split(' ')
             last_two = phrase
 
         return ' '.join(response)
 
         # self.send_message(response)
-
 
     def respond(self, sender, message):
         response = None
@@ -113,29 +132,17 @@ class GroupMeBot:
                 try:
                     response = next(wolfram_response.results).text
                 except StopIteration:
-                    response = 'sorry {}, I don\'t know enough to answer that question.'.format(sender)
+                    pass
 
             else:
                 response = None
 
-        elif 'salt' in message:
-            success, image = image_search('salty')
-            response = "someone feeling salty?"
-        elif 'commercial' in message:
-            response = "We don't do commercials in the pit!"
-        elif 'shotgun' in message:
-            success, gif = gif_search('beer shotgun')
-            if success:
-                response = gif
-        elif 'strikeout' in message:
-            success, gif = gif_search('beer strikeout')
-            if success:
-                response = gif
-        elif 'duck' in message:
-            success, image = image_search('go ducks!')
-            response = "SCO"
-        elif 'ibm ' in message or 'watson' in message:
-            response = "IBM's Watson is a steaming pile of shit"
+        if not response:
+            player = self.get_player(message)
+            if player:
+                response = self.generate_player_response(sender, player)
+            elif 'bbot' in message:
+                response = self.generate_bbr_response(sender)
 
         print('received {}, so I am sending a response of {}'.format(message, response))
 
@@ -143,6 +150,11 @@ class GroupMeBot:
             self.send_message(response, image)
 
         return
+
+    def get_player(self, message):
+        for player in rostered_players.keys():
+            if player in message:
+                return rostered_players[player]['full_name']
 
 
 def image_search(search_terms):
@@ -174,3 +186,29 @@ def gif_search(search_terms):
         return False, None
     url = gif.images.downsized_large.url
     return True, url
+
+
+class ESPNBroker():
+
+    def call_espn(self, view=None):
+        cookies = {"swid": "{ADB2C88A-0CCD-4491-B8B7-4657E6A412FD}",
+                   "espn_s2": "AECvR2KuFAHIFNvXPmowC7LgFu4G2jj6tzWOaOd8xnX2wu3BaSy3Dogb5KU0KAiHu3xcqKzkMa%2FwbLIIzA4DMqtr"
+                              "%2FZF48XsPMFyOGScz3xl0qO3ekELFD7qgY0qYdGbg%2BwbX0NntqxWwPaLPdrEaIc1vlXxehme7cbLRq6Uf5iP3f%"
+                              "2FpQvG51KexkEMJy6Hc1C1zZxZ41fQ4EddVA%2BhaqQ9%2BADWELwT9hFbPFjoBxco8T%2FvSxS0TJFEqLiBUBfp%2"
+                              "F2RbE%3D"}
+
+        url = ESPN_URL
+
+        r = requests.get(url, cookies=cookies, params={'view': view})
+        return r.json()
+
+    def get_rostered_players(self):
+        rostered_players = {}
+        response = self.call_espn(view='mRoster')
+        for team in response['teams']:
+            for player in team['roster']['entries']:
+                lookup = player['playerPoolEntry']['player']['lastName'].lower()
+                rostered_players[lookup] = {
+                    'full_name': player['playerPoolEntry']['player']['fullName'].lower()
+                }
+
