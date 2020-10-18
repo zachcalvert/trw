@@ -271,5 +271,16 @@ RESPONSES = [
     'i will be there BBR_MEMBERwe fucked up',
     'see this NFL_PLAYER fool on memphis shorts ? delishous content here planet lish it keeps him warm in the winter',
     '! ! ! should be a bbr first and BBR_MEMBER just put me in the fridge',
-    'BBR_MEMBER i smell bbr hole  😂'
+    'BBR_MEMBER i smell bbr hole  😂',
+    'its just live all year around flames. dont look at my phone , i think kruegz is gon na lose',
+    'bbr squaw BBR_MEMBER you are gonna be a dangle as soon as possible , since we and other healthcare boys are live',
+    'internet gettin wild on NFL_PLAYER today . just the right amount of fuck lol',
+    'oh yea , i ’m in that pool . id be chatting right now. i bet BBR_MEMBER doesnt even know how it goes to ot',
+    'i still stand by big lick energy . and i get to play for the moment BBR_MEMBER',
+    'lmfao what does that mean i already won ? ? lol chyaaaaa i have no confidence but it ’s just a bunch of haters in the end',
+    'yupppppp one more fg baby NFL_PLAYER is an absolute toss up. codeine zuerlean',
+    'my two starting wrs for the next month are shit and fuck',
+    'amazing to see 3 previously pierced in contention for yet another falcons dub. that includes you BBR_MEMBER',
+    'haha shout out to BBR_MEMBER your team is garbage',
+    'dilly dilly i had the under im fucked'
 ]
