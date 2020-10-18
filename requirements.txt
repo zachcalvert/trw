@@ -7,4 +7,7 @@ giphy_client
 mock
 requests
 
+spacy
+numpy
+textblob
 wolframalpha

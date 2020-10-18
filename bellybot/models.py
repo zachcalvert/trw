@@ -4,6 +4,7 @@ import requests
 
 import giphy_client
 from giphy_client.rest import ApiException
+import spacy
 import wolframalpha
 
 from bellybot.phrases import BB_PHRASES
@@ -19,11 +20,17 @@ QUESTION_WORDS = ['who', 'what', 'where', 'when', 'how', 'why']
 giphy_api_instance = giphy_client.DefaultApi()
 wolframalpha_instance = wolframalpha.Client(WOLFRAMALPHA_KEY)
 
+# Load English tokenizer, tagger, parser, NER and word vectors
+nlp = spacy.load("en_core_web_sm")
+
+with open('bigram_to_bigram_model.json') as f:
+    model = json.load(f)
+
 
 class GroupMeBot:
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        self.identifier = "0ea167539344c9b1e822186071"
 
     def send_message(self, message, image=None):
         body = {
@@ -41,6 +48,33 @@ class GroupMeBot:
 
         if response.status_code < 200 or response.status_code > 299:
             print('ERROR posting to GroupMe: {}: {}'.format(response.status_code, response.content))
+
+    def smart_respond(self, sender, message):
+        # doc = nlp(message)
+        # noun = random.choice(list(doc.noun_chunks))
+        # lookup = str(noun).lower()
+        # if ' ' in lookup:
+        #     lookup, _ = lookup.split(' ', 1)
+
+        last_two = ' '.join(message.split()[-2:])
+        response = []
+
+        sentence_length = random.choice(range(3, 8))
+        for i in range(sentence_length):
+            try:
+                phrase = random.choice(model["bigram_model"][last_two])
+            except KeyError:
+                break
+
+            response.append(phrase)
+
+            # _, lookup = phrase.split(' ')
+            last_two = phrase
+
+        return ' '.join(response)
+
+        # self.send_message(response)
+
 
     def respond(self, sender, message):
         response = None

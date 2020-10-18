@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'django_extensions',
 
+    'bellybot',
     'brands',
     'production'
 ]
