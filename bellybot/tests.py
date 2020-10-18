@@ -26,43 +26,31 @@ GROUPME_CALLBACK = {
 headers = {'Content-Type': 'application/json'}
 
 
-# class BellyBotTestCase(TestCase):
-#
-#     url = reverse('new_message')
-#
-#     def test_get_not_allowed(self):
-#         response = self.client.get(self.url)
-#         self.assertEqual(response.status_code, 405)
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_no_bot_response(self, mock_send):
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_not_called
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_speak(self, mock_send):
-#         GROUPME_CALLBACK["text"] = "bbot speak"
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_called_once()
+class BellyBotTestCase(TestCase):
 
-    # @mock.patch('bellybot.models.GroupMeBot.send_message')
-    # def test_where(self, mock_send):
-    #     GROUPME_CALLBACK["text"] = "bbot where do the saints play"
-    #     self.client.post(self.url, GROUPME_CALLBACK)
-    #     mock_send.assert_called_once()
-    #
-    # @mock.patch('bellybot.models.GroupMeBot.send_message')
-    # def test_what(self, mock_send):
-    #     GROUPME_CALLBACK["text"] = "bbot what day of the week is the super bowl this year"
-    #     self.client.post(self.url, GROUPME_CALLBACK)
-    #     mock_send.assert_called_once()
+    url = reverse('new_message')
 
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_multiple_bbots(self, mock_send):
-#         GROUPME_CALLBACK["text"] = "bbot gif bbot"
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_called_once()
-#
+    def test_get_not_allowed(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 405)
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_no_bot_response(self, mock_send):
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_not_called
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_speak(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot speak"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_multiple_bbots(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot gif bbot"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
 
 class TestBBRResponse(TestCase):
     url = reverse('new_message')
@@ -82,41 +70,20 @@ class TestPlayerResponse(TestCase):
     players = ['Travis Kelce', 'Dalvin Cook', 'Deshaun Watson', 'Brandin Cooks', 'Chase Claypool']
     members = ['shane', 'trav', 'bk', 'rene', 'lish']
 
-    def test_player_response(self):
-        for member in self.members:
-            print(GroupMeBot().generate_bbr_response(member))
-            for player in self.players:
-                print(GroupMeBot().generate_player_response(member, player))
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_get_player_from_message(self, mock_send):
-#         GROUPME_CALLBACK["text"] = "jackson is sucking wtf"
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_called_once()
-#         print(mock_send.call_args)
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_get_player_from_message(self, mock_send):
+        GROUPME_CALLBACK["text"] = "jackson is sucking wtf"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+        print(mock_send.call_args)
 
 
-# class TestMarkovRespond(TestCase):
-#
-#     def test_random_responses(self):
-#         for i in range(1000):
-#             message = random.choice(MESSAGES).lower()
-#             print(GroupMeBot().markov_respond('zach', message))
+class TestMarkovRespond(TestCase):
 
-    # def test_brees(self):
-    #     print(GroupMeBot().smart_respond('zach', 'Last year Drew Brees won the super bowl'))
-    #
-    # def test_question(self):
-    #     print(GroupMeBot().smart_respond('zach', 'What do you think about that bbot'))
-    #
-    # def test_shane(self):
-    #     print(GroupMeBot().smart_respond('zach', 'Shane is stoked about the win'))
-    #
-    # def test_waiver(self):
-    #     print(GroupMeBot().smart_respond('zach', 'My waiver pickup this week is nasty'))
-
-
-
+    def test_random_responses(self):
+        for i in range(1000):
+            message = random.choice(MESSAGES).lower()
+            print(GroupMeBot().markov_respond('zach', message))
 
 
 # class TestRealResponse(TestCase):
