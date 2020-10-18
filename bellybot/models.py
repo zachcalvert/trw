@@ -66,8 +66,10 @@ class GroupMeBot:
 
     def generate_bbr_response(self, sender):
         random.shuffle(RESPONSES)
-        message = next(response for response in RESPONSES if 'BBR_MEMBER' in response and 'NFL_PLAYER' not in response)
-        message = message.replace('BBR_MEMBER', sender)
+        message = next(response for response in RESPONSES if 'NFL_PLAYER' not in response)
+
+        if 'BBR_MEMBER' in message:
+            message = message.replace('BBR_MEMBER', sender)
 
         return message
 

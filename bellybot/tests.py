@@ -8,7 +8,6 @@ from django.test import TestCase
 from bellybot.models import GroupMeBot
 from groupme_messages import MESSAGES
 
-
 GROUPME_CALLBACK = {
   "attachments": [],
   "avatar_url": "https://i.groupme.com/123456789",
@@ -27,24 +26,24 @@ GROUPME_CALLBACK = {
 headers = {'Content-Type': 'application/json'}
 
 
-class BellyBotTestCase(TestCase):
-
-    url = reverse('new_message')
-
-    def test_get_not_allowed(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 405)
-
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
-    def test_no_bot_response(self, mock_send):
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_not_called
-
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
-    def test_speak(self, mock_send):
-        GROUPME_CALLBACK["text"] = "bbot speak"
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
+# class BellyBotTestCase(TestCase):
+#
+#     url = reverse('new_message')
+#
+#     def test_get_not_allowed(self):
+#         response = self.client.get(self.url)
+#         self.assertEqual(response.status_code, 405)
+#
+#     @mock.patch('bellybot.models.GroupMeBot.send_message')
+#     def test_no_bot_response(self, mock_send):
+#         self.client.post(self.url, GROUPME_CALLBACK)
+#         mock_send.assert_not_called
+#
+#     @mock.patch('bellybot.models.GroupMeBot.send_message')
+#     def test_speak(self, mock_send):
+#         GROUPME_CALLBACK["text"] = "bbot speak"
+#         self.client.post(self.url, GROUPME_CALLBACK)
+#         mock_send.assert_called_once()
 
     # @mock.patch('bellybot.models.GroupMeBot.send_message')
     # def test_where(self, mock_send):
@@ -58,12 +57,12 @@ class BellyBotTestCase(TestCase):
     #     self.client.post(self.url, GROUPME_CALLBACK)
     #     mock_send.assert_called_once()
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
-    def test_multiple_bbots(self, mock_send):
-        GROUPME_CALLBACK["text"] = "bbot gif bbot"
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
-
+#     @mock.patch('bellybot.models.GroupMeBot.send_message')
+#     def test_multiple_bbots(self, mock_send):
+#         GROUPME_CALLBACK["text"] = "bbot gif bbot"
+#         self.client.post(self.url, GROUPME_CALLBACK)
+#         mock_send.assert_called_once()
+#
 
 class TestBBRResponse(TestCase):
     url = reverse('new_message')
@@ -88,13 +87,13 @@ class TestPlayerResponse(TestCase):
             print(GroupMeBot().generate_bbr_response(member))
             for player in self.players:
                 print(GroupMeBot().generate_player_response(member, player))
-
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
-    def test_get_player_from_message(self, mock_send):
-        GROUPME_CALLBACK["text"] = "jackson is sucking wtf"
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
-        print(mock_send.call_args)
+#
+#     @mock.patch('bellybot.models.GroupMeBot.send_message')
+#     def test_get_player_from_message(self, mock_send):
+#         GROUPME_CALLBACK["text"] = "jackson is sucking wtf"
+#         self.client.post(self.url, GROUPME_CALLBACK)
+#         mock_send.assert_called_once()
+#         print(mock_send.call_args)
 
 
 # class TestMarkovRespond(TestCase):

@@ -241,7 +241,19 @@ RESPONSES = [
     'BBR_MEMBER has scored 110 pts today meaning he has carlos hyde in his stable',
     'NFL_PLAYER?? please ink the deal BBR_MEMBER!',
     'hahaha BBR_MEMBER! ! ! ! lookin like a dill(y) for one how about a league wide shotgun',
-    'dang BBR_MEMBER if you did nt know ... i fucking hate this sport'
-
-
+    'dang BBR_MEMBER if you did nt know ... i fucking hate this sport',
+    'batchley ! NFL_PLAYER id get in on that shit 😂',
+    'yea but you have 512 fucking points on your bench BBR_MEMBER!!! goddammit lil kupp of stills water ... no bubbles',
+    'as a bottom dweller myself, not fluffing yourself up is the shirtest way to go BBR_MEMBER',
+    'NFL_PLAYER not killing it so y’ all can take him this season . # foreverscarred',
+    'now see if anyone wants to fux with a trade !!! im projected to tie ! somehow ...',
+    'now im for sure missing the playoffs BBR_MEMBER, incredible effort sir',
+    'just adjusted and wtf the app is just torching me now goddammit fucking fuck',
+    'its actually wild lmfao can we get some pre pierce interview action with BBR_MEMBER?',
+    'the best part is when shit starts to go off on my bench. fucking stench goddamn',
+    'i just got ousted from the playoffs so BBR_MEMBER imma take you out bruh! nothin but love everyone ’s been fleeced',
+    'holy fuck NFL_PLAYER hey BBR_MEMBER, you wanna score a few and bring that ass down . where u at playa ?',
+    'suck this drenchcoat birch drench * * * can NFL_PLAYER just show up tonight fuck',
+    'lolll i ca nt blame NFL_PLAYER i respect the drip too much. to my chagrin',
+    'shout out to faded me on that one lol',
 ]
