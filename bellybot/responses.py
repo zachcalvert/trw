@@ -45,7 +45,6 @@ RESPONSES = [
     'now thats some good bbr roasting by an open fire 😂 😂 wmfllllgggggg lolol i cant get pierced bro',
     'you invited an outsider to join. meanwhile BBR_MEMBER simply mentionns thiqq and everyone loses their minds',
     'BBR_MEMBER has NFL_PLAYER still whose balling and so i will keep casting ! BBR_MEMBER ! NFL_PLAYER ! ! ! !',
-    'right ? thanks BBR_MEMBER. sounds like when NFL_PLAYER throws into your surgically repaired pussy',
     'NFL_PLAYER wants to make a lish foundation, game time boys',
     'sco NFL_PLAYER!!!! 😟 or not lol',
     'yea BBR_MEMBER I had fun battling with you this week. 2 tds baby',
@@ -167,7 +166,6 @@ RESPONSES = [
     'NFL_PLAYER is dry mother fucking piece of shit what happened to him ?',
     'knowing i ’m for sure fucked i ’m down to order a midget whore for you BBR_MEMBER',
     'my rbs were wrecked but NFL_PLAYER\'s thick hog has given me life',
-    'if we decide dates now i actually hate NFL_PLAYER',
     'dont think i m a try to accommodate everyone BBR_MEMBER love it hahahaha',
     'update : still no BBR_MEMBER ! ! ! ! ! nice doin business with you walsh botch',
     'fuck you BBR_MEMBER ... funny too cuz  lady fog horn raced two races earlier and won haha fuck ...',
@@ -282,5 +280,7 @@ RESPONSES = [
     'my two starting wrs for the next month are shit and fuck',
     'amazing to see 3 previously pierced in contention for yet another falcons dub. that includes you BBR_MEMBER',
     'haha shout out to BBR_MEMBER your team is garbage',
-    'dilly dilly i had the under im fucked'
+    'dilly dilly i had the under im fucked',
+    '🤤 jesus please send NFL_PLAYER to the university of pouregon',
+    'sorry BBR_MEMBER lollll hahaha. just do nt believe youll find a chick with huge tits'
 ]
