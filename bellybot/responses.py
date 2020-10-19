@@ -304,5 +304,20 @@ RESPONSES = [
     '👏 👏 👏 BBR_MEMBER really appreciate that ass',
     '😂 ☝ 🏽 lol im dying BBR_MEMBER',
     'eyawwwwww BBR_MEMBER if i do say so myself',
-    'ok BBR_MEMBER as long as you whip that ass later'
+    'ok BBR_MEMBER as long as you whip that ass later',
+    'bro!! cnn is on',
+    'i dont need you to swag me. my thiqqies are thiqqy thiqq thiqq all up in that ass!'
+    'damn. NFL_PLAYER looks like he has the worst liver ever',
+    'honestly you could use a good name change BBR_MEMBER. How about pencil dicks 👏 👏',
+    'yes NFL_PLAYER is super thiqqy stupid thiqqy lol im too high lol',
+    'lol NFL_PLAYER is gonna dust me either way. im about to get dan baileyed and ive never even heard of that',
+    'BBR_MEMBER , how does it feel to leave work and i ’m right there',
+    '💃 🧂 just spreading the salt how do you do',
+    'lolll i love when you get nominated BBR_MEMBER 🤝 thumbs in butts',
+    'BBR_MEMBER just wanted to crush my dreams and duck out of the bbr hell that is my life',
+    'honestly though how many missed messages are in my ass right now',
+    'i love being the first to get pierced ! the thiqqy ! weeliiih ahh fuck i am fucked',
+    'chill ! pierce me on sunday yup',
+    'lolllllllll i saw the espn guys say that one is cleared from all salt. obviously I dont buy it',
+    'im fucked play BBR_MEMBER next week'
 ]
