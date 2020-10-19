@@ -5,9 +5,9 @@ import requests
 import giphy_client
 from giphy_client.rest import ApiException
 import spacy
-import wolframalpha
 
 from bellybot.phrases import BB_PHRASES
+from bellybot.questions import Answerer
 from bellybot.responses import RESPONSES
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
@@ -15,12 +15,24 @@ GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 GIS_ID = "cc646ee172e69377d"
 GIPHY_API_KEY = "qUzMZY2GSYY8y"
 GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
-WOLFRAMALPHA_KEY = "EW5XY2-H2U9WT7Y6X"
-QUESTION_WORDS = ['who', 'what', 'where', 'when', 'how', 'why']
 
+QUESTION_PHRASES = {'who', 'what', 'where', 'when', 'how', 'why', 'do you', 'are you', 'have you', 'will you', 'did you', 'wanna'}
+QUESTION_SWITCHER = {
+    'how': Answerer.how,
+    'what': Answerer.what,
+    'when': Answerer.when,
+    'where': Answerer.where,
+    'who': Answerer.who,
+    'why': Answerer.why,
+    'are you': Answerer.are_you,
+    'did you': Answerer.did_you,
+    'do you': Answerer.do_you,
+    'have you': Answerer.have_you,
+    'will you': Answerer.will_you,
+    'wanna': Answerer.wanna
+}
 
 giphy_api_instance = giphy_client.DefaultApi()
-wolframalpha_instance = wolframalpha.Client(WOLFRAMALPHA_KEY)
 
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
@@ -35,7 +47,8 @@ with open('bellybot/data/rostered_players.json') as f:
 class GroupMeBot:
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        # self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        self.identifier = '0ea167539344c9b1e822186071'
 
     def send_message(self, message, image=None):
         body = {
@@ -64,7 +77,7 @@ class GroupMeBot:
 
         return message
 
-    def generate_bbr_response(self, sender):
+    def generate_bbot_response(self, sender):
         random.shuffle(RESPONSES)
         message = next(response for response in RESPONSES if 'NFL_PLAYER' not in response)
 
@@ -74,12 +87,6 @@ class GroupMeBot:
         return message
 
     def markov_respond(self, sender, message):
-        # doc = nlp(message)
-        # noun = random.choice(list(doc.noun_chunks))
-        # lookup = str(noun).lower()
-        # if ' ' in lookup:
-        #     lookup, _ = lookup.split(' ', 1)
-
         last_two = ' '.join(message.split()[-2:])
         response = []
 
@@ -95,13 +102,14 @@ class GroupMeBot:
 
         return ' '.join(response)
 
-        # self.send_message(response)
-
     def respond(self, sender, message):
         response = None
         image = None
 
         message = message.lower()
+
+        if message == 'bad bot':
+            return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
@@ -118,33 +126,26 @@ class GroupMeBot:
                 response = search_terms
 
                 success, image = image_search(search_terms)
-                if not success:
-                    response = f"I had trouble image searching '{search_terms}', sorry!"
 
             elif first_word == 'gif':
                 _, search_terms = message.split('bbot gif ')
                 success, gif = gif_search(search_terms)
-                if not success:
-                    response = f"I had trouble gif searching '{search_terms}', sorry!"
-                else:
+                if success:
                     response = gif
-
-            elif first_word in QUESTION_WORDS:
-                wolfram_response = wolframalpha_instance.query(command)
-                try:
-                    response = next(wolfram_response.results).text
-                except StopIteration:
-                    pass
-
             else:
                 response = None
+
+        if not response and 'bbot' in message:
+            question = next((phrase for phrase in QUESTION_PHRASES if phrase in message), None)
+            if question:
+                response = self.answer_question(sender, message, trigger=question)
+            else:
+                response = self.generate_bbot_response(sender)
 
         if not response:
             player = self.get_player(message)
             if player:
-                response = self.generate_player_response(sender, player)
-            elif 'bbot' in message:
-                response = self.generate_bbr_response(sender)
+                response = self.generate_player_response(sender, self.get_player(message))
 
         print('received {}, so I am sending a response of {}'.format(message, response))
 
@@ -152,6 +153,11 @@ class GroupMeBot:
             self.send_message(response, image)
 
         return
+
+    def answer_question(self, sender, message, trigger):
+        print('got a question!!!!')
+        responder = QUESTION_SWITCHER.get(trigger, lambda: "Invalid question")
+        return responder(sender, message)
 
     def get_player(self, message):
         for player in rostered_players.keys():
