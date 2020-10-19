@@ -2,6 +2,7 @@ import random
 
 from bellybot.data.names import NAMES
 from bellybot.data.reasons import REASONS
+from bellybot.data.times import TIMES
 
 STOCK_ANSWERS = [
     'why would I know that',
@@ -45,7 +46,8 @@ PREFIXES = [
     'of course',
     'fucking right',
     'yupp',
-    'yup'
+    'yup',
+    'honestly'
 ]
 
 EXPLANATION_STARTERS = [
@@ -72,7 +74,7 @@ SUFFIXES = [
     'now get out',
     'we gucci',
     'we lit',
-    'we lit!'
+    'we lit!',
     'we litty gurl',
     'wmflg',
     'lets shotgun',
@@ -107,32 +109,87 @@ SUFFIXES = [
     'batchley',
     'fuckin lol dude',
     'fuckin lol',
+    'we slap',
+]
+
+EMOJIS = [
+    '😂',
+    '😂',
+    '😂',
+    '🤣',
+    '🤣',
+    '🤣',
+    '😎',
+    '😎',
+    '😎',
+    '🔥',
+    '🔥',
+    '🧀',
+    '🧀',
+    '👏',
+    '👏',
+    '🌊',
+    '🌊',
+    '💯',
+    '💯',
+    '🙀',
+    '🙀',
+    '😘',
+    '😘',
+    '😟',
+    '😳',
+    '🍆',
+    '🍆',
+    '🏌',
+    '🤤',
+    '🤤',
 ]
 
 
 class Answerer:
 
     def how(self, sender, message):
-        pass
+        return
 
     def what(self, sender, question):
-        pass
+        return
 
-    def when(self, sender, question):
-        pass
-
-    def where(self, sender, question):
-        pass
-
-    def who(self, sender, question):
+    @staticmethod
+    def when(sender, question):
         answer = ''
         if random.choice([1, 2]) == 1:
             answer += '{} '.format(random.choice(EXPLANATION_STARTERS))
 
-        answer += ' {}.'.format(random.choice(NAMES))
+        answer += '{} {}.'.format(random.choice(TIMES), sender)
 
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1, 2, 3, 4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
+
+        return answer
+
+    def where(self, sender, question):
+        pass
+
+    @staticmethod
+    def who(sender, question):
+        answer = ''
+        if random.choice([1, 2]) == 1:
+            answer += '{} '.format(random.choice(EXPLANATION_STARTERS))
+
+        answer += '{}.'.format(random.choice(NAMES))
+
+        if random.choice([1, 2]) == 1:
+            answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1, 2, 3, 4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
 
         return answer
 
@@ -152,6 +209,11 @@ class Answerer:
 
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
 
         return answer
 
@@ -176,6 +238,11 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
 
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
+
         return answer
 
     @staticmethod
@@ -197,6 +264,11 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += ('  {}'.format(random.choice(SUFFIXES)))
 
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
+
         return answer
 
     @staticmethod
@@ -217,6 +289,11 @@ class Answerer:
 
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
 
         return answer
 
@@ -242,6 +319,11 @@ class Answerer:
 
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
 
         return answer
 
@@ -278,6 +360,11 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
 
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
+
         return answer
 
     @staticmethod
@@ -301,8 +388,12 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
 
-        return answer
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1,2,3,4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
 
+        return answer
 
 
 def make_subject_swaps(core):

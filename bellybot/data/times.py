@@ -1,0 +1,20 @@
+TIMES = [
+    'never',
+    'last night',
+    'yesterday',
+    'this morning',
+    'today',
+    'this afternoon',
+    'tonight',
+    'tomorrow morning',
+    'tomorrow',
+    'tomorrow night',
+    'next weekend',
+    'next week',
+    'preseason',
+    'playoffs',
+    'fourth of july',
+    'halloween',
+    'christmas eve',
+    'next year'
+]

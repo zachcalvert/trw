@@ -58,5 +58,11 @@ REASONS = [
     'is chilling in the pit',
     'is in the pit as we speak',
     'is like squirmit the frog',
-    'is not playoffs level'
+    'is not playoffs level',
+    'is squirting away in the chat',
+    'is lost in the pit',
+    'is getting tatted',
+    'is in my ass',
+    'is inside my ass',
+    'is all the way inside my ass'
 ]

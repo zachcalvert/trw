@@ -97,6 +97,34 @@ class TestAnswerer(BellyBotTestCase):
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
+    def test_when(self):
+        questions = [
+            'when am i gonna win a damn game bbot?',
+            'bbot when will you respect me?',
+            'when is a good time to talk bbot?',
+            'bbot when do you go back to school?',
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer.when(sender, question)
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
+    def test_who(self):
+        questions = [
+            'who gave you the right bbot?',
+            'bbot who is your favorite chiefs player?',
+            'who hurt you bbot?',
+            'bbot who are you in love with?',
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer.who(sender, question)
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
     def test_are_you(self):
         questions = [
             'are you sure about that bbot?',
