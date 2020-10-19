@@ -1,0 +1,33 @@
+ARTICLES = [
+    'a',
+    'the',
+    'a',
+    'the',
+    'a',
+    'the',
+    'his',
+    'my',
+    'my',
+    'my',
+    'our',
+    'this',
+    'this',
+]
+
+OBJECTS = [
+    'piercing',
+    'BBR',
+    'beer',
+    'PBR',
+    'shotgun',
+    'coors',
+    'couch',
+    'bed',
+    'wax',
+    'beef',
+    'fully prepped shotguns',
+    'L',
+    'massive L',
+    'lineup',
+    'roster',
+]

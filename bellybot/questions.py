@@ -1,13 +1,16 @@
 import random
 
+from bellybot.data.actions import PREPOSITIONS, PAST_ACTIONS
 from bellybot.data.names import NAMES
+from bellybot.data.objects import OBJECTS, ARTICLES
+from bellybot.data.places import PLACES
 from bellybot.data.reasons import REASONS
 from bellybot.data.times import TIMES
 
 STOCK_ANSWERS = [
     'why would I know that',
-    'hmm thats bordering on impossible to answer',
-    'i dont fucking know man',
+    'hmm thats bordering on impossible for me to answer',
+    'i dont know man',
     'not sure about that one',
     'idk',
 ]
@@ -15,7 +18,9 @@ STOCK_ANSWERS = [
 AMOUNTS = [
     'nothing',
     'everything',
-    'shit'
+    'shit',
+    'shit all',
+    'absolutely nothing'
 ]
 
 PREFIXES = [
@@ -56,7 +61,11 @@ EXPLANATION_STARTERS = [
     'i think',
     'likely',
     'not certain but',
-    'not 💯 on this but',
+    'basically',
+    'essentially',
+    'honestly',
+    'not 💯 on this but i think',
+    'not 💯 on this but basically',
     'most likely ',
     '',
     '',
@@ -148,19 +157,21 @@ EMOJIS = [
 
 class Answerer:
 
-    def how(self, sender, message):
-        return
-
-    def what(self, sender, question):
-        return
-
     @staticmethod
-    def when(sender, question):
+    def how(sender, message):
         answer = ''
         if random.choice([1, 2]) == 1:
-            answer += '{} '.format(random.choice(EXPLANATION_STARTERS))
+            answer += 'well, '
 
-        answer += '{} {}.'.format(random.choice(TIMES), sender)
+        answer += '{} {} {} {} {}'.format(
+            random.choice(NAMES),
+            random.choice(PAST_ACTIONS),
+            random.choice(PREPOSITIONS),
+            random.choice(ARTICLES),
+            random.choice(OBJECTS)
+        )
+
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
 
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
@@ -172,8 +183,46 @@ class Answerer:
 
         return answer
 
-    def where(self, sender, question):
-        pass
+    def what(self, sender, question):
+        return
+
+    @staticmethod
+    def when(sender, question):
+        answer = ''
+        if random.choice([1, 2]) == 1:
+            answer += '{} '.format(random.choice(EXPLANATION_STARTERS))
+
+        answer += '{} {}'.format(random.choice(TIMES), sender)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
+
+        if random.choice([1, 2]) == 1:
+            answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1, 2, 3, 4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
+
+        return answer
+
+    @staticmethod
+    def where(sender, question):
+        answer = ''
+        if random.choice([1, 2]) == 1:
+            answer += '{} '.format(random.choice(EXPLANATION_STARTERS))
+
+        answer += '{}'.format(random.choice(PLACES))
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
+
+        if random.choice([1, 2]) == 1:
+            answer += (' {}'.format(random.choice(SUFFIXES)))
+
+        if random.choice([1, 3]) == 1:
+            n = random.choice([1, 2, 3, 4])
+            emojis = ' '.join(random.sample(EMOJIS, n))
+            answer += ' {}'.format(emojis)
+
+        return answer
 
     @staticmethod
     def who(sender, question):
@@ -181,7 +230,8 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += '{} '.format(random.choice(EXPLANATION_STARTERS))
 
-        answer += '{}.'.format(random.choice(NAMES))
+        answer += '{}'.format(random.choice(NAMES))
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
 
         if random.choice([1, 2]) == 1:
             answer += (' {}'.format(random.choice(SUFFIXES)))
@@ -232,7 +282,8 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += '{} '.format(random.choice(PREFIXES))
 
-        answer += '{} i am {}.'.format(sender, core)
+        answer += '{} i am{}'.format(sender, core)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
         answer.replace('?', '')
 
         if random.choice([1, 2]) == 1:
@@ -258,7 +309,8 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += ('{} '.format(random.choice(PREFIXES)))
 
-        answer += '{} i did {}.'.format(sender, core)
+        answer += '{} i did{}'.format(sender, core)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
         message.replace('?', '')
 
         if random.choice([1, 2]) == 1:
@@ -284,7 +336,8 @@ class Answerer:
         if random.choice([1, 2]) == 1:
             answer += '{} '.format(random.choice(PREFIXES))
 
-        answer += '{} i do {}.'.format(sender, core)
+        answer += '{} i do{}'.format(sender, core)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
         answer.replace('?', '')
 
         if random.choice([1, 2]) == 1:
@@ -315,6 +368,7 @@ class Answerer:
         negate = 'not' if random.choice([1, 2]) == 1 else ''
 
         answer += '{} i have {}{}'.format(sender, negate, core)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
         answer.replace('?', '')
 
         if random.choice([1, 2]) == 1:
@@ -355,6 +409,7 @@ class Answerer:
         negate = 'not' if random.choice([1, 2]) == 1 else ''
 
         answer += '{} {} {}{}'.format(sender, random.choice(list(conjugations.values())), negate, core)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
         answer.replace('?', '')
 
         if random.choice([1, 2]) == 1:
@@ -383,6 +438,7 @@ class Answerer:
         negate = 'not' if random.choice([1, 2]) == 1 else ''
 
         answer += '{} i wanna {}{}'.format(sender, negate, core)
+        answer += '! ' if random.choice([1, 2]) == 1 else '. '
         answer.replace('?', '')
 
         if random.choice([1, 2]) == 1:

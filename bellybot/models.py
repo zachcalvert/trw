@@ -16,8 +16,7 @@ GIS_ID = "cc646ee172e69377d"
 GIPHY_API_KEY = "qUzMZY2GSYY8y"
 GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
 
-QUESTION_WORDS = ['who', 'what', 'where', 'when', 'how', 'why']
-QUESTION_PHRASES = {'do you', 'are you', 'have you', 'will you', 'did you'}
+QUESTION_PHRASES = {'who', 'what', 'where', 'when', 'how', 'why', 'do you', 'are you', 'have you', 'will you', 'did you', 'wanna'}
 QUESTION_SWITCHER = {
     'how': Answerer.how,
     'what': Answerer.what,
@@ -29,7 +28,8 @@ QUESTION_SWITCHER = {
     'did you': Answerer.did_you,
     'do you': Answerer.do_you,
     'have you': Answerer.have_you,
-    'will you': Answerer.will_you
+    'will you': Answerer.will_you,
+    'wanna': Answerer.wanna
 }
 
 giphy_api_instance = giphy_client.DefaultApi()
@@ -132,8 +132,6 @@ class GroupMeBot:
                 success, gif = gif_search(search_terms)
                 if success:
                     response = gif
-            elif first_word in QUESTION_WORDS:
-                self.answer_question(sender, message, trigger=first_word)
             else:
                 response = None
 
@@ -157,6 +155,7 @@ class GroupMeBot:
         return
 
     def answer_question(self, sender, message, trigger):
+        print('got a question!!!!')
         responder = QUESTION_SWITCHER.get(trigger, lambda: "Invalid question")
         return responder(sender, message)
 

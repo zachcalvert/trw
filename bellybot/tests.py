@@ -80,11 +80,53 @@ class TestPlayerResponse(BellyBotTestCase):
             mock_send.reset_mock()
 
 
+class TestQuestionResponse(BellyBotTestCase):
+
+    questions_that_get_responses = [
+        'why dont you shit on lish bbot?',
+        'when am i gonna win a damn game bbot?',
+        'bbot how are you this morning?',
+        'who gave you the right bbot?',
+        'where are you from bbot?',
+        'are you sure about that bbot?',
+        'did you remember our little shotgun wager bbot?',
+        'wanna blast cigs in the parking lot bbot?',
+        'do you think i should start deshaun bbot?',
+        'bbot will you remind me to do a shotgun later?',
+        'have you eaten your vegetables today bbot?',
+    ]
+
+    questions_that_dont_get_responses = [
+        'why dont you shit on lish?',
+        'when am i gonna win a damn game?',
+        'how are you this morning?',
+        'who gave you the right?',
+        'where are you from?',
+    ]
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_question_response(self, mock_send):
+        for question in self.questions_that_get_responses:
+            GROUPME_CALLBACK["text"] = question
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_called_once()
+            print(mock_send.call_args)
+            mock_send.reset_mock()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_question_no_response(self, mock_send):
+        for question in self.questions_that_dont_get_responses:
+            GROUPME_CALLBACK["text"] = question
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_not_called
+            mock_send.reset_mock()
+
+
 class TestAnswerer(BellyBotTestCase):
 
     def test_why(self):
         questions = [
-            'why dont you shit on lish bbot?',
+            'bbot why dont you shit on lish?',
             'bbot why is my team so shit?',
             'why didnt they go for 2 there bbot?',
             'bbot why arent i your fave bbr member?',
@@ -111,6 +153,20 @@ class TestAnswerer(BellyBotTestCase):
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
+    def test_how(self):
+        questions = [
+            'how are you so smart and so dumb bbot?',
+            'bbot how are you this morning?',
+            'how is everything going bbot?',
+            'bbot how do you know these things?',
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer.how(sender, question)
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
     def test_who(self):
         questions = [
             'who gave you the right bbot?',
@@ -121,6 +177,19 @@ class TestAnswerer(BellyBotTestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer.who(sender, question)
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
+    def test_where(self):
+        questions = [
+            'where are you from bbot?',
+            'bbot where are you looking forward to going next?',
+            'where does this come from bbot?',
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer.where(sender, question)
             assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
@@ -146,7 +215,7 @@ class TestAnswerer(BellyBotTestCase):
             'i didnt know that, bbot did you know that?',
             'did you think we were done bbot??',
             'you didnt forget about me, did you?',
-            'did you remember our little shotgun wager?'
+            'did you remember our little shotgun wager bbot?'
         ]
         for question in questions:
             sender = random.choice(self.members)
