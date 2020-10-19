@@ -8,6 +8,3 @@ mock
 requests
 
 spacy
-numpy
-textblob
-wolframalpha
