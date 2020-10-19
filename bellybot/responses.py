@@ -189,7 +189,7 @@ RESPONSES = [
     'were gon na suck again lol the saltiest of posts 😂 😂 makes up for NFL_PLAYER so.. lit',
     'BBR_MEMBER, again. that may be ticonderoga , but the girth has left the bbr gods in an L',
     'so BBR_MEMBER... most people stay away from 3 rb committees lol',
-    'batchley ! NFL_PLAYER or julio jones ... what a question',
+    'batchley ! just stop',
     'ill get a belly update when you take that drape for a walk BBR_MEMBER',
     'cheddd 🧀 🧀 🧀 thanks BBR_MEMBER ! and the fast track to the needlejuice dang outs',
     '? ? NFL_PLAYER . Bro ! classic i would trade any of my thiqqs . whoever',
