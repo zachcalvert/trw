@@ -47,8 +47,7 @@ with open('bellybot/data/rostered_players.json') as f:
 class GroupMeBot:
 
     def __init__(self):
-        # self.identifier = "5cfd3e22f775c8db35033e9dd4"
-        self.identifier = '0ea167539344c9b1e822186071'
+        self.identifier = "5cfd3e22f775c8db35033e9dd4"
 
     def send_message(self, message, image=None):
         body = {
@@ -139,7 +138,7 @@ class GroupMeBot:
             question = next((phrase for phrase in QUESTION_PHRASES if phrase in message), None)
             if question:
                 response = self.answer_question(sender, message, trigger=question)
-            else:
+            if not response:
                 response = self.generate_bbot_response(sender)
 
         if not response:
@@ -155,7 +154,6 @@ class GroupMeBot:
         return
 
     def answer_question(self, sender, message, trigger):
-        print('got a question!!!!')
         responder = QUESTION_SWITCHER.get(trigger, lambda: "Invalid question")
         return responder(sender, message)
 
