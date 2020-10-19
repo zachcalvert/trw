@@ -16,5 +16,6 @@ TIMES = [
     'fourth of july',
     'halloween',
     'christmas eve',
-    'next year'
+    'next year',
+    'after chase and status'
 ]
