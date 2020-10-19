@@ -49,7 +49,6 @@ RESPONSES = [
     'sco NFL_PLAYER!!!! 😟 or not lol',
     'yea BBR_MEMBER I had fun battling with you this week. 2 tds baby',
     'frankkkk the tankkkkk lollll BBR_MEMBER is 6 - 88 im not vetoing that shit',
-    'lollll i just got ass fucked by BBR_MEMBER dilly dilly how many drunk driving accidents is that even',
     'by the way commish whats our troll policy, BBR_MEMBER is winless and fucking our asses',
     'heres a moment: when NFL_PLAYER get more snaps, we get more money',
     'need pics need pics need pics',
