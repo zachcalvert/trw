@@ -93,7 +93,7 @@ RESPONSES = [
     'BBR_MEMBER you down to hit vegas august 19th weekend for your bday ? thatll be some some etsy dude',
     'so chill eyaw ! ill be so lit like how i ’m in on my dog after NFL_PLAYER gets his',
     'lit my roommates for sure gon na fleece you BBR_MEMBER!',
-    '😂 😂 😂 ca n’t wait BBR_MEMBER lol you need to get pierced this year tbh',
+    '😂 😂 😂 BBR_MEMBER lolllll you need to get pierced this year tbh',
     'so i went t the titty bar with waksh and BBR_MEMBER, maybe NFL_PLAYER lol',
     'I like NFL_PLAYER quite a bit. even if you dont wow, such a fucking stocking stuffer ! ! ! !',
     '🙄 🙄 🙄 ✏ ️ 🍆 BBR_MEMBER i would just sayin',
@@ -213,7 +213,7 @@ RESPONSES = [
     'NFL_PLAYER is an emergency . fuck canned beans , this shit sucks!!!!',
     'fucking fuck what\'s happening on waivers . right after picking up NFL_PLAYER too',
     'BBR_MEMBER you ate everyone ’s chicken sandos so fucked',
-    'BBR_MEMBER let\'s just imagine you ’re given a fresh wound ok',
+    'a fresh wound for BBR_MEMBER?? sign me up you ass',
     'BBR_MEMBER you are out of your belly piercing mind',
     'cmon BBR_MEMBER ! the suspense is killing me lol of course youre playing squirm edwards',
     'fuck this week why is my ass hole gaping',
@@ -258,7 +258,7 @@ RESPONSES = [
     'i would appreciate it all previously pierced could bench their thiqqs',
     '? ? lol haha im feeling pretty good about getting my first pierce BBR_MEMBER',
     'yeah thats fucked BBR_MEMBER',
-    'the year is 20203. “ good news is its great day at the top, stupid little flamer fuck me',
+    'stupid little flamer!!! fuck!! me!!',
     'auto drafting ... gon na win it all',
     'i will be there BBR_MEMBER we fucked up',
     'see this NFL_PLAYER fool on memphis shorts ? delishous content here planet lish it keeps him warm in the winter',
@@ -280,5 +280,10 @@ RESPONSES = [
     'NFL_PLAYER, a legendary both sides of the fence fuccboi',
     'BBR_MEMBER tryin to sell high on either of the 2 aaron ’s in his ass',
     'damnnn . everyone puttin money on NFL_PLAYER now huh',
-
+    '👏 👏 👏 really appreciate that play by play BBR_MEMBER',
+    'little lish bish thinnbalina be slurpin down that oregon rail',
+    'a win without a flex?? i think thats weak BBR_MEMBER. youve got a redzone bone ! ! !',
+    'im just saying lmfao ... how lucky can one guy be ... fucking NFL_PLAYER',
+    'a classic route to danglin and im out 200 just like that',
+    'im draft driving lol hold on'
 ]
