@@ -28,8 +28,7 @@ with open('bigram_to_bigram_model.json') as f:
 class GroupMeBot:
 
     def __init__(self):
-        # self.identifier = "5cfd3e22f775c8db35033e9dd4"
-        self.identifier = '0ea167539344c9b1e822186071'
+        self.identifier = "5cfd3e22f775c8db35033e9dd4"
 
     def send_message(self, message, image=None):
         body = {
