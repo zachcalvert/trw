@@ -205,6 +205,7 @@ class TestAnswerer(TestCase):
             'where are you from bbot?',
             'bbot where are you looking forward to going next?',
             'where does this come from bbot?',
+            'bbot where were you anyway?'
         ]
         for question in questions:
             sender = random.choice(self.members)
