@@ -132,7 +132,7 @@ html, body {
 
 .missed-checkpoint .checkpoint-goal {
   color: red;
-  top: -55px;
+  top: -56px;
   position: absolute;
   font-size: 25px!important;
   left: -20px;
