@@ -9,6 +9,7 @@ import spacy
 from bellybot.phrases import BB_PHRASES
 from bellybot.questions import Answerer
 from bellybot.responses import RESPONSES
+from bellybot.vocab.rostered_players import NFL_PLAYERS
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
 GROUPME_URL = "https://api.groupme.com/v3/bots/post"
@@ -27,7 +28,8 @@ with open('bigram_to_bigram_model.json') as f:
 class GroupMeBot:
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        # self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        self.identifer = '0ea167539344c9b1e822186071'
 
     def send_message(self, message, image=None):
         body = {
@@ -49,21 +51,25 @@ class GroupMeBot:
     def generate_player_response(self, sender, player):
         random.shuffle(RESPONSES)
         message = next(response for response in RESPONSES if 'NFL_PLAYER' in response)
-        message = message.replace('NFL_PLAYER', player)
+        m = RESPONSES.pop(RESPONSES.index(message))
+        m = m.replace('NFL_PLAYER', player)
 
-        if 'BBR_MEMBER' in message:
-            message = message.replace('BBR_MEMBER', sender)
+        if 'BBR_MEMBER' in m:
+            m = m.replace('BBR_MEMBER', sender)
 
-        return message
+        return m
 
     def generate_bbot_response(self, sender):
         random.shuffle(RESPONSES)
         message = next(response for response in RESPONSES if 'NFL_PLAYER' not in response)
+        print('length is {}'.format(len(RESPONSES)))
+        m = RESPONSES.pop(RESPONSES.index(message))
+        print('length is now {}'.format(len(RESPONSES)))
 
-        if 'BBR_MEMBER' in message:
-            message = message.replace('BBR_MEMBER', sender)
+        if 'BBR_MEMBER' in m:
+            m = m.replace('BBR_MEMBER', sender)
 
-        return message
+        return m
 
     def markov_respond(self, sender, message):
         last_two = ' '.join(message.split()[-2:])
@@ -117,7 +123,7 @@ class GroupMeBot:
         if not response and 'bbot' in message:
             if Answerer.is_question(message):
                 a = Answerer(sender=sender, message=message)
-                response = a.answer(sender, message)
+                response = a.answer()
             if not response:
                 response = self.generate_bbot_response(sender)
 
@@ -133,14 +139,10 @@ class GroupMeBot:
 
         return
 
-    def answer_question(self, sender, message, trigger):
-        responder = QUESTION_SWITCHER.get(trigger, lambda: "Invalid question")
-        return responder(sender, message)
-
     def get_player(self, message):
-        for player in rostered_players.keys():
+        for player in NFL_PLAYERS.keys():
             if player in message:
-                return rostered_players[player]['full_name']
+                return NFL_PLAYERS[player]['full_name']
 
 
 def image_search(search_terms):

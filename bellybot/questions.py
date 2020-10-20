@@ -1,23 +1,38 @@
 import random
 
-from bellybot.vocab.actions import PREPOSITIONS, PAST_ACTIONS
+from bellybot.vocab.actions import PAST_ACTIONS, ONGOING_ACTIONS, INFINITIVE_ACTIONS
+from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS
 from bellybot.vocab.names import NAMES
 from bellybot.vocab.objects import OBJECTS, ARTICLES
 from bellybot.vocab.places import PLACES
 from bellybot.vocab.prefixes import PREFIXES
+from bellybot.vocab.reactions import REACTIONS
 from bellybot.vocab.reasons import REASONS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
 
-STOCK_ANSWERS = [
-    'why would I know that',
-    'hmm thats bordering on impossible for me to answer',
-    'i straight up dont know',
-    'not sure about that one',
-    'idk',
-    'sorry bb im too high rn',
-    'i havent been trained to answer that'
+STALLERS = [
+    'one sec ...',
+    'hmm not sure,',
+    'gimme a moment ..',
+    'my bad,',
+    'sorry,',
+    'thats a tough one,',
+    'fuck, sorry,',
+    'shit, sorry,',
+    'one moment please,',
+    'hold on,',
+    'umm,',
+    'hard to say,',
+    'cant say,',
+    'cant think right now,',
+    'hold please,',
+    'no idea,',
+    'hmmm.. sorry,',
+    'cant think about that right now,',
+    'eyawwwwww,',
+    'chyaaaa,',
 ]
 
 AMOUNTS = [
@@ -25,7 +40,8 @@ AMOUNTS = [
     'everything',
     'shit',
     'shit all',
-    'absolutely nothing'
+    'absolutely nothing',
+    'absolutely everything',
 ]
 
 
@@ -45,21 +61,21 @@ class Answerer(object):
         try:
             return fn(self)
         except Exception:
-            return random.choice(STOCK_ANSWERS)
+            return self.make_excuse()
 
-    def _build_answer(self, prefix=True, core=None, suffix=True, emojis=True):
+    def _build_answer(self, prefix=True, core=None, suffix=True, emojis=True, exclamation=True):
         answer = ''
 
         if prefix:
             answer += f'{random.choice(PREFIXES)} ' if random.choice([1, 2]) == 2 else ''
         if core:
             answer += '{}'.format(core)
-            answer += '! ' if random.choice([1, 2]) == 1 else '. '
+            answer += '! ' if random.choice([1, 2]) == 1 and exclamation else '. '
         if suffix:
             answer += f'{random.choice(SUFFIXES)} ' if random.choice([1, 2]) == 2 else ''
         if emojis:
             if random.choice([1, 3]) == 1:
-                n = random.choice([1, 2, 3, 4])
+                n = random.choice([1, 1, 2])
                 emojis = ' '.join(random.sample(EMOJIS, n))
                 answer += ' {}'.format(emojis)
 
@@ -68,37 +84,72 @@ class Answerer(object):
 
         return answer
 
-
     def _make_subject_swaps(self, core):
-
         return core.replace(' my ', ' your ')\
             .replace(' mine ', ' yours ')\
             .replace(' me ', ' you ')\
             .replace('bbot', '')\
-            .replace(' i ', ' you ')
+            .replace(' i ', ' you ')\
+            .replace('your', 'my')\
+            .replace('though', '')\
+            .replace('yet', '')
+
+    def make_excuse(self):
+        past = [
+            'just',
+            'just now',
+        ]
+        current = [
+            'right now',
+            'right now',
+            'now',
+            'now',
+            'at the moment',
+            'currently'
+        ]
+        future = [
+            'is about to',
+            'is setting up to',
+            'is getting ready to',
+            'is saying he\'s gonna',
+            'is saying he\'s about to',
+            'is threatening to'
+        ]
+
+        # note the reverse order for current! or dont :)
+        whens = {
+            'past': (past, PAST_ACTIONS),
+            'current': (ONGOING_ACTIONS, current),
+            'future': (future, INFINITIVE_ACTIONS)
+        }
+        when = whens[random.choice(['past', 'current', 'future'])]
+        excuse = f'{random.choice(NAMES)} {random.choice(when[0])} {random.choice(when[1])}'
+
+        excuse += f' and {random.choice(REACTIONS)}'
+        core = '{} {}'.format(random.choice(STALLERS), excuse)
+        return self._build_answer(prefix=False, core=core, suffix=False, emojis=False, exclamation=False)
 
     def how(self):
-        core = f'{random.choice(NAMES)} {random.choice(PAST_ACTIONS)} {random.choice(PREPOSITIONS)} ' \
-               f'{random.choice(ARTICLES)} {random.choice(OBJECTS)}'
-
+        return self.make_excuse()
+        core = f'{random.choice(NAMES)} {random.choice(PAST_ACTIONS)} {random.choice(ARTICLES)} {random.choice(OBJECTS)}'
         return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
 
     def what(self):
-        return
+        return self.make_excuse()
 
     def when(self):
         core = '{} {}'.format(random.choice(TIMES), self.sender)
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def where(self):
         core = '{}'.format(random.choice(PLACES))
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def who(self):
         if 'waiver' in self.message:
             pass
         core = '{}'.format(random.choice(NAMES))
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def why(self):
         _, question = self.message.split('why')
@@ -107,7 +158,7 @@ class Answerer(object):
         core = 'because' if random.choice([1, 2]) == 2 else 'cause'
         core += ' {} {}'.format(random.choice(NAMES), random.choice(REASONS))
 
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def are_you(self):
         _, question = self.message.split('are you')
@@ -187,7 +238,8 @@ class Answerer(object):
 
         negate = 'not' if random.choice([1, 2]) == 1 else ''
         first_punc = '!' if random.choice([1, 2]) == 1 else '.'
-        core = '{}{} i wanna {}{}'.format(self.sender, first_punc, negate, core)
+        adverb = random.choice(ADVERBS) if random.choice([1, 2]) == 1 else ''
+        core = '{}{} i {} wanna {}{}'.format(self.sender, first_punc, adverb, negate, core)
         return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
 
 

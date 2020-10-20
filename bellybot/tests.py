@@ -26,106 +26,122 @@ GROUPME_CALLBACK = {
 headers = {'Content-Type': 'application/json'}
 
 
-# class BellyBotTestCase(TestCase):
-#
-#     url = reverse('new_message')
-#     players = ['Travis Kelce', 'Dalvin Cook', 'Deshaun Watson', 'Brandin Cooks', 'Chase Claypool']
-#     members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
-#
-#     def test_get_not_allowed(self):
-#         response = self.client.get(self.url)
-#         self.assertEqual(response.status_code, 405)
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_no_bot_response(self, mock_send):
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_not_called
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_speak(self, mock_send):
-#         GROUPME_CALLBACK["text"] = "bbot speak"
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_called_once()
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_multiple_bbots(self, mock_send):
-#         GROUPME_CALLBACK["text"] = "bbot gif bbot"
-#         self.client.post(self.url, GROUPME_CALLBACK)
-#         mock_send.assert_called_once()
-#
-#
-# class TestBbotResponse(BellyBotTestCase):
-#     url = reverse('new_message')
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_get_bbot_from_message(self, mock_send):
-#         for member in self.members:
-#             GROUPME_CALLBACK["name"] = member
-#             GROUPME_CALLBACK["text"] = "i think bbot is really confused"
-#             self.client.post(self.url, GROUPME_CALLBACK)
-#             mock_send.assert_called_once()
-#             print(mock_send.call_args)
-#             mock_send.reset_mock()
-#
-#
-# class TestPlayerResponse(BellyBotTestCase):
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_get_player_from_message(self, mock_send):
-#         for player in self.players:
-#             GROUPME_CALLBACK["text"] = f"{player} is sucking wtf"
-#             self.client.post(self.url, GROUPME_CALLBACK)
-#             mock_send.assert_called_once()
-#             print(mock_send.call_args)
-#             mock_send.reset_mock()
+class BellyBotTestCase(TestCase):
+
+    url = reverse('new_message')
+    players = ['Travis Kelce', 'Dalvin Cook', 'Deshaun Watson', 'Brandin Cooks', 'Chase Claypool']
+    members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
+
+    def test_get_not_allowed(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 405)
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_no_bot_response(self, mock_send):
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_not_called
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_speak(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot speak"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_multiple_bbots(self, mock_send):
+        GROUPME_CALLBACK["text"] = "bbot gif bbot"
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
 
 
-# class TestQuestionResponse(BellyBotTestCase):
-#
-#     questions_that_get_responses = [
-#         'why dont you shit on lish bbot?',
-#         'when am i gonna win a damn game bbot?',
-#         'bbot how are you this morning?',
-#         'who gave you the right bbot?',
-#         'where are you from bbot?',
-#         'are you sure about that bbot?',
-#         'did you remember our little shotgun wager bbot?',
-#         'wanna blast cigs in the parking lot bbot?',
-#         'do you think i should start deshaun bbot?',
-#         'bbot will you remind me to do a shotgun later?',
-#         'have you eaten your vegetables today bbot?',
-#     ]
-#
-#     questions_that_dont_get_responses = [
-#         'why dont you shit on lish?',
-#         'when am i gonna win a damn game?',
-#         'how are you this morning?',
-#         'who gave you the right?',
-#         'where are you from?',
-#     ]
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_question_response(self, mock_send):
-#         for question in self.questions_that_get_responses:
-#             GROUPME_CALLBACK["text"] = question
-#             self.client.post(self.url, GROUPME_CALLBACK)
-#             mock_send.assert_called_once()
-#             print(mock_send.call_args)
-#             mock_send.reset_mock()
-#
-#     @mock.patch('bellybot.models.GroupMeBot.send_message')
-#     def test_question_no_response(self, mock_send):
-#         for question in self.questions_that_dont_get_responses:
-#             GROUPME_CALLBACK["text"] = question
-#             self.client.post(self.url, GROUPME_CALLBACK)
-#             mock_send.assert_not_called
-#             mock_send.reset_mock()
+class TestBbotResponse(BellyBotTestCase):
+    url = reverse('new_message')
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_get_bbot_from_message(self, mock_send):
+        for member in self.members:
+            GROUPME_CALLBACK["name"] = member
+            GROUPME_CALLBACK["text"] = "i think bbot is really confused"
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_called_once()
+            print(mock_send.call_args)
+            mock_send.reset_mock()
+
+
+class TestPlayerResponse(BellyBotTestCase):
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_get_player_from_message(self, mock_send):
+        for player in self.players:
+            GROUPME_CALLBACK["text"] = f"{player} is sucking wtf"
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_called_once()
+            print(mock_send.call_args)
+            mock_send.reset_mock()
+
+
+class TestQuestionResponse(BellyBotTestCase):
+
+    questions_that_get_responses = [
+        'why dont you shit on lish bbot?',
+        'when am i gonna win a damn game bbot?',
+        'bbot how are you this morning?',
+        'who gave you the right bbot?',
+        'where are you from bbot?',
+        'are you sure about that bbot?',
+        'did you remember our little shotgun wager bbot?',
+        'wanna blast cigs in the parking lot bbot?',
+        'do you think i should start deshaun bbot?',
+        'bbot will you remind me to do a shotgun later?',
+        'have you eaten your vegetables today bbot?',
+    ]
+
+    questions_that_dont_get_responses = [
+        'why dont you shit on lish?',
+        'when am i gonna win a damn game?',
+        'how are you this morning?',
+        'who gave you the right?',
+        'where are you from?',
+    ]
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_question_response(self, mock_send):
+        for question in self.questions_that_get_responses:
+            GROUPME_CALLBACK["text"] = question
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_called_once()
+            print(mock_send.call_args)
+            mock_send.reset_mock()
+
+    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    def test_question_no_response(self, mock_send):
+        for question in self.questions_that_dont_get_responses:
+            GROUPME_CALLBACK["text"] = question
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_not_called
+            mock_send.reset_mock()
 
 
 class TestAnswerer(TestCase):
 
     players = ['Travis Kelce', 'Dalvin Cook', 'Deshaun Watson', 'Brandin Cooks', 'Chase Claypool']
     members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
+
+    def test_what(self):
+        questions = [
+            'bbot whats the plan tonight?',
+            'what do you think about Watson bbot?',
+            'what is your purpose bbot?',
+            'bbot what can I do to help?',
+            'what is the point of all this bbot?',
+            'what do you want from life bbot?'
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer(sender, question).answer()
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
 
     def test_why(self):
         questions = [

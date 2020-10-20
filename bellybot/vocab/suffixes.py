@@ -44,5 +44,12 @@ SUFFIXES = [
     'fuckin lol dude',
     'fuckin lol',
     'shit slaps tbh',
-    'if i do say so myself'
+    'if i do say so myself',
+    'fleeced',
+    'fucking fleeced',
+    'that\'s some booty',
+    'complete booty',
+    'not thick at all',
+    'not thick',
+    'fucking thiqq!'
 ]

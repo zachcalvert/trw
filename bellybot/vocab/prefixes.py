@@ -28,6 +28,6 @@ PREFIXES = [
     'yupp',
     'yup',
     'honestly',
-    'you know what',
+    'you know what,',
     'true'
 ]
