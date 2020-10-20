@@ -10,5 +10,5 @@ PLACES = [
     'la',
     'socal',
     'my ass',
-    'miami'
+    'miami',
 ]

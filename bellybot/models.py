@@ -16,22 +16,6 @@ GIS_ID = "cc646ee172e69377d"
 GIPHY_API_KEY = "qUzMZY2GSYY8y"
 GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
 
-QUESTION_PHRASES = {'who', 'what', 'where', 'when', 'how', 'why', 'do you', 'are you', 'have you', 'will you', 'did you', 'wanna'}
-QUESTION_SWITCHER = {
-    'how': Answerer.how,
-    'what': Answerer.what,
-    'when': Answerer.when,
-    'where': Answerer.where,
-    'who': Answerer.who,
-    'why': Answerer.why,
-    'are you': Answerer.are_you,
-    'did you': Answerer.did_you,
-    'do you': Answerer.do_you,
-    'have you': Answerer.have_you,
-    'will you': Answerer.will_you,
-    'wanna': Answerer.wanna
-}
-
 giphy_api_instance = giphy_client.DefaultApi()
 
 # Load English tokenizer, tagger, parser, NER and word vectors
@@ -39,10 +23,6 @@ nlp = spacy.load("en_core_web_sm")
 
 with open('bigram_to_bigram_model.json') as f:
     model = json.load(f)
-
-with open('bellybot/data/rostered_players.json') as f:
-    rostered_players = json.load(f)
-
 
 class GroupMeBot:
 
@@ -135,9 +115,9 @@ class GroupMeBot:
                 response = None
 
         if not response and 'bbot' in message:
-            question = next((phrase for phrase in QUESTION_PHRASES if phrase in message), None)
-            if question:
-                response = self.answer_question(sender, message, trigger=question)
+            if Answerer.is_question(message):
+                a = Answerer(sender=sender, message=message)
+                response = a.answer(sender, message)
             if not response:
                 response = self.generate_bbot_response(sender)
 

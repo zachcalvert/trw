@@ -1,5 +1,6 @@
 TIMES = [
     'never',
+    'anytime',
     'last night',
     'yesterday',
     'this morning',

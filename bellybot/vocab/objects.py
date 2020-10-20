@@ -15,19 +15,20 @@ ARTICLES = [
 ]
 
 OBJECTS = [
-    'piercing',
+    'pierce',
     'BBR',
     'beer',
     'PBR',
     'shotgun',
-    'coors',
+    'coors light',
     'couch',
     'bed',
     'wax',
     'beef',
-    'fully prepped shotguns',
+    'fully prepped shotgun',
     'L',
     'massive L',
     'lineup',
     'roster',
+    'stable'
 ]

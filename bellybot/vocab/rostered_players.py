@@ -1,4 +1,4 @@
-{
+NFL_PLAYERS = {
 	"elliott": {
 		"full_name": "ezekiel elliott"
 	},
