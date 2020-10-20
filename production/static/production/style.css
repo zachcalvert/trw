@@ -82,7 +82,7 @@ html, body {
 .work-order-progress-wrapper {
   position: relative;
   height: auto;
-  padding: 30px 0 0;
+  padding: 40px 0 0;
 }
 
 .checkpoint, .a-checkpoint {
@@ -119,15 +119,31 @@ html, body {
 }
 
 .missed-checkpoint .checkpoint-marker {
-  border-left: 3px solid red;
+  border-left: 15px solid red;
+  border-radius: 10px;
+  height: 85px;
+  position: absolute;
+  top: -25px;
+  -webkit-animation: MISSED-CHECKPOINT-ANIMATION 2s infinite ease-in;  /* Safari 4+ */
+  -moz-animation: MISSED-CHECKPOINT-ANIMATION 2s infinite ease-in;  /* Fx 5+ */
+  -o-animation: MISSED-CHECKPOINT-ANIMATION 2s infinite;  /* Opera 12+ */
+  animation: MISSED-CHECKPOINT-ANIMATION 2s infinite;  /* IE 10+, Fx 29+ */
 }
 
 .missed-checkpoint .checkpoint-goal {
   color: red;
+  top: -55px;
+  position: absolute;
+  font-size: 25px!important;
+  left: -20px;
 }
 
 .missed-checkpoint .checkpoint-date {
   color: red;
+  top: 58px;
+  position: absolute;
+  left: -18px;
+  font-size: 23px;
 }
 
 .work-order-goal {
@@ -191,4 +207,19 @@ html, body {
   left: 0;
   padding-left: 10px;
   position: absolute;
+}
+
+.quadrat {
+  width: 50px;
+  height: 50px;
+
+}
+
+@-webkit-keyframes MISSED-CHECKPOINT-ANIMATION {
+  0%, 49% {
+    border: 3px solid #FF0000;
+  }
+  50%, 100% {
+    border: 3px solid #9D1309;
+  }
 }
