@@ -15,3 +15,5 @@ EMOJIS = [
     '😳 😳', '😳',
     '🏌',
 ]
+
+LAUGHING = ['lol', 'loll', 'lollll', 'lmao', 'lmfao', 'lmfaoo', '😂 😂 😂', '😂 😂', '😂', '🤣 🤣 🤣', '🤣 🤣', '🤣',]

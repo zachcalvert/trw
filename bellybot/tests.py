@@ -336,3 +336,20 @@ class TestFavoriteTeam(TestCase):
                 assert 'GO LIONS!' in mock_send.call_args
                 print(mock_send.call_args)
                 mock_send.reset_mock()
+
+
+class TestJoke(BellyBotTestCase):
+
+    messages = [
+        'bbot tell me joke',
+        'bbot how about another joke',
+        'joke bbot',
+    ]
+
+    def test_question_response(self):
+        for message in self.messages:
+            sender = random.choice(self.members)
+            response = Answerer(sender, message).answer()
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, message))
+            print('belly bot: {}'.format(response))

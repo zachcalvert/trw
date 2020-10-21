@@ -2,8 +2,9 @@ import random
 
 from bellybot.vocab.actions import PAST_ACTIONS, ONGOING_ACTIONS, INFINITIVE_ACTIONS
 from bellybot.vocab.adverbs import ADVERBS
-from bellybot.vocab.emojis import EMOJIS
+from bellybot.vocab.emojis import EMOJIS, LAUGHING
 from bellybot.vocab.emotions import EMOTIONS
+from bellybot.vocab.jokes import JOKES
 from bellybot.vocab.names import NAMES
 from bellybot.vocab.places import PLACES
 from bellybot.vocab.prefixes import PREFIXES
@@ -42,7 +43,7 @@ class Answerer(object):
         except Exception:
             return self.make_excuse()
 
-    def _build_answer(self, prefix=True, core=None, suffix=True, emojis=True, exclamation=True):
+    def _build_answer(self, prefix=True, core=None, suffix=True, emojis=True, exclamation=True, laughing=False):
         answer = ''
 
         if prefix:
@@ -57,6 +58,10 @@ class Answerer(object):
                 n = random.choice([1, 1, 2])
                 emojis = ' '.join(random.sample(EMOJIS, n))
                 answer += ' {}'.format(emojis)
+        if laughing:
+            n = random.choice([1, 2, 3])
+            emojis = ' '.join(random.sample(LAUGHING, n))
+            answer += ' {}'.format(emojis)
 
         answer = " ".join(answer.split())  # remove any duplicate spaces
         return answer
@@ -245,6 +250,12 @@ class Answerer(object):
         ]
         return random.choice(lions)
 
+    def joke(self):
+        player = random.choice(list(JOKES.keys()))
+        core = '{}? more like {}!'.format(player, random.choice(JOKES[player]))
+        core += ' roasted' if random.choice([1,2,3]) == 1 else ''
+        return self._build_answer(prefix=False, core=core, suffix=False, emojis=False, laughing=True)
+
 
 QUESTION_SWITCHER = {
     'how': Answerer.how,
@@ -260,4 +271,5 @@ QUESTION_SWITCHER = {
     'will you': Answerer.will_you,
     'wanna': Answerer.wanna,
     'nickname': Answerer.nickname,
+    'joke': Answerer.joke,
 }
