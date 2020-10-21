@@ -26,7 +26,7 @@ with open('bigram_to_bigram_model.json') as f:
 class BellyBot:
 
     def __init__(self):
-        self.identifier = "test" # "5cfd3e22f775c8db35033e9dd4"
+        self.identifier = "5cfd3e22f775c8db35033e9dd4"
 
     def send_message(self, message, image=None):
         body = {
