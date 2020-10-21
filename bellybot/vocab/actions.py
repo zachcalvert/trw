@@ -23,7 +23,9 @@ PAST_ACTIONS = [
     'sacked up',
     'did a strikeout',
     'ate my ass',
-    'ate everyone\'s ass'
+    'ate everyone\'s ass',
+    'was salty',
+    'ate splashed potatoes',
 ]
 
 ONGOING_ACTIONS = [
@@ -52,6 +54,8 @@ ONGOING_ACTIONS = [
     'is ripping ass',
     'is macking',
     'is sacking up',
+    'is being salty',
+    'is eating splashed potatoes',
 ]
 
 INFINITIVE_ACTIONS = [
@@ -84,4 +88,6 @@ INFINITIVE_ACTIONS = [
     'sack up',
     'throw hands',
     'do a strikeout',
+    'be salty',
+    'eat splashed potatoes',
 ]

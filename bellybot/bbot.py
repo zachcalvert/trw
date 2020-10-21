@@ -6,26 +6,25 @@ import giphy_client
 from giphy_client.rest import ApiException
 import spacy
 
+from bellybot.answerer import Answerer
 from bellybot.phrases import BB_PHRASES
-from bellybot.questions import Answerer
 from bellybot.responses import RESPONSES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
-GROUPME_URL = "https://api.groupme.com/v3/bots/post"
-GIS_ID = "cc646ee172e69377d"
 GIPHY_API_KEY = "qUzMZY2GSYY8y"
+GIS_ID = "cc646ee172e69377d"
 GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
+GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 
 giphy_api_instance = giphy_client.DefaultApi()
-
-# Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
 
 with open('bigram_to_bigram_model.json') as f:
     model = json.load(f)
 
-class GroupMeBot:
+
+class BellyBot:
 
     def __init__(self):
         self.identifier = "5cfd3e22f775c8db35033e9dd4"

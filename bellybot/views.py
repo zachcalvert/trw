@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from bellybot.models import GroupMeBot
+from bellybot.bbot import BellyBot
 
 
 @csrf_exempt
@@ -25,6 +25,6 @@ def new_message(request):
         return HttpResponse(status=204)
 
     if content["sender_type"] != "bot":
-        GroupMeBot().respond(sender, message_content)
+        BellyBot().respond(sender, message_content)
 
     return HttpResponse(status=204)

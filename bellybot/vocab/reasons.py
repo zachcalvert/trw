@@ -63,5 +63,6 @@ REASONS = [
     'is getting tatted',
     'is in my ass',
     'is inside my ass',
-    'is all the way inside my ass'
+    'is all in my ass',
+    'is shotgunning in the pit'
 ]

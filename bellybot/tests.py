@@ -5,7 +5,8 @@ import random
 from django.urls import reverse
 from django.test import TestCase
 
-from bellybot.models import GroupMeBot, Answerer
+from bellybot.answerer import Answerer
+from bellybot.bbot import BellyBot
 from groupme_messages import MESSAGES
 
 GROUPME_CALLBACK = {
@@ -36,18 +37,18 @@ class BellyBotTestCase(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 405)
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_no_bot_response(self, mock_send):
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_not_called
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_speak(self, mock_send):
         GROUPME_CALLBACK["text"] = "bbot speak"
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_called_once()
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_multiple_bbots(self, mock_send):
         GROUPME_CALLBACK["text"] = "bbot gif bbot"
         self.client.post(self.url, GROUPME_CALLBACK)
@@ -57,7 +58,7 @@ class BellyBotTestCase(TestCase):
 class TestBbotResponse(BellyBotTestCase):
     url = reverse('new_message')
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_get_bbot_from_message(self, mock_send):
         for member in self.members:
             GROUPME_CALLBACK["name"] = member
@@ -70,7 +71,7 @@ class TestBbotResponse(BellyBotTestCase):
 
 class TestPlayerResponse(BellyBotTestCase):
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_get_player_from_message(self, mock_send):
         for player in self.players:
             GROUPME_CALLBACK["text"] = f"{player} is sucking wtf"
@@ -104,7 +105,7 @@ class TestQuestionResponse(BellyBotTestCase):
         'where are you from?',
     ]
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_question_response(self, mock_send):
         for question in self.questions_that_get_responses:
             GROUPME_CALLBACK["text"] = question
@@ -113,7 +114,7 @@ class TestQuestionResponse(BellyBotTestCase):
             print(mock_send.call_args)
             mock_send.reset_mock()
 
-    @mock.patch('bellybot.models.GroupMeBot.send_message')
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_question_no_response(self, mock_send):
         for question in self.questions_that_dont_get_responses:
             GROUPME_CALLBACK["text"] = question

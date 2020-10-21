@@ -3,7 +3,7 @@ import random
 
 from django.core.management.base import BaseCommand, CommandError
 
-from bellybot.models import GroupMeBot
+from bellybot.bbot import GroupMeBot
 from groupme_messages import MESSAGES
 
 
