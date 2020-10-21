@@ -38,6 +38,10 @@ PAST_ACTIONS = [
     'got dropped',
     'dropped my ass',
     'threw me in an uber',
+    'ordered breakfast burritos',
+    'trolled my ass in pong',
+    'canceled red zone',
+    'got back on tinder',
 ]
 
 ONGOING_ACTIONS = [
@@ -59,8 +63,8 @@ ONGOING_ACTIONS = [
     'is eating everyone\'s ass',
     'is whipping ass',
     'is cutting lines',
-    'jacking off',
-    'prepping a strikeout',
+    'is jacking off',
+    'is prepping a strikeout',
     'is ripping ass',
     'is macking',
     'is sacking up',
@@ -69,19 +73,23 @@ ONGOING_ACTIONS = [
     'is wrecking shop',
     'is talking trades',
     'is betting a benjamin on his matchup',
-    'drinking bb juice',
+    'is drinking bb juice',
     'is getting pierced',
     'is walking home',
     'is getting blacked',
-    'drenching my ass',
+    'is drenching my ass',
     'is fucking fleecing me',
     'is liking his own comment',
     'is autodrafting',
     'is straight waxing',
     'is getting dropped everywhere',
     'is dropping my ass',
-    'throwing zingers my way',
-    'tossing me in an uber',
+    'is throwing zingers my way',
+    'is tossing me in an uber',
+    'is ordering breakfast burritos',
+    'is trolling my ass in pong',
+    'is canceling red zone',
+    'is back on tinder',
 ]
 
 INFINITIVE_ACTIONS = [
@@ -131,4 +139,8 @@ INFINITIVE_ACTIONS = [
     'drop my ass',
     'throw zingers my way',
     'throw me in an uber',
+    'order breakfast burritos',
+    'troll my ass in pong',
+    'cancel red zone',
+    'get back on tinder',
 ]
