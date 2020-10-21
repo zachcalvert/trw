@@ -55,7 +55,6 @@ REACTIONS = [
     'i shit the bed again',
     'i missed my curfew last night',
     'everyone really appreciates my ass',
-    'im a soggy bottoms bitch',
     'im scott hansens backup',
     'everyone is setting the drenchmark',
     'im stuck in the dangle submarine',

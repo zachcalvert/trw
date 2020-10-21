@@ -1,4 +1,3 @@
-import json
 import mock
 import random
 
@@ -6,8 +5,6 @@ from django.urls import reverse
 from django.test import TestCase
 
 from bellybot.answerer import Answerer
-from bellybot.bbot import BellyBot
-from groupme_messages import MESSAGES
 
 GROUPME_CALLBACK = {
   "attachments": [],
@@ -300,3 +297,42 @@ class TestAnswerer(TestCase):
             assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
+
+
+class TestNewNickname(TestCase):
+
+    members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
+
+    def test_new_nickname(self):
+        questions = [
+            'bbot can I get a new nickname?',
+            'bbot how about another nickname?',
+            'can i get another nickname bbot',
+            'sure would love a new nickname bbot',
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer(sender, question).answer()
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
+
+class TestFavoriteTeam(TestCase):
+
+    def test_new_nickname(self):
+        messages = [
+            'bbot who is your favorite team?',
+            'bbot do you like the lions?',
+            'woah the lions won',
+        ]
+
+        @mock.patch('bellybot.bbot.BellyBot.send_message')
+        def test_question_response(self, mock_send):
+            for message in messages:
+                GROUPME_CALLBACK["text"] = message
+                self.client.post(self.url, GROUPME_CALLBACK)
+                mock_send.assert_called_once()
+                assert 'GO LIONS!' in mock_send.call_args
+                print(mock_send.call_args)
+                mock_send.reset_mock()

@@ -7,7 +7,6 @@ from giphy_client.rest import ApiException
 import spacy
 
 from bellybot.answerer import Answerer
-from bellybot.phrases import BB_PHRASES
 from bellybot.responses import RESPONSES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 
@@ -27,7 +26,7 @@ with open('bigram_to_bigram_model.json') as f:
 class BellyBot:
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        self.identifier = "test" # "5cfd3e22f775c8db35033e9dd4"
 
     def send_message(self, message, image=None):
         body = {
@@ -69,26 +68,9 @@ class BellyBot:
 
         return m
 
-    def markov_respond(self, sender, message):
-        last_two = ' '.join(message.split()[-2:])
-        response = []
-
-        sentence_length = random.choice(range(6, 15))
-        for i in range(sentence_length):
-            try:
-                phrase = random.choice(model["bigram_model"][last_two])
-            except KeyError:
-                break
-
-            response.append(phrase)
-            last_two = phrase
-
-        return ' '.join(response)
-
     def respond(self, sender, message):
         response = None
         image = None
-
         message = message.lower()
 
         if message == 'bad bot':
@@ -101,13 +83,9 @@ class BellyBot:
             except ValueError:
                 first_word = command
 
-            if first_word == 'speak':
-                response = random.choice(BB_PHRASES)
-
-            elif first_word == 'image':
+            if first_word == 'image':
                 _, search_terms = message.split('bbot image ')
                 response = search_terms
-
                 success, image = image_search(search_terms)
 
             elif first_word == 'gif':
@@ -115,8 +93,12 @@ class BellyBot:
                 success, gif = gif_search(search_terms)
                 if success:
                     response = gif
-            else:
-                response = None
+
+        if 'lions' in message:
+            print('GO LIONS')
+            search = Answerer(sender=sender, message=message).go_lions()
+            success, image = image_search(search)
+            response = 'GO LIONS!'
 
         if not response and 'bbot' in message:
             if Answerer.is_question(message):

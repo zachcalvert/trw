@@ -3,45 +3,24 @@ import random
 from bellybot.vocab.actions import PAST_ACTIONS, ONGOING_ACTIONS, INFINITIVE_ACTIONS
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS
+from bellybot.vocab.emotions import EMOTIONS
 from bellybot.vocab.names import NAMES
-from bellybot.vocab.objects import OBJECTS, ARTICLES
 from bellybot.vocab.places import PLACES
 from bellybot.vocab.prefixes import PREFIXES
 from bellybot.vocab.reactions import REACTIONS
 from bellybot.vocab.reasons import REASONS
+from bellybot.vocab.stallers import STALLERS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
-
-STALLERS = [
-    'one sec ...',
-    'hmm not sure,',
-    'gimme a moment ..',
-    'my bad,',
-    'sorry,',
-    'thats a tough one,',
-    'fuck, sorry,',
-    'shit, sorry,',
-    'one moment please,',
-    'hold on,',
-    'umm,',
-    'hard to say,',
-    'cant say,',
-    'cant think right now,',
-    'hold please,',
-    'no idea,',
-    'hmmm.. sorry,',
-    'cant think about that right now,',
-    'eyawwwwww,',
-    'chyaaaa,',
-]
+from team_names import TEAM_NAMES
 
 AMOUNTS = [
     'nothing',
     'everything',
     'shit',
     'shit all',
-    'absolutely nothing',
-    'absolutely everything',
+    'absolutely zero',
+    'everything',
 ]
 
 
@@ -79,9 +58,7 @@ class Answerer(object):
                 emojis = ' '.join(random.sample(EMOJIS, n))
                 answer += ' {}'.format(emojis)
 
-        # remove any duplicate spaces
-        answer = " ".join(answer.split())
-
+        answer = " ".join(answer.split())  # remove any duplicate spaces
         return answer
 
     def _make_subject_swaps(self, core):
@@ -130,9 +107,11 @@ class Answerer(object):
         return self._build_answer(prefix=False, core=core, suffix=False, emojis=False, exclamation=False)
 
     def how(self):
-        return self.make_excuse()
-        core = f'{random.choice(NAMES)} {random.choice(PAST_ACTIONS)} {random.choice(ARTICLES)} {random.choice(OBJECTS)}'
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        if 'are you' in self.message:
+            core = 'im {}'.format(random.choice(EMOTIONS))
+            return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        else:
+            return self.make_excuse()
 
     def what(self):
         return self.make_excuse()
@@ -148,7 +127,11 @@ class Answerer(object):
     def who(self):
         if 'waiver' in self.message:
             pass
-        core = '{}'.format(random.choice(NAMES))
+        if 'favorite team' in self.message:
+            core = 'the lions'
+        else:
+            core = '{}'.format(random.choice(NAMES))
+
         return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def why(self):
@@ -242,6 +225,26 @@ class Answerer(object):
         core = '{}{} i {} wanna {}{}'.format(self.sender, first_punc, adverb, negate, core)
         return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
 
+    def nickname(self):
+        if 'new nickname' in self.message or 'another nickname' in self.message:
+            new_nickname = TEAM_NAMES.pop()
+            response = 'ok {}, your new nickname is {}'.format(self.sender, new_nickname)
+            return response
+        else:
+            return None
+
+    def go_lions(self):
+        lions = [
+            'calvin johnson',
+            'barry sanders',
+            'charlie batch lions',
+            'matt stafford',
+            'detroit lions',
+            'go detroit lions',
+            'detroit lions',
+        ]
+        return random.choice(lions)
+
 
 QUESTION_SWITCHER = {
     'how': Answerer.how,
@@ -255,5 +258,6 @@ QUESTION_SWITCHER = {
     'do you': Answerer.do_you,
     'have you': Answerer.have_you,
     'will you': Answerer.will_you,
-    'wanna': Answerer.wanna
+    'wanna': Answerer.wanna,
+    'nickname': Answerer.nickname,
 }
