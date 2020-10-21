@@ -1,9 +1,14 @@
 """Generate random chat messages via a markov chain churning through every message ever sent in the GroupMe """
+import json
 import random
 
 from django.core.management.base import BaseCommand, CommandError
 
 from groupme_messages import MESSAGES
+
+
+with open('bigram_to_bigram_model.json') as f:
+    model = json.load(f)
 
 
 class Command(BaseCommand):

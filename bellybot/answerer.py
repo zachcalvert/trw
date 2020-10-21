@@ -89,15 +89,19 @@ class Answerer(object):
             'now',
             'now',
             'at the moment',
-            'currently'
+            'currently',
+            'presently'
         ]
         future = [
+            'just said hes gonna',
             'is about to',
             'is setting up to',
             'is getting ready to',
             'is saying he\'s gonna',
             'is saying he\'s about to',
-            'is threatening to'
+            'is threatening to',
+            'is prepping to',
+            'is fixing to',
         ]
 
         # note the reverse order for current! or dont :)

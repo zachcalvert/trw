@@ -19,9 +19,6 @@ GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 giphy_api_instance = giphy_client.DefaultApi()
 nlp = spacy.load("en_core_web_sm")
 
-with open('bigram_to_bigram_model.json') as f:
-    model = json.load(f)
-
 
 class BellyBot:
 
