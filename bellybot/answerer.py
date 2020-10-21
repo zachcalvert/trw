@@ -10,6 +10,7 @@ from bellybot.vocab.places import PLACES
 from bellybot.vocab.prefixes import PREFIXES
 from bellybot.vocab.reactions import REACTIONS
 from bellybot.vocab.reasons import REASONS
+from bellybot.vocab.rostered_players import NFL_PLAYERS
 from bellybot.vocab.stallers import STALLERS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
@@ -27,10 +28,11 @@ AMOUNTS = [
 
 class Answerer(object):
 
-    def __init__(self, sender, message):
+    def __init__(self, sender, message, player=None):
         self.sender = sender
         self.message = message
         self.trigger = next((phrase for phrase in QUESTION_SWITCHER.keys() if phrase in message), None)
+        self.player = player
 
     @staticmethod
     def is_question(message):
@@ -251,8 +253,15 @@ class Answerer(object):
         return random.choice(lions)
 
     def joke(self):
-        player = random.choice(list(JOKES.keys()))
-        core = '{}? more like {}!'.format(player, random.choice(JOKES[player]))
+        if self.player:
+            player = self.player
+        else:
+            player = random.choice(list(JOKES.keys()))
+        try:
+            core = '{}? more like {}!'.format(player, JOKES[player].pop())
+        except IndexError:
+            return None
+
         core += ' roasted' if random.choice([1,2,3]) == 1 else ''
         return self._build_answer(prefix=False, core=core, suffix=False, emojis=False, laughing=True)
 

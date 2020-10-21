@@ -45,7 +45,11 @@ class BellyBot:
         if response.status_code < 200 or response.status_code > 299:
             print('ERROR posting to GroupMe: {}: {}'.format(response.status_code, response.content))
 
-    def generate_player_response(self, sender, player):
+    def generate_player_response(self, sender, message, player):
+        if random.choice([1, 2]) == 1:
+            message = "joke " + message
+            return Answerer(sender, message, player).answer()
+
         random.shuffle(RESPONSES)
         message = next(response for response in RESPONSES if 'NFL_PLAYER' in response)
         m = RESPONSES.pop(RESPONSES.index(message))
@@ -69,8 +73,9 @@ class BellyBot:
         return m
 
     def respond(self, sender, message):
-        response = None
         image = None
+        response = None
+        player = None
         message = message.lower()
 
         if message == 'bad bot':
@@ -95,22 +100,21 @@ class BellyBot:
                     response = gif
 
         if 'lions' in message:
-            print('GO LIONS')
             search = Answerer(sender=sender, message=message).go_lions()
             success, image = image_search(search)
             response = 'GO LIONS!'
 
+        if not response:
+            player = self.get_player(message)
+
         if not response and 'bbot' in message:
             if Answerer.is_question(message):
-                a = Answerer(sender=sender, message=message)
-                response = a.answer()
+                response = Answerer(sender=sender, message=message, player=player).answer()
             if not response:
                 response = self.generate_bbot_response(sender)
 
-        if not response:
-            player = self.get_player(message)
-            if player:
-                response = self.generate_player_response(sender, self.get_player(message))
+        if not response and player:
+            response = self.generate_player_response(sender, message, self.get_player(message))
 
         print('received {}, so I am sending a response of {}'.format(message, response))
 
@@ -123,6 +127,7 @@ class BellyBot:
         for player in NFL_PLAYERS.keys():
             if player in message:
                 return NFL_PLAYERS[player]['full_name']
+        return None
 
 
 def image_search(search_terms):

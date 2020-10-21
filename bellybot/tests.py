@@ -341,15 +341,24 @@ class TestFavoriteTeam(TestCase):
 class TestJoke(BellyBotTestCase):
 
     messages = [
-        'bbot tell me joke',
-        'bbot how about another joke',
-        'joke bbot',
+        'bbot joke hopkins',
+        'tell me a joke bbot',
+        'would love another joke bbot'
     ]
 
     def test_question_response(self):
         for message in self.messages:
             sender = random.choice(self.members)
-            response = Answerer(sender, message).answer()
+            response = Answerer(sender, message, player='deshaun watson').answer()
             assert isinstance(response, str)
             print('{}: {}'.format(sender, message))
             print('belly bot: {}'.format(response))
+
+    @mock.patch('bellybot.bbot.BellyBot.send_message')
+    def test_question_response(self, mock_send):
+        for question in self.messages:
+            GROUPME_CALLBACK["text"] = question
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_called_once()
+            print(mock_send.call_args)
+            mock_send.reset_mock()

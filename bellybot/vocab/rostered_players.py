@@ -89,7 +89,7 @@ NFL_PLAYERS = {
 	"herbert": {
 		"full_name": "justin herbert"
 	},
-	"cook": {
+	"cook ": {
 		"full_name": "dalvin cook"
 	},
 	"jones": {
