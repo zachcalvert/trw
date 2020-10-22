@@ -89,9 +89,6 @@ NFL_PLAYERS = {
 	"herbert": {
 		"full_name": "justin herbert"
 	},
-	"cook ": {
-		"full_name": "dalvin cook"
-	},
 	"jones": {
 		"full_name": "aaron jones"
 	},
@@ -118,9 +115,6 @@ NFL_PLAYERS = {
 	},
 	"henry": {
 		"full_name": "derrick henry"
-	},
-	"white": {
-		"full_name": "james white"
 	},
 	"mattison": {
 		"full_name": "alexander mattison"
@@ -242,10 +236,7 @@ NFL_PLAYERS = {
 	"beckham": {
 		"full_name": "odell beckham jr."
 	},
-	"bell": {
-		"full_name": "le'veon bell"
-	},
-	"hunt": {
+	"kareem": {
 		"full_name": "kareem hunt"
 	},
 	"mclaurin": {

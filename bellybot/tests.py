@@ -66,18 +66,6 @@ class TestBbotResponse(BellyBotTestCase):
             mock_send.reset_mock()
 
 
-class TestPlayerResponse(BellyBotTestCase):
-
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
-    def test_get_player_from_message(self, mock_send):
-        for player in self.players:
-            GROUPME_CALLBACK["text"] = f"{player} is sucking wtf"
-            self.client.post(self.url, GROUPME_CALLBACK)
-            mock_send.assert_called_once()
-            print(mock_send.call_args)
-            mock_send.reset_mock()
-
-
 class TestQuestionResponse(BellyBotTestCase):
 
     questions_that_get_responses = [
@@ -92,6 +80,7 @@ class TestQuestionResponse(BellyBotTestCase):
         'do you think i should start deshaun bbot?',
         'bbot will you remind me to do a shotgun later?',
         'have you eaten your vegetables today bbot?',
+        'bbot comment on deshaun watson please'
     ]
 
     questions_that_dont_get_responses = [
@@ -100,6 +89,7 @@ class TestQuestionResponse(BellyBotTestCase):
         'how are you this morning?',
         'who gave you the right?',
         'where are you from?',
+        'what do you think about deshaun watson?'
     ]
 
     @mock.patch('bellybot.bbot.BellyBot.send_message')
