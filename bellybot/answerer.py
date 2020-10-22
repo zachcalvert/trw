@@ -1,5 +1,6 @@
 import random
 
+from bellybot.responses import RESPONSES
 from bellybot.vocab.actions import PAST_ACTIONS, ONGOING_ACTIONS, INFINITIVE_ACTIONS
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS, LAUGHING
@@ -28,14 +29,14 @@ AMOUNTS = [
 
 class Answerer(object):
 
-    def __init__(self, sender, message, player=None):
+    def __init__(self, sender, message):
         self.sender = sender
         self.message = message
         self.trigger = next((phrase for phrase in QUESTION_SWITCHER.keys() if phrase in message), None)
-        self.player = player
+        self.player = self.get_player()
 
     @staticmethod
-    def is_question(message):
+    def should_answer(message):
         return next((phrase for phrase in QUESTION_SWITCHER.keys() if phrase in message), None) is not None
 
     def answer(self):
@@ -243,6 +244,12 @@ class Answerer(object):
             return response
         else:
             return None
+
+    def get_player(self):
+        for player in NFL_PLAYERS.keys():
+            if player in self.message:
+                return NFL_PLAYERS[player]['full_name']
+        return None
 
     def go_lions(self):
         lions = [
