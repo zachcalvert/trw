@@ -1,30 +1,26 @@
+import json
+import os
 import random
 
-from bellybot.responses import RESPONSES
-from bellybot.vocab.actions import PAST_ACTIONS, ONGOING_ACTIONS, INFINITIVE_ACTIONS
+import redis
+
+from bellybot.context.actions import ACTIONS
+from bellybot.context.people import ALL_PEOPLE
+from bellybot.context.places import PLACES
+from bellybot.context.reactions import ANTICIPATION_PREFIXES, ANTICIPATIONS, REACTION_PREFIXES, REACTIONS, CURRENT_PREFIXES
+from bellybot.context.times import TIME_CONTEXTS
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS, LAUGHING
-from bellybot.vocab.emotions import EMOTIONS
 from bellybot.vocab.jokes import JOKES
-from bellybot.vocab.names import NAMES
-from bellybot.vocab.places import PLACES
 from bellybot.vocab.prefixes import PREFIXES
-from bellybot.vocab.reactions import REACTIONS
 from bellybot.vocab.reasons import REASONS
 from bellybot.vocab.rostered_players import NFL_PLAYERS
-from bellybot.vocab.stallers import STALLERS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
 from team_names import TEAM_NAMES
 
-AMOUNTS = [
-    'nothing',
-    'everything',
-    'shit',
-    'shit all',
-    'absolutely zero',
-    'everything',
-]
+redis_host = os.environ.get('REDISHOST', 'localhost')
+cache = redis.StrictRedis(host=redis_host, port=6379)
 
 
 class Answerer(object):
@@ -44,7 +40,7 @@ class Answerer(object):
         try:
             return fn(self)
         except Exception:
-            return self.make_excuse()
+            return self.give_update()
 
     def _build_answer(self, prefix=True, core=None, suffix=True, emojis=True, exclamation=True, laughing=False):
         answer = ''
@@ -79,70 +75,93 @@ class Answerer(object):
             .replace('though', '')\
             .replace('yet', '')
 
-    def make_excuse(self):
-        past = [
-            'just',
-            'just now',
-        ]
-        current = [
-            'right now',
-            'right now',
-            'now',
-            'now',
-            'at the moment',
-            'currently',
-            'presently'
-        ]
-        future = [
-            'just said hes gonna',
-            'is about to',
-            'is setting up to',
-            'is getting ready to',
-            'is saying he\'s gonna',
-            'is saying he\'s about to',
-            'is threatening to',
-            'is prepping to',
-            'is fixing to',
-        ]
+    def _increment_time(self, when):
+        times = list(TIME_CONTEXTS.keys())
+        new_time = times[times.index(when) + 1]
+        return new_time
 
-        # note the reverse order for current! or dont :)
-        whens = {
-            'past': (past, PAST_ACTIONS),
-            'current': (ONGOING_ACTIONS, current),
-            'future': (future, INFINITIVE_ACTIONS)
+    def create_context(self):
+        subject = random.choice(ALL_PEOPLE)
+        action = random.choice(list(ACTIONS.keys()))
+        object = random.choice(ACTIONS[action]['objects'])
+
+        location = random.choice(PLACES)
+
+        bbot_context = {
+            "who": ["me", subject, random.choice(ALL_PEOPLE)],
+            "where": location,
+            "what": {
+                "subject": subject,
+                "action": action,
+                "object":  object,
+                "anticipation": random.choice(ANTICIPATIONS),
+                "reaction":  random.choice(REACTIONS),
+            },
+            "when": "future",
         }
-        when = whens[random.choice(['past', 'current', 'future'])]
-        excuse = f'{random.choice(NAMES)} {random.choice(when[0])} {random.choice(when[1])}'
+        cache.set("bbot", json.dumps(bbot_context))
+        return bbot_context
 
-        excuse += f' and {random.choice(REACTIONS)}'
-        core = '{} {}'.format(random.choice(STALLERS), excuse)
-        return self._build_answer(prefix=False, core=core, suffix=False, emojis=False, exclamation=False)
+    def give_update(self):
+        try:
+            context = json.loads(cache.get("bbot"))
+            context['when'] = self._increment_time(context['when'])
+        except (TypeError, IndexError):
+            context = self.create_context()
+
+        subject = context['what']['subject']
+        when_helper = random.choice(TIME_CONTEXTS[context['when']])
+        action = ACTIONS[context['what']['action']][context['when']]
+        object = context['what']['object']
+
+        update = f'{subject}'
+        if context['when'] == 'present':
+            update += f" {action} {object} {when_helper}"
+        else:
+            update += f" {when_helper} {action} {object}"
+
+        if context['when'] == 'future':
+            update = f"{random.choice(ANTICIPATION_PREFIXES)} {update} and {context['what']['anticipation']}"
+        elif context['when'] == 'present':
+            update = f"{random.choice(CURRENT_PREFIXES)} {update}"
+        elif context['when'] == 'past':
+            update = f"{random.choice(REACTION_PREFIXES)} {update} and {context['what']['reaction']}"
+
+        cache.set("bbot", json.dumps(context))
+        update = " ".join(update.split())
+        return update
 
     def how(self):
-        if 'are you' in self.message:
-            core = 'im {}'.format(random.choice(EMOTIONS))
-            return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
-        else:
-            return self.make_excuse()
+        if 'nickname' in self.message:
+            return self.nickname()
+        return self.give_update()
 
     def what(self):
-        return self.make_excuse()
+        return self.give_update()
 
     def when(self):
         core = '{} {}'.format(random.choice(TIMES), self.sender)
         return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def where(self):
-        core = '{}'.format(random.choice(PLACES))
+        if 'where are you' in self.message:
+            context = json.loads(cache.get("bbot"))
+            core = context['where']
+        else:
+            core = '{}'.format(random.choice(PLACES))
         return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def who(self):
-        if 'waiver' in self.message:
-            pass
-        if 'favorite team' in self.message:
+        if 'who\'s there' in self.message or 'is there' in self.message:
+            try:
+                context = json.loads(cache.get("bbot"))
+                core = ' '.join(context['who'])
+            except (KeyError):
+                pass
+        elif 'favorite team' in self.message:
             core = 'the lions'
         else:
-            core = '{}'.format(random.choice(NAMES))
+            core = '{}'.format(random.choice(ALL_PEOPLE))
 
         return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
@@ -151,7 +170,7 @@ class Answerer(object):
         core, _ = question.split('?', 1)
 
         core = 'because' if random.choice([1, 2]) == 2 else 'cause'
-        core += ' {} {}'.format(random.choice(NAMES), random.choice(REASONS))
+        core += ' {} {}'.format(random.choice(ALL_PEOPLE), random.choice(REASONS))
 
         return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
@@ -162,7 +181,7 @@ class Answerer(object):
         if core:
             core = self._make_subject_swaps(core)
             if 'gonna do' in core:
-                core = core.replace('gonna do', 'gonna do {}'.format(random.choice(AMOUNTS)))
+                core = core.replace('gonna do', 'gonna do something')
 
         negate = 'not' if random.choice([1, 2]) == 1 else ''
         core = '{} i am {}{}'.format(self.sender, negate, core)

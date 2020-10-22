@@ -5,6 +5,6 @@ django-admin-sortable2
 
 giphy_client
 mock
+redis==3.5.3
 requests
-
 spacy

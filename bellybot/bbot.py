@@ -1,9 +1,11 @@
 import json
+import os
 import random
 import requests
 
 import giphy_client
 from giphy_client.rest import ApiException
+import redis
 import spacy
 
 from bellybot.answerer import Answerer
@@ -72,7 +74,7 @@ class BellyBot:
         response = None
         message = message.lower()
 
-        if message == 'bad bot':
+        if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
 
         if message.startswith('bbot '):
@@ -93,7 +95,7 @@ class BellyBot:
                 if success:
                     response = gif
 
-        if 'lions' in message:
+        if not response and 'lions' in message:
             search = Answerer(sender=sender, message=message).go_lions()
             success, image = image_search(search)
             response = 'GO LIONS!'

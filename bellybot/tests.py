@@ -352,3 +352,13 @@ class TestJoke(BellyBotTestCase):
             mock_send.assert_called_once()
             print(mock_send.call_args)
             mock_send.reset_mock()
+
+
+class TestExcuses(TestCase):
+
+    member = 'zach'
+    message = 'what do you think about that bbot?'
+
+    def test_question_response(self):
+        for i in range(50):
+            print(Answerer(self.member,self. message).give_update())

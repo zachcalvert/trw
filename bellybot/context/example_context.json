@@ -1,0 +1,39 @@
+{
+  "bbot": {
+    "who": ["chase claypool", "shanye"],
+    "where": "the pit",
+    "what": {
+      "subject": "chase claypool",
+      "action": "cancel",
+      "object":  "redzone",
+      "reaction":  {
+        "subject": "shanye",
+        "reaction": ""
+      }
+    },
+    "when": "future",
+  },
+  "bbr": {
+    "trav": {
+      "place": 1,
+      "recent_transaction": "",
+      "players": [
+        "austin ekeler": {
+          "average_points": 16.9,
+          "nfl_team": "LAC",
+          "position": "RB",
+          "position_rank": 12
+        },
+        "aaron rodgers": {
+          "average_points": 26.9,
+          "nfl_team": "NOR",
+          "position": "QB",
+          "position_rank": 3
+        }
+      ]
+    },
+    "shane": {
+
+    },
+  }
+}
