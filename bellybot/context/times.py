@@ -6,6 +6,8 @@ TIMES = {
         'is getting ready to',
         'is saying he\'s gonna',
         'is saying he\'s about to',
+        'keeps saying he\'s gonna',
+        'won\'t stop talking about how he\'s gonna',
         'is threatening to',
         'is prepping to',
         'is fixing to',
@@ -17,10 +19,13 @@ TIMES = {
         'now',
         'at the moment',
         'currently',
-        'presently'
+        'presently',
+        'as promised'
      ],
     'past': [
         'just',
         'just now',
+        '',
+        ''
     ]
 }

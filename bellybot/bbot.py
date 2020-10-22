@@ -12,6 +12,7 @@ from bellybot.answerer import Answerer
 from bellybot.context.actions import ACTIONS
 from bellybot.context.people import ALL_PEOPLE, MEMBERS, PLAYERS
 from bellybot.context.places import PLACES
+from bellybot.context.reactions import ANTICIPATION_PREFIXES, ANTICIPATIONS, REACTION_PREFIXES, REACTIONS, CURRENT_PREFIXES
 from bellybot.context.times import TIMES
 from bellybot.responses import RESPONSES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
@@ -121,7 +122,8 @@ class BellyBot:
 
     def _increment_time(self, when):
         times = list(TIMES.keys())
-        return times[times.index(when) + 1]
+        new_time = times[times.index(when) + 1]
+        return new_time
 
     def create_context(self):
         subject = random.choice(ALL_PEOPLE)
@@ -136,36 +138,45 @@ class BellyBot:
                 "subject": subject,
                 "action": action,
                 "object":  object,
-                "reaction":  {
-                    "who": "",
-                    "what": ""
-                }
+                "anticipation": random.choice(ANTICIPATIONS),
+                "reaction":  random.choice(REACTIONS),
             },
-            "when": "future"
+            "when": "future",
         }
+
+        if random.choice([1,2]) == 1:
+            bbot_context["who"].append(random.choice(ALL_PEOPLE))
+
         cache.set("bbot", json.dumps(bbot_context))
         return bbot_context
 
     def get_context(self):
         try:
             context = json.loads(cache.get("bbot"))
-            self._increment_time(context['when'])
+            context['when'] = self._increment_time(context['when'])
         except (KeyError, IndexError):
             context = self.create_context()
 
         subject = context['what']['subject']
-        details = random.choice(TIMES[context['when']])
-        action = ACTIONS[context['action'][context['when']]]
+        when_helper = random.choice(TIMES[context['when']])
+        action = ACTIONS[context['what']['action']][context['when']]
+        object = context['what']['object']
 
         update = f'{subject}'
         if context['when'] == 'present':
-            update += f' {action} {details}'
+            update += f" {action} {object} {when_helper}"
         else:
-            update += f' {details} {action}'
+            update += f" {when_helper} {action} {object}"
 
-        update += f' {context["object"]}'
+        if context['when'] == 'future':
+            update = f"{random.choice(ANTICIPATION_PREFIXES)} {update} and {context['what']['anticipation']}"
+        elif context['when'] == 'present':
+            update = f"{random.choice(CURRENT_PREFIXES)} {update}"
+        elif context['when'] == 'past':
+            update = f"{random.choice(REACTION_PREFIXES)} {update} and now {context['what']['reaction']}"
 
         cache.set("bbot", json.dumps(context))
+        update = " ".join(update.split())
         return update
 
 

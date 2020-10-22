@@ -430,7 +430,6 @@ RESPONSES = [
     '😂 😂 😂 😂 😂 pee wee squirman squirm edwards out here at least someone trying right BBR_MEMBER',
     'i feel violated u wore a condom right BBR_MEMBER?',
     '😂 lishful thinking BBR_MEMBER we def need to involve vegas',
-    'gettin it in. . . im fucking .. 🙃 🙃',
     'as magical as this he died for our belly sins and was asleep by nine',
     'ive eased into 2 acquisitions who are you offering iv lubed up 2',
     'NLF_PLAYER ! ! bitch ass just dropping passes left and right',

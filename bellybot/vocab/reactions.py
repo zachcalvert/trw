@@ -81,4 +81,5 @@ REACTIONS = [
     'im a little dazed',
     'im a little bit dazed',
     'im fucked up',
+    'i gotta bounce'
 ]
