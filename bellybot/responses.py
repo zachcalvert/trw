@@ -155,7 +155,7 @@ RESPONSES = [
     'lol why ? PLAYER_NAME was born on 9/11',
     'i dont even need to draft well BBR_MEMBER. just a little shade for the ride',
     'hahaha BBR_MEMBER your proposals are such trade rapes ca nt do it. if you dont want my thiqq boy just say so',
-    'i already fell in love with strippers once BR_MEMBER, even the worlds greatest warriors lose a battle every now and then',
+    'i already fell in love with strippers once BBR_MEMBER, even the worlds greatest warriors lose a battle every now and then',
     '💩 dude same thing get NFL_PLAYER on the ballot',
     'asquirmative',
     'BBR_MEMBER you ’re okay man. update : almost tore my mcl',

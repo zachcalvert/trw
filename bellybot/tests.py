@@ -361,4 +361,4 @@ class TestExcuses(TestCase):
 
     def test_question_response(self):
         for i in range(50):
-            print(Answerer(self.member,self. message).make_excuse())
+            print(Answerer(self.member,self. message).give_update())

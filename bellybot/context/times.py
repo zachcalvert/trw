@@ -1,4 +1,4 @@
-TIMES = {
+TIME_CONTEXTS = {
     'future': [
         'just said hes gonna',
         'is about to',

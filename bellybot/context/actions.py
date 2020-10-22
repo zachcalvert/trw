@@ -1,8 +1,7 @@
 # this map ensures our verbs make grammatical sense
 # no reactions in here; any action should be able to potentially receive any reaction
 
-from bellybot.context.people import ALL_PEOPLE
-
+from bellybot.context.people import ALL_PEOPLE, PLAYERS
 
 ACTIONS = {
   "shotgun": {
@@ -28,6 +27,12 @@ ACTIONS = {
     "present": "is whooping",
     "future": "whoop",
     "objects": ["my ass"]
+  },
+  "beat": {
+    "past": "beat",
+    "present": "is beating",
+    "future": "beat",
+    "objects": ["my ass", "off"]
   },
   "smoke": {
     "past": "smoked",
@@ -67,7 +72,7 @@ ACTIONS = {
   },
   "like": {
     "past": "liked",
-    "present": "liking",
+    "present": "is liking",
     "future": "like",
     "objects": ["his own comment"],
   },
@@ -93,7 +98,7 @@ ACTIONS = {
     "past": "pulled",
     "present": "is pulling",
     "future": "pull",
-    "objects": ["it together", "it off", "off an epic comeback"],
+    "objects": ["it together", "off the W", "off an epic comeback"],
   },
   "lose": {
     "past": "lost",
@@ -111,13 +116,19 @@ ACTIONS = {
     "past": "fleeced",
     "present": "is fleecing",
     "future": "fleece",
-    "objects": ["me", "my ass", "everyone"],
+    "objects": ["me", "my ass"],
+  },
+  "fucking fleece": {
+    "past": "fucking fleeced",
+    "present": "is fucking fleecing",
+    "future": "fleece",
+    "objects": ["me", "my ass"],
   },
   "eat": {
     "past": "ate",
     "present": "is eating",
     "future": "eat",
-    "objects": ["my ass", "all the chicken sandos", "that ass", "a breakfast burrito", "that ahh", "a bag of dicks"],
+    "objects": ["my ass", "all the chicken sandos", "that ass", "a breakfast burrito", "that ahh", "a bag of dicks", "splashed potatoes"],
   },
   "walk": {
     "past": "walked",
@@ -133,14 +144,110 @@ ACTIONS = {
   },
   "throw": {
     "past": "threw",
-    "present": "throw",
+    "present": "is throwing",
     "future": "throw",
-    "objects": ["hands", "up"],
+    "objects": ["hands", "up", "me in an uber", "down"],
   },
   "wax": {
     "past": "waxed",
-    "present": "wax",
+    "present": "is waxing",
     "future": "wax",
-    "objects": ["my ass", "that ass", ""],
+    "objects": ["my ass", "that ass", "nostalgic"],
+  },
+  "rip": {
+    "past": "ripped",
+    "present": "is ripping",
+    "future": "rip",
+    "objects": ["ass", "my borthole open"],
+  },
+  "spit": {
+    "past": "spat",
+    "present": "is spitting",
+    "future": "spit",
+    "objects": ["game", "rhymes"],
+  },
+  "be": {
+    "past": "was being",
+    "present": "is being",
+    "future": "be",
+    "objects": ["a bish", "a botch", "an ass", "a complete ass"],
+  },
+  "christian ponder": {
+    "past": "christian pondered",
+    "present": "is christian pondering",
+    "future": "christian ponder",
+    "objects": ["my trade offer", "my contributions to the squaw"],
+  },
+  "drop": {
+    "past": "dropped",
+    "present": "is dropping",
+    "future": "drop",
+    "objects": ["my ass"] + PLAYERS,
+  },
+  "trade": {
+    "past": "traded",
+    "present": "is trading",
+    "future": "trade",
+    "objects": ["my ass"] + PLAYERS,
+  },
+  "bench": {
+    "past": "benched",
+    "present": "is benching",
+    "future": "bench",
+    "objects": ["my ass"] + PLAYERS,
+  },
+  "start": {
+    "past": "started",
+    "present": "is starting",
+    "future": "start",
+    "objects": ["my ass"] + PLAYERS,
+  },
+  "cut": {
+    "past": "cut",
+    "present": "is cutting",
+    "future": "cut",
+    "objects": ["lines"],
+  },
+  "wreck": {
+    "past": "wrecked",
+    "present": "is wrecking",
+    "future": "wreck",
+    "objects": ["my ass", "shop"],
+  },
+  "pierce": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["pierced"],
+  },
+  "wet": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["wet"],
+  },
+  "blacked": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["blacked"],
+  },
+  "high as balls": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["high as balls"],
+  },
+  "wrecked on molly": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["wrecked on molly"],
+  },
+  "railed": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["railed"],
   },
 }
