@@ -1,12 +1,18 @@
 import json
+import os
 import random
 import requests
 
 import giphy_client
 from giphy_client.rest import ApiException
+import redis
 import spacy
 
 from bellybot.answerer import Answerer
+from bellybot.context.actions import ACTIONS
+from bellybot.context.people import ALL_PEOPLE, MEMBERS, PLAYERS
+from bellybot.context.places import PLACES
+from bellybot.context.times import TIMES
 from bellybot.responses import RESPONSES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 
@@ -19,6 +25,8 @@ GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 giphy_api_instance = giphy_client.DefaultApi()
 nlp = spacy.load("en_core_web_sm")
 
+redis_host = os.environ.get('REDISHOST', 'localhost')
+cache = redis.StrictRedis(host=redis_host, port=6379)
 
 class BellyBot:
 
@@ -119,6 +127,55 @@ class BellyBot:
             self.send_message(response, image)
 
         return
+
+    def _increment_time(self, when):
+        times = list(TIMES.keys())
+        return times[times.index(when) + 1]
+
+    def create_context(self):
+        subject = random.choice(ALL_PEOPLE)
+        action = random.choice(list(ACTIONS.keys()))
+        object = random.choice(ACTIONS[action]['objects'])
+        location = random.choice(PLACES)
+
+        bbot_context = {
+            "who": ["bbot", subject],
+            "where": location,
+            "what": {
+                "subject": subject,
+                "action": action,
+                "object":  object,
+                "reaction":  {
+                    "who": "",
+                    "what": ""
+                }
+            },
+            "when": "future"
+        }
+        cache.set("bbot", json.dumps(bbot_context))
+        return bbot_context
+
+    def get_context(self):
+        try:
+            context = json.loads(cache.get("bbot"))
+            self._increment_time(context['when'])
+        except (KeyError, IndexError):
+            context = self.create_context()
+
+        subject = context['what']['subject']
+        details = random.choice(TIMES[context['when']])
+        action = ACTIONS[context['action'][context['when']]]
+
+        update = f'{subject}'
+        if context['when'] == 'present':
+            update += f' {action} {details}'
+        else:
+            update += f' {details} {action}'
+
+        update += f' {context["object"]}'
+
+        cache.set("bbot", json.dumps(context))
+        return update
 
     def get_player(self, message):
         for player in NFL_PLAYERS.keys():
