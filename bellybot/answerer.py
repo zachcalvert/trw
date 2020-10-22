@@ -9,7 +9,6 @@ from bellybot.context.people import ALL_PEOPLE
 from bellybot.context.places import PLACES
 from bellybot.context.reactions import ANTICIPATION_PREFIXES, ANTICIPATIONS, REACTION_PREFIXES, REACTIONS, CURRENT_PREFIXES
 from bellybot.context.times import TIME_CONTEXTS
-
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS, LAUGHING
 from bellybot.vocab.jokes import JOKES
@@ -22,10 +21,6 @@ from team_names import TEAM_NAMES
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
 cache = redis.StrictRedis(host=redis_host, port=6379)
-
-USED_SUBJECTS = []
-USED_ACTIONS = []
-USED_OBJECTS = []
 
 
 class Answerer(object):
