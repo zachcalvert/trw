@@ -99,6 +99,15 @@ class BellyBot:
         if not response and 'power rankings' in message:
             response = espn_wrapper.get_power_rankings()
 
+        if not response and 'trophies' in message:
+            response = espn_wrapper.get_trophies()
+
+        if not response and 'projections' in message:
+            response = espn_wrapper.get_projected_scoreboard()
+
+        if not response and 'close matchups':
+            response = espn_wrapper.get_close_scores()
+
         if not response and 'bbot' in message:
             if Answerer.should_answer(message):
                 response = Answerer(sender=sender, message=message).answer()
