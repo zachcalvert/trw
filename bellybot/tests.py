@@ -40,12 +40,6 @@ class BellyBotTestCase(TestCase):
         mock_send.assert_not_called
 
     @mock.patch('bellybot.bbot.BellyBot.send_message')
-    def test_speak(self, mock_send):
-        GROUPME_CALLBACK["text"] = "bbot speak"
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
-
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
     def test_multiple_bbots(self, mock_send):
         GROUPME_CALLBACK["text"] = "bbot gif bbot"
         self.client.post(self.url, GROUPME_CALLBACK)
