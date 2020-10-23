@@ -23,7 +23,7 @@ nlp = spacy.load("en_core_web_sm")
 class BellyBot:
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
+        self.identifier = "0ea167539344c9b1e822186071"
 
     def send_message(self, message, image=None):
         body = {
@@ -99,6 +99,8 @@ class BellyBot:
                 response = Answerer(sender=sender, message=message).answer()
             if not response:
                 response = self.generate_bbot_response(sender, message)
+
+        print('received {}, so I am sending a response of {}'.format(message, response))
 
         if response:
             self.send_message(response, image)
