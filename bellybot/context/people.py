@@ -147,7 +147,6 @@ PLAYERS = [
     'dk swetcalf',
     'bill belichick',
     'greg holsen',
-    'lil yachty',
 ]
 
 
@@ -156,6 +155,12 @@ OTHERS = [
     'my dad',
     'my older brother',
     'the ceo of gucci',
+    'lil yachty',
+    'Juicy Josh Scrillipman',
+    'Damian Lillard',
+    'Shaq',
+    'Fred Skinstone',
+    'Stabo Swinney'
 ]
 
 ALL_PEOPLE = MEMBERS + PLAYERS + OTHERS
