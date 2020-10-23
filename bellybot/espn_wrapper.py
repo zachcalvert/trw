@@ -80,11 +80,11 @@ class ESPNWrapper:
 
         low_score_str = ['Low score: %s with %.2f points' % (low_team_name, low_score)]
         high_score_str = ['High score: %s with %.2f points' % (high_team_name, high_score)]
-        close_score_str = ['%s barely beat %s by a margin of %.2f' % (close_winner, close_loser, closest_score)]
+        close_score_str = ['Nailbiter: %s barely beat %s by a margin of %.2f points' % (close_winner, close_loser, closest_score)]
         blowout_str = [
-            '%s blown out by %s by a margin of %.2f' % (blown_out_team_name, ownerer_team_name, biggest_blowout)]
+            'Wax of the week: %s blew out %s by a margin of %.2f points' % (ownerer_team_name, blown_out_team_name, biggest_blowout)]
 
-        text = ['Trophies of the week:'] + low_score_str + high_score_str + close_score_str + blowout_str
+        text = [f'Week {week} Trophies:'] + low_score_str + high_score_str + close_score_str + blowout_str
         return '\n'.join(text)
 
     def get_projected_scoreboard(self, week=None):
@@ -121,4 +121,14 @@ class ESPNWrapper:
         if not score:
             return ('')
         text = ['Close Scores'] + score
+        return '\n'.join(text)
+
+    def scoreboard(self, week=None):
+        scores = []
+        scoreboard = self.league.box_scores(week=week)
+
+        for matchup in scoreboard:
+            scores += ['%s %.2f - %.2f %s' % (matchup.home_team.team_name, matchup.home_score, matchup.away_score, matchup.away_team.team_name)]
+            text = ['Scoreboard'] + scores
+
         return '\n'.join(text)
