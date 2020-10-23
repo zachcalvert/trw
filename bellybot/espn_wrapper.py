@@ -34,9 +34,33 @@ class ESPNWrapper:
         text = ['Power Rankings'] + score
         return '\n'.join(text)
 
+    def players_of_the_week(self, week=None):
+        over_points = 0
+        under_points = 0
+        star = None
+        bust = None
+
+        if not week:
+            week = self.league.current_week - 1
+
+        boxes = self.league.box_scores(week=week)
+        for box in boxes:
+            box.home_lineup.extend(box.away_lineup)
+            for player in box.home_lineup:
+                player_diff = player.points - player.projected_points
+                if player_diff > over_points:
+                    over_points = player_diff
+                    star = player
+                elif player_diff < under_points:
+                    under_points = player_diff
+                    bust = player
+
+        return star, bust
+
     def get_trophies(self, week=None):
         # Gets trophies for highest score, lowest score, closest score, and biggest win
-        week = self.league.current_week - 1
+        if not week:
+            week = self.league.current_week - 1
         matchups = self.league.box_scores(week=week)
         low_score = 9999
         low_team_name = ''
@@ -86,7 +110,12 @@ class ESPNWrapper:
         blowout_str = [
             'Wax of the week: %s blew out %s by %.2f points' % (ownerer_team_name, blown_out_team_name, biggest_blowout)]
 
-        text = [f'Week {week} Trophies:'] + low_score_str + high_score_str + close_score_str + blowout_str
+        star, bust = self.players_of_the_week(week)
+        star_str = ['Star of the week: {} scored {} points ({} projected)'.format(star.name, star.points, star.projected_points)]
+        bust_str = [
+            'Bust of the week: {} scored {} points ({} projected)'.format(bust.name, bust.points, bust.projected_points)]
+
+        text = [f'Week {week} Trophies:'] + low_score_str + high_score_str + close_score_str + blowout_str + star_str + bust_str
         return '\n'.join(text)
 
     def get_projected_scoreboard(self, week=None):
