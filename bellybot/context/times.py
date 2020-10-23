@@ -12,16 +12,16 @@ TIME_CONTEXTS = {
         'is prepping to',
         'is fixing to',
     ],
-    'present': [
-        'right now',
-        'right now',
-        'now',
-        'now',
-        'at the moment',
-        'currently',
-        'presently',
-        'as promised'
-     ],
+    # 'present': [
+    #     'right now',
+    #     'right now',
+    #     'now',
+    #     'now',
+    #     'at the moment',
+    #     'currently',
+    #     'presently',
+    #     'as promised'
+    #  ],
     'past': [
         'just',
         'just now',

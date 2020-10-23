@@ -9,14 +9,14 @@ from bellybot.context.people import ALL_PEOPLE
 from bellybot.context.places import PLACES
 from bellybot.context.reactions import ANTICIPATION_PREFIXES, ANTICIPATIONS, REACTION_PREFIXES, REACTIONS, CURRENT_PREFIXES
 from bellybot.context.times import TIME_CONTEXTS
+
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS, LAUGHING
-from bellybot.vocab.jokes import JOKES
 from bellybot.vocab.prefixes import PREFIXES
-from bellybot.vocab.reasons import REASONS
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
+
 from team_names import TEAM_NAMES
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
@@ -84,7 +84,6 @@ class Answerer(object):
         subject = random.choice(ALL_PEOPLE)
         action = random.choice(list(ACTIONS.keys()))
         object = random.choice(ACTIONS[action]['objects'])
-
         location = random.choice(PLACES)
 
         bbot_context = {
@@ -166,15 +165,12 @@ class Answerer(object):
         return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
 
     def why(self):
-        _, question = self.message.split('why')
-        core, _ = question.split('?', 1)
-
-        core = 'because' if random.choice([1, 2]) == 2 else 'cause'
-        core += ' {} {}'.format(random.choice(ALL_PEOPLE), random.choice(REASONS))
-
-        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
+        return self.give_update()
 
     def are_you(self):
+        if 'how are you' in self.message:
+            return self.give_update()
+
         _, question = self.message.split('are you')
         core, _ = question.split('?', 1)
 
@@ -283,17 +279,7 @@ class Answerer(object):
         return random.choice(lions)
 
     def joke(self):
-        if self.player:
-            player = self.player
-        else:
-            player = random.choice(list(JOKES.keys()))
-        try:
-            core = '{}? more like {}!'.format(player, JOKES[player].pop())
-        except IndexError:
-            return None
-
-        core += ' roasted' if random.choice([1,2,3]) == 1 else ''
-        return self._build_answer(prefix=False, core=core, suffix=False, emojis=False, laughing=True)
+        return self.give_update()
 
 
 QUESTION_SWITCHER = {

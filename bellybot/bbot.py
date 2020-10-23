@@ -1,15 +1,13 @@
 import json
-import os
 import random
 import requests
 
 import giphy_client
 from giphy_client.rest import ApiException
-import redis
 import spacy
 
 from bellybot.answerer import Answerer
-from bellybot.responses import RESPONSES
+from bellybot.vocab.responses import MEMBER_RESPONSES, PLAYER_RESPONSES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 
 ESPN_URL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2020/segments/0/leagues/832593"
@@ -51,23 +49,19 @@ class BellyBot:
         return None
 
     def generate_bbot_response(self, sender, message):
-        random.shuffle(RESPONSES)
-
         player = self._get_player(message)
         if player:
-            response = next(r for r in RESPONSES if 'NFL_PLAYER' in r)
-            m = RESPONSES.pop(RESPONSES.index(response))
-            m = m.replace('NFL_PLAYER', player)
+            random.shuffle(PLAYER_RESPONSES)
+            response = PLAYER_RESPONSES.pop()
+            response = response.replace('NFL_PLAYER', player)
         else:
-            response = next(r for r in RESPONSES if 'NFL_PLAYER' not in r)
-            m = RESPONSES.pop(RESPONSES.index(response))
+            random.shuffle(MEMBER_RESPONSES)
+            response = MEMBER_RESPONSES.pop()
 
-        if 'BBR_MEMBER' in m:
-            m = m.replace('BBR_MEMBER', sender)
+        if 'BBR_MEMBER' in response:
+            response = response.replace('BBR_MEMBER', sender)
 
-        print('length is now {}'.format(len(RESPONSES)))
-
-        return m
+        return response
 
     def respond(self, sender, message):
         image = None

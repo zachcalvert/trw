@@ -182,7 +182,7 @@ ACTIONS = {
     "past": "dropped",
     "present": "is dropping",
     "future": "drop",
-    "objects": ["my ass"] + PLAYERS,
+    "objects": ["my ass", "passes"] + PLAYERS,
   },
   "trade": {
     "past": "traded",
@@ -249,5 +249,29 @@ ACTIONS = {
     "present": "is getting",
     "future": "get",
     "objects": ["railed"],
+  },
+  "flip": {
+    "past": "flipped",
+    "present": "is flipping",
+    "future": "flip",
+    "objects": ["through my roster"],
+  },
+  "talk": {
+    "past": "was talking",
+    "present": "is talking",
+    "future": "talk",
+    "objects": ["all kinds of shit", "shit"],
+  },
+  "do": {
+    "past": "did",
+    "present": "is doing",
+    "future": "do",
+    "objects": ["a strikeout", "me dirty", "the dirty bird", "zamsies"],
+  },
+  "kill": {
+    "past": "killed",
+    "present": "is killing",
+    "future": "kill",
+    "objects": ["the game", "me", "my ass", "another mickey's"],
   },
 }
