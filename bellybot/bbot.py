@@ -69,6 +69,8 @@ class BellyBot:
         message = message.lower()
         response = None
 
+        print('incoming message is {}'.format(message))
+
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
 
@@ -102,6 +104,8 @@ class BellyBot:
             return self.send_message(response, image)
 
         if 'bbot' in message:
+            print('we got a bbot')
+
             if 'power rankings' in message:
                 return espn_wrapper.get_power_rankings()
 
@@ -128,6 +132,7 @@ class BellyBot:
 
             return self.generate_bbot_response(sender, message)
 
+        print('no bbot in this message')
         return
 
 

@@ -152,8 +152,6 @@ class ESPNWrapper:
             'This week I like',
         ]
 
-
-
         potentials = []
         for player in self.league.free_agents()[:20]:
             if player.position not in ['QB', 'D/ST'] and player.projected_points > 0:
