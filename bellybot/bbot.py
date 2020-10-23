@@ -111,7 +111,7 @@ class BellyBot:
                 response = espn_wrapper.get_trophies()
             elif 'projections' in message:
                 response = espn_wrapper.get_projected_scoreboard()
-            elif not 'close matchups' in message:
+            elif 'close matchups' in message:
                 response = espn_wrapper.get_close_scores()
             elif 'scoreboard' in message:
                 response = espn_wrapper.scoreboard()
