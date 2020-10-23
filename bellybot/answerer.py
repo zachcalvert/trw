@@ -10,9 +10,9 @@ from bellybot.context.places import PLACES
 from bellybot.context.reactions import ANTICIPATION_PREFIXES, ANTICIPATIONS, REACTION_PREFIXES, REACTIONS, CURRENT_PREFIXES
 from bellybot.context.times import TIME_CONTEXTS
 
+from bellybot.vocab import YESES
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS, LAUGHING
-from bellybot.vocab.prefixes import PREFIXES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
@@ -42,11 +42,11 @@ class Answerer(object):
         except Exception:
             return self.give_update()
 
-    def _build_answer(self, prefix=True, core=None, suffix=True, emojis=True, exclamation=True, laughing=False):
+    def _build_answer(self, confirm=True, core=None, suffix=True, emojis=True, exclamation=True, laughing=False):
         answer = ''
 
-        if prefix:
-            answer += f'{random.choice(PREFIXES)} ' if random.choice([1, 2]) == 2 else ''
+        if confirm:
+            answer += f'{random.choice(YESES)} ' if random.choice([1, 2]) == 2 else ''
         if core:
             answer += '{}'.format(core)
             answer += '! ' if random.choice([1, 2]) == 1 and exclamation else '. '
@@ -140,7 +140,7 @@ class Answerer(object):
 
     def when(self):
         core = '{} {}'.format(random.choice(TIMES), self.sender)
-        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def where(self):
         if 'where are you' in self.message:
@@ -148,7 +148,7 @@ class Answerer(object):
             core = context['where']
         else:
             core = '{}'.format(random.choice(PLACES))
-        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def who(self):
         if 'who\'s there' in self.message or 'is there' in self.message:
@@ -162,7 +162,7 @@ class Answerer(object):
         else:
             core = '{}'.format(random.choice(ALL_PEOPLE))
 
-        return self._build_answer(prefix=False, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def why(self):
         return self.give_update()
@@ -182,7 +182,7 @@ class Answerer(object):
         negate = 'not' if random.choice([1, 2]) == 1 else ''
         core = '{} i am {}{}'.format(self.sender, negate, core)
 
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def did_you(self):
         _, question = self.message.split('did you')
@@ -192,7 +192,7 @@ class Answerer(object):
             core = self._make_subject_swaps(core)
 
         core = '{} i did{}'.format(self.sender, core)
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def do_you(self):
         _, question = self.message.split('do you')
@@ -202,7 +202,7 @@ class Answerer(object):
             core = self._make_subject_swaps(core)
 
         core = '{} i do{}'.format(self.sender, core)
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def have_you(self):
         _, question = self.message.split('have you')
@@ -216,7 +216,7 @@ class Answerer(object):
         negate = 'not' if random.choice([1, 2]) == 1 else ''
         core = '{} i have {}{}'.format(self.sender, negate, core)
 
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def will_you(self):
         conjugations = {
@@ -235,9 +235,8 @@ class Answerer(object):
                 core = core.replace(' please', '')
             core = self._make_subject_swaps(core)
 
-        negate = 'not' if random.choice([1, 2]) == 1 else ''
-        core = '{} {} {}{}'.format(self.sender, random.choice(list(conjugations.values())), negate, core)
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        core = '{} {} {}'.format(self.sender, random.choice(list(conjugations.values())), core)
+        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def wanna(self):
         _, question = self.message.split('wanna')
@@ -246,11 +245,10 @@ class Answerer(object):
         if core:
             core = self._make_subject_swaps(core)
 
-        negate = 'not' if random.choice([1, 2]) == 1 else ''
         first_punc = '!' if random.choice([1, 2]) == 1 else '.'
         adverb = random.choice(ADVERBS) if random.choice([1, 2]) == 1 else ''
-        core = '{}{} i {} wanna {}{}'.format(self.sender, first_punc, adverb, negate, core)
-        return self._build_answer(prefix=True, core=core, suffix=True, emojis=True)
+        core = '{}{} i {} wanna {}'.format(self.sender, first_punc, adverb, core)
+        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def nickname(self):
         if 'new nickname' in self.message or 'another nickname' in self.message:

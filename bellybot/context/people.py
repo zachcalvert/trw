@@ -12,11 +12,6 @@ MEMBERS = [
     'justin',
 ]
 
-FAMILY = [
-    'my uncle',
-    'my dad',
-    'my older brother',
-]
 
 PLAYERS = [
     'ezekiel elliott',
@@ -155,4 +150,12 @@ PLAYERS = [
     'lil yachty',
 ]
 
-ALL_PEOPLE = MEMBERS + PLAYERS + FAMILY
+
+OTHERS = [
+    'my uncle',
+    'my dad',
+    'my older brother',
+    'the ceo of gucci',
+]
+
+ALL_PEOPLE = MEMBERS + PLAYERS + OTHERS

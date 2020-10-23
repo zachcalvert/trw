@@ -100,8 +100,6 @@ class BellyBot:
             if not response:
                 response = self.generate_bbot_response(sender, message)
 
-        print('received {}, so I am sending a response of {}'.format(message, response))
-
         if response:
             self.send_message(response, image)
 
