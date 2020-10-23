@@ -1,3 +1,5 @@
+import random
+
 from espn_api.football import League
 
 
@@ -140,3 +142,26 @@ class ESPNWrapper:
             text = ['Standings'] + standings
 
         return '\n'.join(text)
+
+    def pickup(self):
+        variety_intros = [
+            'I like',
+            'You could make a case for',
+            'I\'m feeling good about',
+            '',
+            'This week I like',
+        ]
+
+
+
+        potentials = []
+        for player in self.league.free_agents()[:20]:
+            if player.position not in ['QB', 'D/ST'] and player.projected_points > 0:
+                potentials.append(player)
+
+        intro = random.choice(variety_intros)
+        player = random.choice(potentials)
+        message = '{} {}. Im thinking he scores {} against the {} defense'.format(
+            intro, player.name, player.projected_points, player.pro_opponent)
+
+        return message

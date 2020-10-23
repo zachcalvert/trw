@@ -66,9 +66,8 @@ class BellyBot:
         return response
 
     def respond(self, sender, message):
-        image = None
-        response = None
         message = message.lower()
+        response = None
 
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
@@ -85,45 +84,49 @@ class BellyBot:
                 response = search_terms
                 success, image = image_search(search_terms)
 
+                return self.send_message(response, image)
+
             elif first_word == 'gif':
                 _, search_terms = message.split('bbot gif ')
                 success, gif = gif_search(search_terms)
                 if success:
                     response = gif
 
-        if not response and 'lions' in message:
+                return self.send_message(response)
+
+        if 'lions' in message:
             search = Answerer(sender=sender, message=message).go_lions()
             success, image = image_search(search)
             response = 'GO LIONS!'
 
-        if not response and 'power rankings' in message:
-            response = espn_wrapper.get_power_rankings()
+            return self.send_message(response, image)
 
-        if not response and 'trophies' in message:
-            response = espn_wrapper.get_trophies()
+        if 'bbot' in message:
+            if 'power rankings' in message:
+                return espn_wrapper.get_power_rankings()
 
-        if not response and 'projections' in message:
-            response = espn_wrapper.get_projected_scoreboard()
+            if 'trophies' in message:
+                return espn_wrapper.get_trophies()
 
-        if not response and 'close matchups' in message:
-            response = espn_wrapper.get_close_scores()
+            if 'projections' in message:
+                return espn_wrapper.get_projected_scoreboard()
 
-        if not response and 'scoreboard' in message:
-            response = espn_wrapper.scoreboard()
+            if not 'close matchups' in message:
+                return espn_wrapper.get_close_scores()
 
-        if not response and 'standings' in message:
-            response = espn_wrapper.standings()
+            if 'scoreboard' in message:
+                return espn_wrapper.scoreboard()
 
-        if not response and 'bbot' in message:
+            if 'standings' in message:
+                return espn_wrapper.standings()
+
+            if 'waiver' in message or 'pickup' in message:
+                return espn_wrapper.pickup()
+
             if Answerer.should_answer(message):
-                response = Answerer(sender=sender, message=message).answer()
-            if not response:
-                response = self.generate_bbot_response(sender, message)
+                return Answerer(sender=sender, message=message).answer()
 
-        print('received {}, so I am sending a response of {}'.format(message, response))
-
-        if response:
-            self.send_message(response, image)
+            return self.generate_bbot_response(sender, message)
 
         return
 
