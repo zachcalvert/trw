@@ -3,6 +3,7 @@ django-extensions
 psycopg2-binary>=2.8
 django-admin-sortable2
 
+espn_api
 giphy_client
 mock
 redis==3.5.3

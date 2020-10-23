@@ -7,6 +7,7 @@ from giphy_client.rest import ApiException
 import spacy
 
 from bellybot.answerer import Answerer
+from bellybot.espn_wrapper import ESPNWrapper
 from bellybot.vocab.responses import MEMBER_RESPONSES, PLAYER_RESPONSES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 
@@ -16,6 +17,7 @@ GIS_ID = "cc646ee172e69377d"
 GOOGLE_SEARCH_API_KEY = "AIzaSyCknrR34a7r"
 GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 
+espn_wrapper = ESPNWrapper()
 giphy_api_instance = giphy_client.DefaultApi()
 nlp = spacy.load("en_core_web_sm")
 
@@ -94,6 +96,9 @@ class BellyBot:
             success, image = image_search(search)
             response = 'GO LIONS!'
 
+        if not response and 'power rankings' in message:
+            response = espn_wrapper.get_power_rankings()
+
         if not response and 'bbot' in message:
             if Answerer.should_answer(message):
                 response = Answerer(sender=sender, message=message).answer()
@@ -137,29 +142,4 @@ def gif_search(search_terms):
         return False, None
     url = gif.images.downsized_large.url
     return True, url
-
-
-class ESPNBroker():
-
-    def call_espn(self, view=None):
-        cookies = {"swid": "{ADB2C88A-0CCD-4491-B8B7-4657E6A412FD}",
-                   "espn_s2": "AECvR2KuFAHIFNvXPmowC7LgFu4G2jj6tzWOaOd8xnX2wu3BaSy3Dogb5KU0KAiHu3xcqKzkMa%2FwbLIIzA4DMqtr"
-                              "%2FZF48XsPMFyOGScz3xl0qO3ekELFD7qgY0qYdGbg%2BwbX0NntqxWwPaLPdrEaIc1vlXxehme7cbLRq6Uf5iP3f%"
-                              "2FpQvG51KexkEMJy6Hc1C1zZxZ41fQ4EddVA%2BhaqQ9%2BADWELwT9hFbPFjoBxco8T%2FvSxS0TJFEqLiBUBfp%2"
-                              "F2RbE%3D"}
-
-        url = ESPN_URL
-
-        r = requests.get(url, cookies=cookies, params={'view': view})
-        return r.json()
-
-    def get_rostered_players(self):
-        rostered_players = {}
-        response = self.call_espn(view='mRoster')
-        for team in response['teams']:
-            for player in team['roster']['entries']:
-                lookup = player['playerPoolEntry']['player']['lastName'].lower()
-                rostered_players[lookup] = {
-                    'full_name': player['playerPoolEntry']['player']['fullName'].lower()
-                }
 
