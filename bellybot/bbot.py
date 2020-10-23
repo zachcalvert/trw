@@ -105,7 +105,7 @@ class BellyBot:
         if not response and 'projections' in message:
             response = espn_wrapper.get_projected_scoreboard()
 
-        if not response and 'close matchups':
+        if not response and 'close matchups' in message:
             response = espn_wrapper.get_close_scores()
 
         if not response and 'bbot' in message:
