@@ -105,32 +105,25 @@ class BellyBot:
 
         if 'bbot' in message:
             print('we got a bbot')
-
             if 'power rankings' in message:
-                return espn_wrapper.get_power_rankings()
-
-            if 'trophies' in message:
-                return espn_wrapper.get_trophies()
-
-            if 'projections' in message:
-                return espn_wrapper.get_projected_scoreboard()
-
-            if not 'close matchups' in message:
-                return espn_wrapper.get_close_scores()
-
-            if 'scoreboard' in message:
-                return espn_wrapper.scoreboard()
-
-            if 'standings' in message:
-                return espn_wrapper.standings()
-
-            if 'waiver' in message or 'pickup' in message:
-                return espn_wrapper.pickup()
-
-            if Answerer.should_answer(message):
-                return Answerer(sender=sender, message=message).answer()
-
-            return self.generate_bbot_response(sender, message)
+                response = espn_wrapper.get_power_rankings()
+            elif 'trophies' in message:
+                response = espn_wrapper.get_trophies()
+            elif 'projections' in message:
+                response = espn_wrapper.get_projected_scoreboard()
+            elif not 'close matchups' in message:
+                response = espn_wrapper.get_close_scores()
+            elif 'scoreboard' in message:
+                response = espn_wrapper.scoreboard()
+            elif 'standings' in message:
+                response = espn_wrapper.standings()
+            elif 'waiver' in message or 'pickup' in message:
+                response = espn_wrapper.pickup()
+            elif Answerer.should_answer(message):
+                response = Answerer(sender=sender, message=message).answer()
+            else:
+                response = self.generate_bbot_response(sender, message)
+            return self.send_message(response)
 
         print('no bbot in this message')
         return
