@@ -111,6 +111,9 @@ class BellyBot:
         if not response and 'scoreboard' in message:
             response = espn_wrapper.scoreboard()
 
+        if not response and 'standings' in message:
+            response = espn_wrapper.standings()
+
         if not response and 'bbot' in message:
             if Answerer.should_answer(message):
                 response = Answerer(sender=sender, message=message).answer()

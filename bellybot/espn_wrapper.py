@@ -79,10 +79,10 @@ class ESPNWrapper:
                     blown_out_team_name = i.home_team.team_name
 
         low_score_str = ['Low score: %s with %.2f points' % (low_team_name, low_score)]
-        high_score_str = ['High score: %s with %.2f points' % (high_team_name, high_score)]
-        close_score_str = ['Nailbiter: %s barely beat %s by a margin of %.2f points' % (close_winner, close_loser, closest_score)]
+        high_score_str = ['High score: %s racked up %.2f points' % (high_team_name, high_score)]
+        close_score_str = ['Nailbiter: %s beat %s by %.2f points' % (close_winner, close_loser, closest_score)]
         blowout_str = [
-            'Wax of the week: %s blew out %s by a margin of %.2f points' % (ownerer_team_name, blown_out_team_name, biggest_blowout)]
+            'Wax of the week: %s blew out %s by %.2f points' % (ownerer_team_name, blown_out_team_name, biggest_blowout)]
 
         text = [f'Week {week} Trophies:'] + low_score_str + high_score_str + close_score_str + blowout_str
         return '\n'.join(text)
@@ -130,5 +130,13 @@ class ESPNWrapper:
         for matchup in scoreboard:
             scores += ['%s %.2f - %.2f %s' % (matchup.home_team.team_name, matchup.home_score, matchup.away_score, matchup.away_team.team_name)]
             text = ['Scoreboard'] + scores
+
+        return '\n'.join(text)
+
+    def standings(self):
+        standings = []
+        for team in self.league.standings():
+            standings += ['{}: {} - {}'.format(team.team_name, team.wins, team.losses)]
+            text = ['Standings'] + standings
 
         return '\n'.join(text)
