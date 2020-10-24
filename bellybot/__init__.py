@@ -7,7 +7,7 @@ GROUPME_URL = "https://api.groupme.com/v3/bots/post"
 class Responder:
 
     def __init__(self):
-        self.identifier = "0ea167539344c9b1e822186071"
+        self.identifier = "5cfd3e22f775c8db35033e9dd4"
 
     def send_message(self, message, image=None):
         body = {

@@ -85,7 +85,8 @@ ANTICIPATIONS = [
     'im trying to ghost outta here',
     'im just trying to ghost',
     'im trying to dip',
-    'can someone come pick me up'
+    'can someone come pick me up',
+    'somebody come swoop my ass',
     'im trying to get in on it',
     'im gonna put it on snapchat',
     'i dont think im gonna survive',

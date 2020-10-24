@@ -274,5 +274,4 @@ ACTIONS = {
     "future": "kill",
     "objects": ["the game", "me", "my ass", "another mickey's"],
   },
-
 }
