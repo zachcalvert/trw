@@ -6,6 +6,7 @@ import giphy_client
 from giphy_client.rest import ApiException
 import spacy
 
+from bellybot import Responder
 from bellybot.answerer import Answerer
 from bellybot.espn_wrapper import ESPNWrapper
 from bellybot.vocab.responses import MEMBER_RESPONSES, PLAYER_RESPONSES
@@ -22,27 +23,10 @@ giphy_api_instance = giphy_client.DefaultApi()
 nlp = spacy.load("en_core_web_sm")
 
 
-class BellyBot:
+class BellyBot(Responder):
 
     def __init__(self):
-        self.identifier = "5cfd3e22f775c8db35033e9dd4"
-
-    def send_message(self, message, image=None):
-        body = {
-            "bot_id": self.identifier,
-            "text": message
-        }
-        if image:
-            body['attachments'] = [{
-                "type": "image",
-                "url": image
-            }]
-
-        headers = {'Content-Type': 'Application/json'}
-        response = requests.post(GROUPME_URL, data=json.dumps(body), headers=headers)
-
-        if response.status_code < 200 or response.status_code > 299:
-            print('ERROR posting to GroupMe: {}: {}'.format(response.status_code, response.content))
+        super().__init__()
 
     def _get_player(self, message):
         for player in NFL_PLAYERS.keys():
@@ -65,28 +49,20 @@ class BellyBot:
 
         return response
 
+    def send_gif(self, searches):
+        gif = gif_search(random.choice(searches))
+        if gif:
+            return self.send_message(gif)
+
     def respond(self, sender, message):
         message = message.lower()
-        response = None
 
         print('incoming message is {}'.format(message))
 
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
         if message.startswith('good bot'):
-            searches = [
-                'thank you',
-                'thanks',
-                'i love you',
-                'you rule',
-                'yay',
-                'yessss',
-            ]
-            success, gif = gif_search(searches)
-            if success:
-                response = gif
-
-            return self.send_message(response)
+            self.send_gif(['thank you', 'thanks', 'i love you', 'you rule', 'yay', 'yessss'])
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
@@ -104,11 +80,7 @@ class BellyBot:
 
             elif first_word == 'gif':
                 _, search_terms = message.split('bbot gif ')
-                success, gif = gif_search(search_terms)
-                if success:
-                    response = gif
-
-                return self.send_message(response)
+                self.send_gif(search_terms)
 
         if 'lions' in message:
             search = Answerer(sender=sender, message=message).go_lions()
@@ -118,8 +90,10 @@ class BellyBot:
             return self.send_message(response, image)
 
         if 'bbot' in message:
-            print('we got a bbot')
-            if 'power rankings' in message:
+            if 'thanks' in message or 'thank you' in message or 'thx' in message:
+                self.send_gif(['you\'re welcome', 'anytime', 'fist bump', 'for sure bro', 'i gotchu'])
+                return
+            elif 'power rankings' in message:
                 response = espn_wrapper.get_power_rankings()
             elif 'trophies' in message:
                 response = espn_wrapper.get_trophies()
@@ -134,7 +108,7 @@ class BellyBot:
             elif 'waiver' in message or 'pickup' in message:
                 response = espn_wrapper.pickup()
             elif Answerer.should_answer(message):
-                response = Answerer(sender=sender, message=message).answer()
+                return Answerer(sender=sender, message=message).answer()
             else:
                 response = self.generate_bbot_response(sender, message)
             return self.send_message(response)
@@ -163,13 +137,13 @@ def gif_search(search_terms):
         api_response = giphy_api_instance.gifs_search_get(GIPHY_API_KEY + "k1nOk2cOsKF3naPtlZF", search_terms, limit=20)
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
-        return False, None
+        return None
 
     index = random.choice(range(20))
     try:
         gif = api_response.data[index]
     except IndexError:
-        return False, None
+        return None
     url = gif.images.downsized_large.url
-    return True, url
+    return url
 

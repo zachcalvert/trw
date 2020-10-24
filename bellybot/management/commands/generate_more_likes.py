@@ -1,24 +1,37 @@
+"""Generate random chat messages via a markov chain churning through every message ever sent in the GroupMe """
+import json
+import random
+
 from django.core.management.base import BaseCommand, CommandError
 
-from bellybot.vocab.rostered_players import NFL_PLAYERS
+from groupme_messages import MESSAGES
+
+
+with open('bigram_to_bigram_model.json') as f:
+    model = json.load(f)
 
 
 class Command(BaseCommand):
     help = "blah"  # noqa: Django required
 
+    def markov_respond(self, message):
+        last_two = ' '.join(message.split()[-2:])
+        response = []
+
+        sentence_length = random.choice(range(6, 15))
+        for i in range(sentence_length):
+            try:
+                phrase = random.choice(model["bigram_model"][last_two])
+            except KeyError:
+                break
+
+            response.append(phrase)
+            last_two = phrase
+
+        return ' '.join(response)
+
     def handle(self, *args, **options):
-        user_input = ''
-        more_likes = {}
 
-        for player, pd in NFL_PLAYERS.items():
-            more_likes[pd['full_name']] = []
-
-        for player in more_likes.keys():
-            print('{}? more like: '.format(player))
-            user_input = input()
-            if user_input != 'n' and user_input not in more_likes[player]:
-                more_likes[player].append(user_input)
-
-        print(more_likes)
-
-
+        for i in range(1000):
+            message = random.choice(MESSAGES).lower()
+            print(self.markov_respond(message))

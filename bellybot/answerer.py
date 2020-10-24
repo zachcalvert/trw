@@ -1,9 +1,11 @@
 import json
 import os
 import random
+import time
 
 import redis
 
+from bellybot import Responder
 from bellybot.context.actions import ACTIONS
 from bellybot.context.people import ALL_PEOPLE
 from bellybot.context.places import PLACES
@@ -23,9 +25,10 @@ redis_host = os.environ.get('REDISHOST', 'localhost')
 cache = redis.StrictRedis(host=redis_host, port=6379)
 
 
-class Answerer(object):
+class Answerer(Responder):
 
     def __init__(self, sender, message):
+        super().__init__()
         self.sender = sender
         self.message = message
         self.trigger = next((phrase for phrase in QUESTION_SWITCHER.keys() if phrase in message), None)
@@ -38,9 +41,12 @@ class Answerer(object):
     def answer(self):
         fn = QUESTION_SWITCHER[self.trigger]
         try:
-            return fn(self)
+            answer = fn(self)
+            self.send_message(answer)
         except Exception:
-            return self.give_update()
+            answer = self.give_update()
+
+        return answer
 
     def _build_answer(self, confirm=True, core=None, suffix=True, emojis=True, exclamation=True, laughing=False):
         answer = ''
@@ -119,16 +125,32 @@ class Answerer(object):
         else:
             update += f" {when_helper} {action} {object}"
 
+        update = " ".join(update.split())
+
         if context['when'] == 'future':
-            update = f"{random.choice(ANTICIPATION_PREFIXES)} {update} and {context['what']['anticipation']}"
-        elif context['when'] == 'present':
-            update = f"{random.choice(CURRENT_PREFIXES)} {update}"
+            lead_in = random.choice(ANTICIPATION_PREFIXES)
+            self.send_message(f"{lead_in}")
+            print(lead_in)
+            time.sleep(random.choice([1,2,3]))
+
+            self.send_message(f"{update}")
+            print(update)
+            time.sleep(random.choice([1,2,3]))
+
+            anticipation = f"{context['what']['anticipation']}"
+            self.send_message(f"{anticipation}")
+            print(f"{anticipation}")
         elif context['when'] == 'past':
-            update = f"{random.choice(REACTION_PREFIXES)} {update} and {context['what']['reaction']}"
+            lead_in = random.choice(REACTION_PREFIXES)
+            self.send_message(f"{lead_in} {update}")
+            print(f"{lead_in} {update}")
+            time.sleep(random.choice([1,2,3]))
+
+            reaction = context['what']['reaction']
+            self.send_message(f"{reaction}")
+            print(f"{reaction}")
 
         cache.set("bbot", json.dumps(context))
-        update = " ".join(update.split())
-        return update
 
     def how(self):
         if 'nickname' in self.message:

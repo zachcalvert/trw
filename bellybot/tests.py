@@ -34,22 +34,16 @@ class BellyBotTestCase(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 405)
 
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
+    @mock.patch('bellybot.Responder.send_message')
     def test_no_bot_response(self, mock_send):
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_not_called
-
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
-    def test_multiple_bbots(self, mock_send):
-        GROUPME_CALLBACK["text"] = "bbot gif bbot"
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
 
 
 class TestBbotResponse(BellyBotTestCase):
     url = reverse('new_message')
 
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
+    @mock.patch('bellybot.Responder.send_message')
     def test_get_bbot_from_message(self, mock_send):
         for member in self.members:
             GROUPME_CALLBACK["name"] = member
@@ -60,22 +54,7 @@ class TestBbotResponse(BellyBotTestCase):
             mock_send.reset_mock()
 
 
-class TestQuestionResponse(BellyBotTestCase):
-
-    questions_that_get_responses = [
-        'why dont you shit on lish bbot?',
-        'when am i gonna win a damn game bbot?',
-        'bbot how are you this morning?',
-        'who gave you the right bbot?',
-        'where are you from bbot?',
-        'are you sure about that bbot?',
-        'did you remember our little shotgun wager bbot?',
-        'wanna blast cigs in the parking lot bbot?',
-        'do you think i should start deshaun bbot?',
-        'bbot will you remind me to do a shotgun later?',
-        'have you eaten your vegetables today bbot?',
-        'bbot comment on deshaun watson please'
-    ]
+class TestQuestionsIgnored(BellyBotTestCase):
 
     questions_that_dont_get_responses = [
         'why dont you shit on lish?',
@@ -86,16 +65,7 @@ class TestQuestionResponse(BellyBotTestCase):
         'what do you think about deshaun watson?'
     ]
 
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
-    def test_question_response(self, mock_send):
-        for question in self.questions_that_get_responses:
-            GROUPME_CALLBACK["text"] = question
-            self.client.post(self.url, GROUPME_CALLBACK)
-            mock_send.assert_called_once()
-            print(mock_send.call_args)
-            mock_send.reset_mock()
-
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
+    @mock.patch('bellybot.Responder.send_message')
     def test_question_no_response(self, mock_send):
         for question in self.questions_that_dont_get_responses:
             GROUPME_CALLBACK["text"] = question
@@ -109,7 +79,8 @@ class TestAnswerer(TestCase):
     players = ['Travis Kelce', 'Dalvin Cook', 'Deshaun Watson', 'Brandin Cooks', 'Chase Claypool']
     members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
 
-    def test_what(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_what(self, mock_send):
         questions = [
             'bbot whats the plan tonight?',
             'what do you think about Watson bbot?',
@@ -120,12 +91,10 @@ class TestAnswerer(TestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
-            print('{}: {}'.format(sender, question))
-            print('belly bot: {}'.format(response))
+            Answerer(sender, question).answer()
 
-    def test_why(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_why(self, mock_send):
         questions = [
             'bbot why dont you shit on lish?',
             'bbot why is my team so shit?',
@@ -135,12 +104,10 @@ class TestAnswerer(TestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
-            print('{}: {}'.format(sender, question))
-            print('belly bot: {}'.format(response))
+            Answerer(sender, question).answer()
 
-    def test_when(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_when(self, mock_send):
         questions = [
             'when am i gonna win a damn game bbot?',
             'bbot when will you respect me?',
@@ -149,12 +116,10 @@ class TestAnswerer(TestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
-            print('{}: {}'.format(sender, question))
-            print('belly bot: {}'.format(response))
+            Answerer(sender, question).answer()
 
-    def test_how(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_how(self, mock_send):
         questions = [
             'how are you so smart and so dumb bbot?',
             'bbot how are you this morning?',
@@ -163,12 +128,10 @@ class TestAnswerer(TestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
-            print('{}: {}'.format(sender, question))
-            print('belly bot: {}'.format(response))
+            Answerer(sender, question).answer()
 
-    def test_who(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_who(self, mock_send):
         questions = [
             'who gave you the right bbot?',
             'bbot who is your favorite chiefs player?',
@@ -178,11 +141,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_where(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_where(self, mock_send):
         questions = [
             'where are you from bbot?',
             'bbot where are you looking forward to going next?',
@@ -192,11 +155,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_are_you(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_are_you(self, mock_send):
         questions = [
             'are you sure about that bbot?',
             'i don\'t know, are you gonna go?',
@@ -207,11 +170,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_did_you(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_did_you(self, mock_send):
         questions = [
             'did you really just say that bbot?',
             'i didnt know that, bbot did you know that?',
@@ -222,11 +185,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_do_you(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_do_you(self, mock_send):
         questions = [
             'do you think i should start deshaun bbot?',
             'i know its true bbot. do you know that though?',
@@ -236,11 +199,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_have_you(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_have_you(self, mock_send):
         questions = [
             'have you eaten your vegetables today bbot?',
             'i just set my lineup bbot. have you?',
@@ -250,11 +213,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_will_you(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_will_you(self, mock_send):
         questions = [
             'bbot will you remind me to do a shotgun later?',
             'sometimes im silly. will you take a second and be sharp bbot?',
@@ -264,11 +227,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_wanna(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_wanna(self, mock_send):
         questions = [
             'bbot wanna do a strikeout later?',
             'wanna go ahead and look that up for us bbot?',
@@ -278,11 +241,11 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
-    def test_right_bbot(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_right_bbot(self, mock_send):
         questions = [
             'thats a good one, right bbot?',
             'right bbot?'
@@ -290,7 +253,6 @@ class TestAnswerer(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
@@ -299,7 +261,8 @@ class TestNewNickname(TestCase):
 
     members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
 
-    def test_new_nickname(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_new_nickname(self, mock_send):
         questions = [
             'bbot can I get a new nickname?',
             'bbot how about another nickname?',
@@ -309,62 +272,34 @@ class TestNewNickname(TestCase):
         for question in questions:
             sender = random.choice(self.members)
             response = Answerer(sender, question).answer()
-            assert isinstance(response, str)
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
 
-class TestFavoriteTeam(TestCase):
-
-    def test_new_nickname(self):
-        messages = [
-            'bbot who is your favorite team?',
-            'bbot do you like the lions?',
-            'woah the lions won',
-        ]
-
-        @mock.patch('bellybot.bbot.BellyBot.send_message')
-        def test_question_response(self, mock_send):
-            for message in messages:
-                GROUPME_CALLBACK["text"] = message
-                self.client.post(self.url, GROUPME_CALLBACK)
-                mock_send.assert_called_once()
-                assert 'GO LIONS!' in mock_send.call_args
-                print(mock_send.call_args)
-                mock_send.reset_mock()
-
-
-class TestJoke(BellyBotTestCase):
+class TestFavoriteTeam(BellyBotTestCase):
 
     messages = [
-        'bbot joke hopkins',
-        'tell me a joke bbot',
-        'would love another joke bbot'
+        'bbot who is your favorite team?',
+        'bbot do you like the lions?',
+        'woah the lions won',
     ]
 
-    def test_question_response(self):
+    @mock.patch('bellybot.Responder.send_message')
+    def test_lions_responses(self, mock_send):
         for message in self.messages:
-            sender = random.choice(self.members)
-            response = Answerer(sender, message, player='deshaun watson').answer()
-            assert isinstance(response, str)
-            print('{}: {}'.format(sender, message))
-            print('belly bot: {}'.format(response))
-
-    @mock.patch('bellybot.bbot.BellyBot.send_message')
-    def test_question_response(self, mock_send):
-        for question in self.messages:
-            GROUPME_CALLBACK["text"] = question
+            GROUPME_CALLBACK["text"] = message
             self.client.post(self.url, GROUPME_CALLBACK)
             mock_send.assert_called_once()
             print(mock_send.call_args)
             mock_send.reset_mock()
 
 
-class TestExcuses(TestCase):
+class TestUpdates(TestCase):
 
     member = 'zach'
     message = 'what do you think about that bbot?'
 
-    def test_question_response(self):
-        for i in range(50):
-            print(Answerer(self.member,self. message).give_update())
+    @mock.patch('bellybot.Responder.send_message')
+    def test_question_response(self, mock_send):
+        for i in range(5):
+            Answerer(self.member, self. message).give_update()
