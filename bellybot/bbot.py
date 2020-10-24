@@ -96,7 +96,11 @@ class BellyBot(Responder):
             elif 'power rankings' in message:
                 response = espn_wrapper.get_power_rankings()
             elif 'trophies' in message:
-                response = espn_wrapper.get_trophies()
+                try:
+                    week_number = int(message.split('week ')[1].split(' trophies')[0])
+                except (IndexError, ValueError):
+                    week_number = None
+                response = espn_wrapper.get_trophies(week_number)
             elif 'projections' in message:
                 response = espn_wrapper.get_projected_scoreboard()
             elif 'close matchups' in message:

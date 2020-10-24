@@ -58,9 +58,20 @@ class ESPNWrapper:
         return star, bust
 
     def get_trophies(self, week=None):
-        # Gets trophies for highest score, lowest score, closest score, and biggest win
         if not week:
-            week = self.league.current_week - 1
+            current_week_finished = True
+            week = self.league.current_week
+            boxes = self.league.box_scores(week=week)
+            for box in boxes:
+                if not self.all_played(box.away_lineup) or not self.all_played(box.home_lineup):
+                    current_week_finished = False
+                    break
+
+            if not current_week_finished:
+                week = self.league.current_week - 1
+
+        print('fetching trophies for week {}'.format(week))
+
         matchups = self.league.box_scores(week=week)
         low_score = 9999
         low_team_name = ''

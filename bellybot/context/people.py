@@ -160,7 +160,9 @@ OTHERS = [
     'Damian Lillard',
     'Shaq',
     'Fred Skinstone',
-    'Stabo Swinney'
+    'Stabo Swinney',
+    'Lindsey Buckingham'
+    'jesus'
 ]
 
 ALL_PEOPLE = MEMBERS + PLAYERS + OTHERS
