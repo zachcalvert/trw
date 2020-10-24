@@ -305,6 +305,10 @@ class Answerer(Responder):
         core = 'fucking right {}!'.format(self.sender)
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
+    def chyaa(self):
+        core = 'chyaaaaa {}'.format(self.sender)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
+
 
 QUESTION_SWITCHER = {
     'how': Answerer.how,
@@ -322,4 +326,5 @@ QUESTION_SWITCHER = {
     'nickname': Answerer.nickname,
     'joke': Answerer.joke,
     'right bbot?': Answerer.right,
+    'chyaa': Answerer.chyaa,
 }

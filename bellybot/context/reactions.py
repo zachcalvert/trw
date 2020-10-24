@@ -112,7 +112,7 @@ CURRENT_PREFIXES = [
 ]
 
 REACTION_PREFIXES = [
-    'well'
+    'well',
     'all i know is ',
     'basically ',
     'even though everyone was like no, ',

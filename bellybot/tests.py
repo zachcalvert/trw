@@ -256,6 +256,18 @@ class TestAnswerer(TestCase):
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
+    @mock.patch('bellybot.Responder.send_message')
+    def test_chyaa(self, mock_send):
+        questions = [
+            'can i get a chyaaaaa bbot?',
+            'bbot i love it chyaa'
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer(sender, question).answer()
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
 
 class TestNewNickname(TestCase):
 
