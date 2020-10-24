@@ -279,6 +279,10 @@ class Answerer(object):
     def joke(self):
         return self.give_update()
 
+    def right(self):
+        core = 'fucking right {}!'.format(self.sender)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
+
 
 QUESTION_SWITCHER = {
     'how': Answerer.how,
@@ -295,4 +299,5 @@ QUESTION_SWITCHER = {
     'wanna': Answerer.wanna,
     'nickname': Answerer.nickname,
     'joke': Answerer.joke,
+    'right bbot?': Answerer.right,
 }

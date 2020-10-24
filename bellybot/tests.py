@@ -282,6 +282,18 @@ class TestAnswerer(TestCase):
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
 
+    def test_right_bbot(self):
+        questions = [
+            'thats a good one, right bbot?',
+            'right bbot?'
+        ]
+        for question in questions:
+            sender = random.choice(self.members)
+            response = Answerer(sender, question).answer()
+            assert isinstance(response, str)
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
+
 
 class TestNewNickname(TestCase):
 

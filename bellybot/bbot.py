@@ -73,6 +73,20 @@ class BellyBot:
 
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
+        if message.startswith('good bot'):
+            searches = [
+                'thank you',
+                'thanks',
+                'i love you',
+                'you rule',
+                'yay',
+                'yessss',
+            ]
+            success, gif = gif_search(searches)
+            if success:
+                response = gif
+
+            return self.send_message(response)
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
