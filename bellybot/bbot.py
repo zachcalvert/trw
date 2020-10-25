@@ -23,6 +23,21 @@ giphy_api_instance = giphy_client.DefaultApi()
 nlp = spacy.load("en_core_web_sm")
 
 
+USER_MAP = {
+    '4689709': ["lish", "greg"],
+    '30833338': ["ne", "rene"],
+    '22026356': ["shane", "shanye"],
+    '30837253': ["jerad", "j-rock"],
+    '30803449': ["ze", "vino", "zamsies"],
+    '30837254': ["cam", "clam", "clambino"],
+    '30837259': ["walsh"],
+    '4037223': ["trav"],
+    '87582812': ['justin', 'j-shaw'],
+    '30837255': ['bk'],
+    '30837252': ['D', 'commish', 'squirma'],
+}
+
+
 class BellyBot(Responder):
 
     def __init__(self):
@@ -54,15 +69,19 @@ class BellyBot(Responder):
         if gif:
             return self.send_message(gif)
 
-    def respond(self, sender, message):
+    def respond(self, sender, user_id, message):
         message = message.lower()
 
-        print('incoming message is {}'.format(message))
+        if random.choice([1,2]) == 1:
+            try:
+                sender = random.choice(USER_MAP[user_id])
+            except KeyError:
+                pass
 
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
         if message.startswith('good bot'):
-            self.send_gif(['thank you', 'thanks', 'i love you', 'you rule', 'yay', 'yessss'])
+            self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)

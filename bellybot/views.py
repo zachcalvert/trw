@@ -20,11 +20,12 @@ def new_message(request):
     try:
         message_content = content['text'].lower()
         sender = content['name']
+        user_id = content['user_id']
     except KeyError:
         print('ERROR parsing GroupMe message: {}'.format(request.POST))
         return HttpResponse(status=204)
 
     if content["sender_type"] != "bot":
-        BellyBot().respond(sender, message_content)
+        BellyBot().respond(sender, user_id, message_content)
 
     return HttpResponse(status=204)

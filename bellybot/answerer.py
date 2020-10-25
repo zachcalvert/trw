@@ -59,7 +59,7 @@ class Answerer(Responder):
         if suffix:
             answer += f'{random.choice(SUFFIXES)} ' if random.choice([1, 2]) == 2 else ''
         if emojis:
-            if random.choice([1, 3]) == 1:
+            if random.choice([1,2]) == 1:
                 n = random.choice([1, 1, 2])
                 emojis = ' '.join(random.sample(EMOJIS, n))
                 answer += ' {}'.format(emojis)

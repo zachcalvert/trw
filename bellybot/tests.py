@@ -13,12 +13,12 @@ GROUPME_CALLBACK = {
   "group_id": "1234567890",
   "id": "1234567890",
   "name": "Lick Manheole",
-  "sender_id": "12345",
+  "sender_id": "30837252",
   "sender_type": "user",
   "source_guid": "GUID",
   "system": False,
   "text": "Hello world",
-  "user_id": "1234567890"
+  "user_id": "30837252"
 }
 
 headers = {'Content-Type': 'application/json'}

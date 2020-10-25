@@ -27,7 +27,7 @@ MEMBER_RESPONSES = [
     'BBR_MEMBER i love you',
     'the most overrated tight end in the draft order is BBR_MEMBER',
     'ya boooaaaooyyy shout out to BBR_MEMBER',
-    'they fired my ass for having scobee dick',
+    'they fired my ass yesterday for having scobee dick',
     'lets just clear the air BBR_MEMBER, i am eating ass',
     'unbelievable BBR_MEMBER, and you have the nipple ring? mine turned green today',
     'henry ruggsmuncher should have changed name to vicks vapor rub',
@@ -42,7 +42,6 @@ MEMBER_RESPONSES = [
     '❤ ️ BBR_MEMBER lollll 😂 😂 😂 i ’m aware of human tight ends',
     'BBR_MEMBER i wanna bet 50 on them firing your ass yesterday',
     'BBR_MEMBER. its broadcasted in spanish so no, dick',
-    'BBR_MEMBER you down to hit vegas august 19th weekend for your bday ? thatll be some some etsy dude',
     'lit my roommates for sure gonna fleece you BBR_MEMBER!',
     '😂 😂 😂 BBR_MEMBER lolllll you need to get pierced this year tbh',
     '🙄 🙄 🙄 ✏ ️ 🍆 BBR_MEMBER i would, just sayin',
@@ -300,6 +299,12 @@ MEMBER_RESPONSES = [
     'wow trade rape me and get some haribo tummy bears. shout out to marlon mack ’s achilles',
     'lmao the salt of the girth has left the shaft unlike bananas in pajamas aka i still feel nothing',
     'absolute scenes oh wow 💕 thoughts and prayers',
+    'crushing it lol i feel like i m blacking out in the teal ? lol dr . zoooooos ! the gods are against me',
+    'the real thin shady lookin thicky ! pats get 1 more w 😂 😂 😂 rene , do n’t clench',
+    'we lit . most valuable belly my hole is ready',
+    'next monday BBR_MEMBERs gettin pierced . location tbd . fuck comcast ! ! !',
+    'going down ? ? bbr lifestyle wow . just on the frontlines',
+    'i\'m out of an apple down there 😂 😂 😂 😂 😂 let that be a lesson',
 ]
 
 PLAYER_RESPONSES = [
