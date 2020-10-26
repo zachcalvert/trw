@@ -138,8 +138,9 @@ class Answerer(Responder):
             time.sleep(random.choice([1,2,3]))
 
             anticipation = f"{context['what']['anticipation']}"
-            self.send_message(f"{anticipation}")
-            print(f"{anticipation}")
+            answer = self._build_answer(confirm=False, core=anticipation, suffix=True, emojis=True)
+            self.send_message(f"{answer}")
+            print(f"{answer}")
         elif context['when'] == 'past':
             lead_in = random.choice(REACTION_PREFIXES)
             self.send_message(f"{lead_in} {update}")
@@ -147,8 +148,9 @@ class Answerer(Responder):
             time.sleep(random.choice([1,2,3]))
 
             reaction = context['what']['reaction']
-            self.send_message(f"{reaction}")
-            print(f"{reaction}")
+            answer = self._build_answer(confirm=False, core=reaction, suffix=True, emojis=True)
+            self.send_message(f"{answer}")
+            print(f"{answer}")
 
         cache.set("bbot", json.dumps(context))
 

@@ -147,6 +147,8 @@ PLAYERS = [
     'dk swetcalf',
     'bill belichick',
     'greg holsen',
+    'rich flair',
+    'scott frost'
 ]
 
 
@@ -162,7 +164,8 @@ OTHERS = [
     'Fred Skinstone',
     'Stabo Swinney',
     'Lindsey Buckingham'
-    'jesus'
+    'jesus',
+    'the space guttle'
 ]
 
 ALL_PEOPLE = MEMBERS + PLAYERS + OTHERS

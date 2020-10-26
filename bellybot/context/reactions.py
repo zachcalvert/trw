@@ -211,4 +211,9 @@ REACTIONS = [
     'now im on a no fly list',
     'my ass is drenched',
     'nobodys happy about it',
+    'you 👏 love 👏 to 👏 see 👏 it 👏',
+    'the effort is treal',
+    'its actually pancake thin',
+    'blackballed for life',
+    'brady on the block'
 ]

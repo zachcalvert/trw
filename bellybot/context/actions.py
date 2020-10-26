@@ -70,12 +70,6 @@ ACTIONS = {
     "future": "order",
     "objects": ["breakfast burritos", "chinese", "pizza", "a stripper"],
   },
-  "like": {
-    "past": "liked",
-    "present": "is liking",
-    "future": "like",
-    "objects": ["his own comment"],
-  },
   "drink": {
     "past": "drank",
     "present": "is drinking",
@@ -274,4 +268,16 @@ ACTIONS = {
     "future": "kill",
     "objects": ["the game", "me", "my ass", "another mickey's"],
   },
+  "crack": {
+    "past": "cracked",
+    "present": "is cracking",
+    "future": "crack",
+    "objects": ["the first coffee of the morning", "my ass", "open another beer"],
+  },
+  "covid": {
+    "past": "got",
+    "present": "is getting",
+    "future": "get",
+    "objects": ["covid"],
+  }
 }
