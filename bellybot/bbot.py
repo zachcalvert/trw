@@ -71,6 +71,7 @@ class BellyBot(Responder):
 
     def respond(self, sender, user_id, message):
         message = message.lower()
+        print('message is {}'.format(message))
 
         if random.choice([1,2]) == 1:
             try:
