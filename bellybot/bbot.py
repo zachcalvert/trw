@@ -134,6 +134,8 @@ class BellyBot(Responder):
                 response = espn_wrapper.standings()
             elif 'matchups' in message:
                 response = espn_wrapper.matchups(self.get_week_from_message(message, 'matchups'))
+            elif 'average scores' in message:
+                response = espn_wrapper.get_average_scores()
             elif 'waiver' in message or 'pickup' in message:
                 response = espn_wrapper.pickup()
             elif Answerer.should_answer(message):

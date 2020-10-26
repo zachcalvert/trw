@@ -1,3 +1,4 @@
+import math
 import random
 
 from espn_api.football import League
@@ -32,6 +33,20 @@ class ESPNWrapper:
         score = ['%s - %s' % (i[0], i[1].team_name) for i in power_rankings
                  if i]
         text = ['Power Rankings'] + score
+        return '\n'.join(text)
+
+    def get_average_scores(self):
+        team_scores = [{
+            "name": team.team_name,
+            "scores": [score for score in team.scores if score > 0],
+        } for team in self.league.teams ]
+
+        for team in team_scores:
+            team["average"] = round( sum(team["scores"]) / len(team["scores"]), 2)
+
+
+        averages = ['%s - %s' % (i['name'], i['average']) for i in sorted(team_scores, key = lambda i: i['average'], reverse=True)]
+        text = ['Average Points Scored'] + averages
         return '\n'.join(text)
 
     def players_of_the_week(self, week=None):
@@ -170,7 +185,7 @@ class ESPNWrapper:
         scoreboard = self.league.box_scores(week=week)
 
         for matchup in scoreboard:
-            scores += ['%s %.2f - %.2f %s' % (matchup.home_team.team_name, matchup.home_score, matchup.away_score, matchup.away_team.team_name)]
+            scores += ['%s %.2f - %.2f %s' % (matchup.home_team.team_abbrev, matchup.home_score, matchup.away_score, matchup.away_team.team_abbrev)]
             text = ['Scoreboard'] + scores
 
         return '\n'.join(text)
@@ -180,7 +195,7 @@ class ESPNWrapper:
         scoreboard = self.league.scoreboard(week=week)
 
         for matchup in scoreboard:
-            scores += ['%s vs. %s' % (matchup.home_team.team_name, matchup.away_team.team_name)]
+            scores += ['%s vs. %s' % (matchup.home_team.team_abbrev, matchup.away_team.team_abbrev)]
             text = ['Week {} matchups'.format(week)] + scores
 
         return '\n'.join(text)
@@ -188,7 +203,7 @@ class ESPNWrapper:
     def standings(self):
         standings = []
         for team in self.league.standings():
-            standings += ['{}: {} - {}'.format(team.team_name, team.wins, team.losses)]
+            standings += ['{}: {} - {}'.format(team.team_abbrev, team.wins, team.losses)]
             text = ['Standings'] + standings
 
         return '\n'.join(text)
