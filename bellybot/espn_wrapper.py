@@ -175,6 +175,16 @@ class ESPNWrapper:
 
         return '\n'.join(text)
 
+    def matchups(self, week=None):
+        scores = []
+        scoreboard = self.league.scoreboard(week=week)
+
+        for matchup in scoreboard:
+            scores += ['%s vs. %s' % (matchup.home_team.team_name, matchup.away_team.team_name)]
+            text = ['Week {} matchups'.format(week)] + scores
+
+        return '\n'.join(text)
+
     def standings(self):
         standings = []
         for team in self.league.standings():

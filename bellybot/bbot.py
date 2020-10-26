@@ -69,6 +69,13 @@ class BellyBot(Responder):
         if gif:
             return self.send_message(gif)
 
+    def get_week_from_message(self, message, lookup):
+        try:
+            week_number = int(message.split('week ')[1].split(' {}'.format(lookup))[0])
+        except (IndexError, ValueError):
+            week_number = None
+        return week_number
+
     def respond(self, sender, user_id, message):
         message = message.lower()
         print('message is {}'.format(message))
@@ -81,8 +88,10 @@ class BellyBot(Responder):
 
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
-        if message.startswith('good bot'):
+        elif message.startswith('good bot'):
             return self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
+        elif 'herbert' in message:
+            return self.send_gif(['goat', 'the greatest of all time'])
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
@@ -111,24 +120,20 @@ class BellyBot(Responder):
 
         if 'bbot' in message:
             if 'thanks' in message or 'thank you' in message or 'thx' in message:
-                self.send_gif(['you\'re welcome', 'anytime', 'fist bump', 'for sure bro', 'i gotchu'])
+                self.send_gif(['you\'re welcome', 'anytime', 'fist bump'])
                 return
             elif 'power rankings' in message:
                 response = espn_wrapper.get_power_rankings()
             elif 'trophies' in message:
-                try:
-                    week_number = int(message.split('week ')[1].split(' trophies')[0])
-                except (IndexError, ValueError):
-                    week_number = None
-                response = espn_wrapper.get_trophies(week_number)
+                response = espn_wrapper.get_trophies(self.get_week_from_message(message, 'trophies'))
             elif 'projections' in message:
                 response = espn_wrapper.get_projected_scoreboard()
-            elif 'close matchups' in message:
-                response = espn_wrapper.get_close_scores()
             elif 'scoreboard' in message:
                 response = espn_wrapper.scoreboard()
             elif 'standings' in message:
                 response = espn_wrapper.standings()
+            elif 'matchups' in message:
+                response = espn_wrapper.matchups(self.get_week_from_message(message, 'matchups'))
             elif 'waiver' in message or 'pickup' in message:
                 response = espn_wrapper.pickup()
             elif Answerer.should_answer(message):

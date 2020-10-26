@@ -306,24 +306,25 @@ class TestFavoriteTeam(BellyBotTestCase):
             mock_send.reset_mock()
 
 
-# class TestUpdates(TestCase):
-#
-#     member = 'zach'
-#     message = 'what do you think about that bbot?'
-#
-#     @mock.patch('bellybot.Responder.send_message')
-#     def test_question_response(self, mock_send):
-#         for i in range(5):
-#             Answerer(self.member, self. message).give_update()
-
-
 class TestEspnWrapper(TestCase):
-    message = 'bbot week 4 trophies'
+
     url = reverse('new_message')
 
     @mock.patch('bellybot.Responder.send_message')
-    def test_question_response(self, mock_send):
-        GROUPME_CALLBACK["text"] = self.message
+    def test_trophies(self, mock_send):
+        message = 'bbot week 4 trophies'
+
+        GROUPME_CALLBACK["text"] = message
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+        print(mock_send.call_args)
+        mock_send.reset_mock()
+
+    @mock.patch('bellybot.Responder.send_message')
+    def test_matchups(self, mock_send):
+        message = 'bbot week 8 matchups'
+
+        GROUPME_CALLBACK["text"] = message
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_called_once()
         print(mock_send.call_args)

@@ -115,11 +115,9 @@ REACTION_PREFIXES = [
     'well',
     'all i know is ',
     'basically ',
-    'even though everyone was like no, ',
     'well, basically ',
     'fucking ',
     'even though everyone was beggin him not to, ',
-    'despite everyone telling him not to, ',
     'well, fuckin',
     'fuckin ',
     'dude..',
@@ -129,6 +127,7 @@ REACTION_PREFIXES = [
     'bro, fucking',
     'lets just say',
     'predictably,',
+    'incredibly,',
 ]
 
 REACTIONS = [
@@ -182,7 +181,6 @@ REACTIONS = [
     'im out another fucking benjamin',
     'my ass is getting beat',
     'my ass is absolutely fucked',
-    'apparently now im scott hansens backup tomorrow',
     'now im stuck in the dangle submarine',
     'ive got a global award',
     'im fucking waxing',
