@@ -76,6 +76,11 @@ class BellyBot(Responder):
             week_number = None
         return week_number
 
+    def build_help_message(self):
+        commands = ['standings', 'scoreboard', 'projections', 'power rankings', 'average points scored', 'average points against', 'week x matchups', 'week x trophies', 'waiver pickup']
+        text = ['Hi! These are the commands I know:'] + commands
+        return '\n'.join(text)
+
     def respond(self, sender, user_id, message):
         message = message.lower()
         print('message is {}'.format(message))
@@ -90,6 +95,8 @@ class BellyBot(Responder):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
         elif message.startswith('good bot'):
             return self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
+        elif message.startswith('bbot help'):
+            return self.send_message(self.build_help_message())
         elif 'herbert' in message:
             return self.send_gif(['goat', 'the greatest of all time'])
 
@@ -138,7 +145,7 @@ class BellyBot(Responder):
                 response = espn_wrapper.get_average_points_against()
             elif 'average points' in message:
                 response = espn_wrapper.get_average_points_scored()
-            elif 'waiver' in message or 'pickup' in message:
+            elif 'waiver pickup' in message:
                 response = espn_wrapper.pickup()
             elif Answerer.should_answer(message):
                 return Answerer(sender=sender, message=message).answer()
