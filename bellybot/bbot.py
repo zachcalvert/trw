@@ -82,7 +82,7 @@ class BellyBot(Responder):
         if message.startswith('bad bot'):
             return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
         if message.startswith('good bot'):
-            self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
+            return self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
@@ -100,7 +100,7 @@ class BellyBot(Responder):
 
             elif first_word == 'gif':
                 _, search_terms = message.split('bbot gif ')
-                self.send_gif(search_terms)
+                return self.send_gif(search_terms)
 
         if 'lions' in message:
             search = Answerer(sender=sender, message=message).go_lions()
