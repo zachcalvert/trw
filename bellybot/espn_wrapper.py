@@ -35,7 +35,7 @@ class ESPNWrapper:
         text = ['Power Rankings'] + score
         return '\n'.join(text)
 
-    def get_average_scores(self):
+    def get_average_points_scored(self):
         team_scores = [{
             "name": team.team_name,
             "scores": [score for score in team.scores if score > 0],
@@ -46,7 +46,21 @@ class ESPNWrapper:
 
 
         averages = ['%s - %s' % (i['name'], i['average']) for i in sorted(team_scores, key = lambda i: i['average'], reverse=True)]
-        text = ['Average Points Scored'] + averages
+        text = ['Average Points Scored:'] + averages
+        return '\n'.join(text)
+
+    def get_average_points_against(self):
+        team_scores = [{
+            "name": team.team_name,
+            "scores": [score for score in team.scores if score > 0],
+            "points_against": team.points_against
+        } for team in self.league.teams ]
+
+        for team in team_scores:
+            team["average"] = round( team["points_against"] / len(team["scores"]), 2)
+
+        averages = ['%s - %s' % (i['name'], i['average']) for i in sorted(team_scores, key = lambda i: i['average'], reverse=True)]
+        text = ['Average Points Against:'] + averages
         return '\n'.join(text)
 
     def players_of_the_week(self, week=None):

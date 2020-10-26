@@ -332,7 +332,17 @@ class TestEspnWrapper(TestCase):
 
     @mock.patch('bellybot.Responder.send_message')
     def test_average_scores(self, mock_send):
-        message = 'bbot average scores'
+        message = 'bbot average points scored'
+
+        GROUPME_CALLBACK["text"] = message
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+        print(mock_send.call_args)
+        mock_send.reset_mock()
+
+    @mock.patch('bellybot.Responder.send_message')
+    def test_average_points_against(self, mock_send):
+        message = 'bbot average points against'
 
         GROUPME_CALLBACK["text"] = message
         self.client.post(self.url, GROUPME_CALLBACK)
