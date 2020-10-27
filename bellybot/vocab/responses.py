@@ -274,7 +274,7 @@ MEMBER_RESPONSES = [
     'lol i ’m so juiced right now ! ! ! ! ! ! ! ! wow instant bbr classic',
     'thick .',
     'juicy ... jerry juicy really loving the looks of this',
-    'lintgarrette blount changed name to bill walton commentates a basketball game',
+    'BBR_MEMBER im changing your name to bill walton commentates a basketball game',
     'tough scene and you counter by claiming you ’re 6 - 0 lol',
     'the full sheep fleece in effect rikki thiqqi tavi comish',
     'vincent cam gogh strikes again ! new orleans d again ! unreal lol',
@@ -293,7 +293,7 @@ MEMBER_RESPONSES = [
     'yea, BBR_MEMBER is definitely fingerbanged',
     'looking good to me.. BBR_MEMBER! BBR_MEMBER !',
     'fleeced wow what a fleece. Fuckin BBR_MEMBER',
-    'hey BBR_MEMBER how do u feel that one time you benched my ass and got shit on 😂 😂',
+    'hey BBR_MEMBER remember that one time you benched my ass and got shit on 😂 😂',
 ]
 
 PLAYER_RESPONSES = [
