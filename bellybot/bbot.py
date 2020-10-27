@@ -187,3 +187,9 @@ def gif_search(search_terms):
     url = gif.images.downsized_large.url
     return url
 
+
+class TestBot(BellyBot):
+
+    def __init__(self):
+        super().__init__()
+        self.identifier = "0ea167539344c9b1e822186071"
