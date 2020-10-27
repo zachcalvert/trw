@@ -230,7 +230,7 @@ class ESPNWrapper:
     def standings(self):
         standings = []
         for team in self.league.standings():
-            standings += ['{}: {} - {}'.format(team.team_abbrev, team.wins, team.losses)]
+            standings += ['{}: {} - {}'.format(team.team_name, team.wins, team.losses)]
             text = ['Standings'] + standings
 
         return '\n'.join(text)

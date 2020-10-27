@@ -77,6 +77,8 @@ class Answerer(Responder):
             .replace(' me ', ' you ')\
             .replace('bbot', '')\
             .replace(' i ', ' you ')\
+            .replace('yours', 'mine')\
+            .replace('you', 'me')\
             .replace('your', 'my')\
             .replace('though', '')\
             .replace('yet', '')

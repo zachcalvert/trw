@@ -74,7 +74,7 @@ ACTIONS = {
     "past": "drank",
     "present": "is drinking",
     "future": "drink",
-    "objects": ["bb juice", "two white claws", "40s", "at Taylor's", "hella Booz", "a smoothie", "champagne"],
+    "objects": ["bb juice", "two white claws", "40s", "at Taylor's", "hella Booz"],
   },
   "take": {
     "past": "took",
