@@ -21,6 +21,19 @@ class ESPNWrapper:
                 return False
         return True
 
+    def weekly_finish(self, week, team=None):
+        ''' Returns the rank of a team based on the weekly score of a team for a given week. '''
+        ranks = {}
+        for box in self.league.box_scores(week=week):
+            ranks[box.away_team] = box.away_score
+            ranks[box.home_team] = box.home_score
+
+        sorted_ranks = {k: v for k, v in sorted(ranks.items(), key=lambda item: item[1], reverse=True)}
+
+        if team:
+            return list(sorted_ranks.keys()).index(team) + 1
+        return sorted_ranks
+
     def get_power_rankings(self, week=None):
         # power rankings requires an integer value, so this grabs the current week for that
         if not week:
@@ -146,16 +159,16 @@ class ESPNWrapper:
 
         low_score_str = ['Low score: %s with %.2f points' % (low_team_name, low_score)]
         high_score_str = ['High score: %s racked up %.2f points' % (high_team_name, high_score)]
-        close_score_str = ['Nailbiter: %s beat %s by %.2f points' % (close_winner, close_loser, closest_score)]
+        close_score_str = ['Fleece of the week: %s beat %s by %.2f points' % (close_winner, close_loser, closest_score)]
         blowout_str = [
             'Wax of the week: %s blew out %s by %.2f points' % (ownerer_team_name, blown_out_team_name, biggest_blowout)]
 
         star, bust = self.players_of_the_week(week)
-        star_str = ['Star of the week: {} scored {} points ({} projected)'.format(star.name, star.points, star.projected_points)]
+        star_str = ['Thiqqy of the week: {} scored {} points ({} projected)'.format(star.name, star.points, star.projected_points)]
         bust_str = [
-            'Bust of the week: {} scored {} points ({} projected)'.format(bust.name, bust.points, bust.projected_points)]
+            'Pencil of the week: {} scored {} points ({} projected)'.format(bust.name, bust.points, bust.projected_points)]
 
-        text = [f'Week {week} Trophies:'] + low_score_str + high_score_str + close_score_str + blowout_str + star_str + bust_str
+        text = [f'Week {week} Trophies:'] + high_score_str + low_score_str + close_score_str + blowout_str + star_str + bust_str
         return '\n'.join(text)
 
     def get_projected_scoreboard(self, week=None):

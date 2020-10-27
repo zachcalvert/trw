@@ -312,7 +312,7 @@ class TestEspnWrapper(TestCase):
 
     @mock.patch('bellybot.Responder.send_message')
     def test_trophies(self, mock_send):
-        message = 'bbot week 4 trophies'
+        message = 'bbot week 7 trophies'
 
         GROUPME_CALLBACK["text"] = message
         self.client.post(self.url, GROUPME_CALLBACK)

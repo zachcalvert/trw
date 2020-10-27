@@ -154,18 +154,6 @@ ACTIONS = {
     "future": "rip",
     "objects": ["ass", "my borthole open"],
   },
-  "spit": {
-    "past": "spat",
-    "present": "is spitting",
-    "future": "spit",
-    "objects": ["game", "rhymes"],
-  },
-  "be": {
-    "past": "was being",
-    "present": "is being",
-    "future": "be",
-    "objects": ["a bish", "a botch", "an ass", "a complete ass"],
-  },
   "christian ponder": {
     "past": "christian pondered",
     "present": "is christian pondering",
