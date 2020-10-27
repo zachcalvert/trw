@@ -118,7 +118,7 @@ class BellyBot(Responder):
                 _, search_terms = message.split('bbot gif ')
                 return self.send_gif(search_terms)
 
-        if 'lions' in message:
+        if ' lions' in message:
             search = Answerer(sender=sender, message=message).go_lions()
             success, image = image_search(search)
             response = 'GO LIONS!'

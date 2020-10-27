@@ -94,19 +94,7 @@ class ESPNWrapper:
                     results[away_team]['wins'] += 1
                     results[home_team]['losses'] += 1
 
-        print(results)
         return results
-
-    def projected_total_points_for(self, team):
-        average_points = self.get_average_points_scored(team=team)
-        total_points = team.points_for
-
-        for week in range(self.league.current_week, 13):
-            drift = random.choice(POSSIBLE_DRIFTS)
-            points_scored = average_points + drift if random.choice([1, 2]) == 1 else average_points - drift
-            total_points += points_scored
-
-        return total_points
 
     def get_power_rankings(self, week=None):
         # power rankings requires an integer value, so this grabs the current week for that
