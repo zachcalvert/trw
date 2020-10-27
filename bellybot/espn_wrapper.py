@@ -43,15 +43,10 @@ class ESPNWrapper:
         return sorted_ranks
 
     def final_standings(self):
-        rankings = self.league.power_rankings()
         final_records = []
+        results = self.simulate_season()
         for team in self.league.teams:
-            team_dict = {}
-            team_dict['name'] = team.team_name
-            team_final_record = self.projected_final_record(team, rankings)
-            team_dict['wins'] = team_final_record[0]
-            team_dict['losses'] = team_final_record[1]
-            team_dict['points_scored'] = round(self.projected_total_points_for(team), 2)
+            team_dict = results[team]
             final_records.append(team_dict)
 
         standings = sorted(final_records, key=lambda i: (i['wins'], i['points_scored']), reverse=True)
@@ -62,34 +57,47 @@ class ESPNWrapper:
         text = ['Projected final standings'] + printed_standings
         return '\n'.join(text)
 
-        return standings
-
-    def projected_final_record(self, team, rankings):
+    def simulate_season(self):
         ''' Inputs: team, league power rankings
             Returns: wins, losses
             This function estimates the results of every remaining matchup for a team
             based on the team's and its opponent's power ranking. These results are
             added to the team's current matchup results.
         '''
-        wins = team.wins
-        losses = team.losses
-        average_points = self.get_average_points_scored(team=team)
+        results = {
+            team: {
+                'name': team.team_name,
+                'wins': team.wins,
+                'losses': team.losses,
+                'points_scored': team.points_for
+            } for team in self.league.teams
+        }
 
         for week in range(self.league.current_week, 13):
-            drift = random.choice(POSSIBLE_DRIFTS)
-            points_scored = average_points + drift if random.choice([1,2]) == 1 else average_points - drift
+            matchups = self.league.box_scores(week=week)
 
-            opponent = team.schedule[week]
-            opponent_average_points = self.get_average_points_scored(team=opponent)
-            drift = random.choice(POSSIBLE_DRIFTS)
-            opponent_points_scored = opponent_average_points + drift if random.choice([1,2]) == 1 else opponent_average_points - drift
+            for matchup in matchups:
+                home_team = matchup.home_team
+                average_home_points = self.get_average_points_scored(team=home_team)
+                home_drift = random.choice(POSSIBLE_DRIFTS)
+                home_points = average_home_points + home_drift if random.choice([1,2]) == 1 else average_home_points - home_drift
+                results[home_team]['points_scored'] += home_points
 
-            if points_scored > opponent_points_scored:
-                wins += 1
-            else:
-                losses += 1
+                away_team = matchup.away_team
+                average_away_points = self.get_average_points_scored(team=away_team)
+                away_drift = random.choice(POSSIBLE_DRIFTS)
+                away_points = average_away_points + away_drift if random.choice([1,2]) == 1 else average_away_points - away_drift
+                results[away_team]['points_scored'] += away_points
 
-        return wins, losses
+                if home_points > away_points:
+                    results[home_team]['wins'] += 1
+                    results[away_team]['losses'] += 1
+                else:
+                    results[away_team]['wins'] += 1
+                    results[home_team]['losses'] += 1
+
+        print(results)
+        return results
 
     def projected_total_points_for(self, team):
         average_points = self.get_average_points_scored(team=team)
@@ -260,23 +268,6 @@ class ESPNWrapper:
                 else:
                     total_projected += i.projected_points
         return total_projected
-
-    def get_close_scores(self, week=None):
-        # Gets current closest scores (15.999 points or closer)
-        matchups = self.league.box_scores(week=week)
-        score = []
-
-        for i in matchups:
-            if i.away_team:
-                diffScore = i.away_score - i.home_score
-                if (-16 < diffScore <= 0 and not self.all_played(i.away_lineup)) or (
-                        0 <= diffScore < 16 and not self.all_played(i.home_lineup)):
-                    score += ['%s %.2f - %.2f %s' % (i.home_team.team_abbrev, i.home_score,
-                                                     i.away_score, i.away_team.team_abbrev)]
-        if not score:
-            return ('')
-        text = ['Close Scores'] + score
-        return '\n'.join(text)
 
     def scoreboard(self, week=None):
         scores = []
