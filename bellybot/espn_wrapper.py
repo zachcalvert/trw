@@ -4,6 +4,14 @@ import random
 from espn_api.football import League
 
 
+POSSIBLE_DRIFTS = []
+POSSIBILITIES = {1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 4, 7: 4, 8: 4, 9: 4, 10: 3, 11: 3, 12: 3, 13: 3, 14: 2, 15: 2, 16: 2,
+                 17: 1, 18: 1, 19: 1, 20: 1}
+
+for k, v in POSSIBILITIES.items():
+    POSSIBLE_DRIFTS += [k] * v
+
+
 class ESPNWrapper:
 
     def __init__(self):
@@ -34,6 +42,66 @@ class ESPNWrapper:
             return list(sorted_ranks.keys()).index(team) + 1
         return sorted_ranks
 
+    def final_standings(self):
+        rankings = self.league.power_rankings()
+        final_records = []
+        for team in self.league.teams:
+            team_dict = {}
+            team_dict['name'] = team.team_name
+            team_final_record = self.projected_final_record(team, rankings)
+            team_dict['wins'] = team_final_record[0]
+            team_dict['losses'] = team_final_record[1]
+            team_dict['points_scored'] = round(self.projected_total_points_for(team), 2)
+            final_records.append(team_dict)
+
+        standings = sorted(final_records, key=lambda i: (i['wins'], i['points_scored']), reverse=True)
+
+        printed_standings = ['{}. {} ({} - {}) {} points scored'.format(
+            count, team["name"], team["wins"], team["losses"], team["points_scored"]
+        ) for count, team in enumerate(standings, 1)]
+        text = ['Projected final standings'] + printed_standings
+        return '\n'.join(text)
+
+        return standings
+
+    def projected_final_record(self, team, rankings):
+        ''' Inputs: team, league power rankings
+            Returns: wins, losses
+            This function estimates the results of every remaining matchup for a team
+            based on the team's and its opponent's power ranking. These results are
+            added to the team's current matchup results.
+        '''
+        wins = team.wins
+        losses = team.losses
+        average_points = self.get_average_points_scored(team=team)
+
+        for week in range(self.league.current_week, 13):
+            drift = random.choice(POSSIBLE_DRIFTS)
+            points_scored = average_points + drift if random.choice([1,2]) == 1 else average_points - drift
+
+            opponent = team.schedule[week]
+            opponent_average_points = self.get_average_points_scored(team=opponent)
+            drift = random.choice(POSSIBLE_DRIFTS)
+            opponent_points_scored = opponent_average_points + drift if random.choice([1,2]) == 1 else opponent_average_points - drift
+
+            if points_scored > opponent_points_scored:
+                wins += 1
+            else:
+                losses += 1
+
+        return wins, losses
+
+    def projected_total_points_for(self, team):
+        average_points = self.get_average_points_scored(team=team)
+        total_points = team.points_for
+
+        for week in range(self.league.current_week, 13):
+            drift = random.choice(POSSIBLE_DRIFTS)
+            points_scored = average_points + drift if random.choice([1, 2]) == 1 else average_points - drift
+            total_points += points_scored
+
+        return total_points
+
     def get_power_rankings(self, week=None):
         # power rankings requires an integer value, so this grabs the current week for that
         if not week:
@@ -48,7 +116,11 @@ class ESPNWrapper:
         text = ['Power Rankings'] + score
         return '\n'.join(text)
 
-    def get_average_points_scored(self):
+    def get_average_points_scored(self, team=None):
+        if team:
+            scores = [score for score in team.scores if score > 0]
+            return round( sum(scores) / len(scores), 2)
+
         team_scores = [{
             "name": team.team_name,
             "scores": [score for score in team.scores if score > 0],
@@ -56,7 +128,6 @@ class ESPNWrapper:
 
         for team in team_scores:
             team["average"] = round( sum(team["scores"]) / len(team["scores"]), 2)
-
 
         averages = ['%s - %s' % (i['name'], i['average']) for i in sorted(team_scores, key = lambda i: i['average'], reverse=True)]
         text = ['Average Points Scored:'] + averages

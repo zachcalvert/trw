@@ -133,6 +133,8 @@ class BellyBot(Responder):
                 response = espn_wrapper.get_power_rankings()
             elif 'trophies' in message:
                 response = espn_wrapper.get_trophies(self.get_week_from_message(message, 'trophies'))
+            elif 'final standings' in message:
+                response = espn_wrapper.final_standings()
             elif 'projections' in message:
                 response = espn_wrapper.get_projected_scoreboard()
             elif 'scoreboard' in message:
