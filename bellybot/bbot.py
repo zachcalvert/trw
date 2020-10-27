@@ -77,7 +77,8 @@ class BellyBot(Responder):
         return week_number
 
     def build_help_message(self):
-        commands = ['standings', 'scoreboard', 'projections', 'power rankings', 'average points scored', 'average points against', 'week x matchups', 'week x trophies', 'waiver pickup']
+        commands = ['standings', 'scoreboard', 'final standings',  'projections', 'power rankings',
+                    'average points scored', 'average points against', 'week x matchups', 'week x trophies', 'waiver pickup']
         text = ['Hi! These are the commands I know:'] + commands
         return '\n'.join(text)
 

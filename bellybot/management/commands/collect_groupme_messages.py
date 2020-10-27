@@ -66,13 +66,13 @@ class Command(BaseCommand):
         for count, token in enumerate(tokens):
             print(f'adding token {count} to model')
             try:
-                key = ' '.join([str(tokens[count]), str(tokens[count+1])])
-                model[key].append(' '.join([str(tokens[count+2]), str(tokens[count+3])]))
+                key = ' '.join([str(tokens[count]), str(tokens[count+1]), str(tokens[count+2])])
+                model[key].append(' '.join([str(tokens[count+3]), str(tokens[count+4]), str(tokens[count+5])]))
             except IndexError:
                 pass
 
         print(model)
-        model_json = {"bigram_model": model}
+        model_json = {"trigram_model": model}
 
-        with open('bigram_to_bigram_model.json', 'w') as f:
+        with open('trigram_to_trigram_model.json', 'w') as f:
             json.dump(model_json, f)
