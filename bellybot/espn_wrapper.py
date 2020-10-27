@@ -58,12 +58,10 @@ class ESPNWrapper:
         return '\n'.join(text)
 
     def simulate_season(self):
-        ''' Inputs: team, league power rankings
-            Returns: wins, losses
-            This function estimates the results of every remaining matchup for a team
-            based on the team's and its opponent's power ranking. These results are
-            added to the team's current matchup results.
-        '''
+        """
+        This function simulates the remaining matchups for the season, based on each team's average points
+        scored (with some accounting for drift). These results are added to the team's current matchup results.
+        """
         results = {
             team: {
                 'name': team.team_name,
