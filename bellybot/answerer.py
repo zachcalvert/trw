@@ -129,11 +129,7 @@ class Answerer(Responder):
 
         if context['when'] == 'future':
             lead_in = random.choice(ANTICIPATION_PREFIXES)
-            self.send_message(f"{lead_in}")
-            print(lead_in)
-            time.sleep(random.choice([1,2,3]))
-
-            self.send_message(f"{update}")
+            self.send_message(f"{lead_in} {update}")
             print(update)
             time.sleep(random.choice([1,2,3]))
 

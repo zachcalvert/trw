@@ -62,7 +62,7 @@ ACTIONS = {
     "past": "ran",
     "present": "is running",
     "future": "run",
-    "objects": ["train", "wild", "a marathon"],
+    "objects": ["train", "wild"],
   },
   "order": {
     "past": "ordered",
