@@ -403,7 +403,27 @@ MEMBER_RESPONSES = [
     'i \'m draft driving lol this is rough ... piercing * * # wantthepiercinh # draftingdrunk',
     'you would you stupid lil floutie',
     'hungry rosenbagger ? bring in henry rowengartner !',
-    '• just liked my own post in a classic plot twist. love everything about this BBR_MEMBER ! just incredible 👏'
+    '• just liked my own post in a classic plot twist. love everything about this BBR_MEMBER ! just incredible 👏',
+    'The Giants GALORE AH AGALHOR I want aghalor All you Alshon lovers can go to the playoffs',
+    'They should probably call him Jizz Khalifa',
+    'It ’s fleecing season',
+    'Just peaks and valleys ⛰ 🏞 Same It ’s crazy how we ’re far superior Lishy Ice ! ! ! ! ! ! !',
+    'Thanks Schef ! ! ! ! Can we get a vid of Mikaela licking whipped cream out the area " 👏',
+    'Oh shit this is about the BBR .. not fucking fun .. 🎉 🎉 🎉 DAY 8️⃣ PBR',
+    'BBR_MEMBER . Add a Qb that ’s not playing .',
+    'Nice doin business with ya ! Go away ! Not thankful',
+    '🍻 IM FEELING THIQQ TODAY 69min till kickoff LETS GET FUCKING WETTTTTT',
+    'Commercials by Lish ? ? ?',
+    'You realize your virgin belly poppin? I already offered BBR_MEMBER a stellar deal and it was literally a topic for weeks',
+    'damn dinosaur tail coming out of the game ! Yuuuuge Lol',
+    'Got kicked in the stomach by a patient today and now i have three trade proposals for BBR_MEMBER ... oooh get itttt',
+    'Greg screamed . Gifts were exchanged . Good looks boys I really appreciated the pbr and bbr',
+    'Good luck to any gurrs Tryna throat heem. Josh Allen might have the thickest 3rd leg',
+    'Lol no hahahahaha I will throw 50 Ulysses on that whopper',
+    'Hey I ’m 1 - 130 I need to do some serious research this weekend',
+    'Always wondered what piercing a baby brain President who ca n’t lead a country would do',
+    'Witten is ballsack . Cowboys cupcake tour is over . Dangle is for a 2x loser Go Falcons',
+    'He probably slated all of Tucson 🍆 # BDN BDN'
 ]
 
 PLAYER_RESPONSES = [
