@@ -108,7 +108,7 @@ MEMBER_RESPONSES = [
     'sounds like BBR_MEMBER wants in, we can put em on blast ?',
     'keep calm and sweat on, propose a bet and ill take it BBR_MEMBER',
     'I should prolly start gettin into it to someone other than BBR_MEMBER or walsh',
-    'check my snap chat BBR_MEMBER 😎 😎 😎 your proposals are such trade rapes',
+    'check my snap chat BBR_MEMBER 😎 😎 😎',
     'dont think i m a try to accommodate everyone BBR_MEMBER love it hahahaha',
     'nice doin business with you BBR_MEMBER',
     'fuck you BBR_MEMBER ... funny too cuz  lady fog horn raced two races earlier and won haha fuck ...',
@@ -393,7 +393,7 @@ MEMBER_RESPONSES = [
     'trade talk monday let ’s go BBR_MEMBER ! 10 more points ya boy is flaming hot fuck',
     'teal 4sure teal deal done real deal teal is in we are thinking teal vote for teal or purple bbr ? ? ?',
     'lol my fave character from westworld is maeve aka xandi newton lolll we got xanley steemer up in here',
-    'get out of his xanny slumber so we can relive some blazers losses ? dope idea but no thanks lol https://twitter.com/seeratsohi/status/1240359989740355584?s=19',
+    'get out of his xanny slumber so we can relive some blazers losses ? lol https://twitter.com/seeratsohi/status/1240359989740355584?s=19',
     'clam . i would start squeezing your abdominals because in about a month they will be the subject of extensive footage at a mall in portland clam newton ! ! ! !,'
     'yes ! man i wish i was pondering this',
     'never had a losing record in bbr .. floating like a bellyfish out to sea, back from the beach',

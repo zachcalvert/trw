@@ -317,6 +317,11 @@ class Answerer(Responder):
         core = '{}!'.format(eyaw)
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
+    def good_morning(self):
+        good = 'g' + 'o'*random.choice([2,3,4,5]) + 'd'
+        core = '{} morning {}!'.format(good, self.sender)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
+
 
 QUESTION_SWITCHER = {
     'how': Answerer.how,
@@ -336,4 +341,5 @@ QUESTION_SWITCHER = {
     'right bbot?': Answerer.right,
     'chyaa': Answerer.chyaa,
     'eyaww': Answerer.eyaww,
+    'good morning': Answerer.good_morning,
 }
