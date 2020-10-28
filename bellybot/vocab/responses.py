@@ -378,6 +378,32 @@ MEMBER_RESPONSES = [
     'hey BBR_MEMBER, you wanna score a few and bring that ass down . where u at playa ?',
     'lol BBR_MEMBER is gonna dust me either way. im about to get dan baileyed and ive never even heard of that',
     'fuckkkkkkkkkkkkkkk BBR_MEMBER . he ’s fucking fire cherry birch cream lol birch cream ! ! !',
+    'bottom power power bottom lmao put some respeck on that bottom good man nothing wrong with being on bottom',
+    'fuck the cowboys ready to whoop that yoda bb',
+    'how many hours did you spend in there that \'s fucking lit ! ! !',
+    'hahaha touché ! ! well played BBR_MEMBER . a nice bottle of cab there yes',
+    'trust the process . trying to weed out that kinda negativity and see whose tryna get wet',
+    'greg ’s squad is real temporary greg ’s squad is non consensual can you stop with the all caps 🧢',
+    'd , i m a need valentina to get on the phone with mike t and tell him to suck it up later this is a meltdown of epic proportions',
+    'squad will be down with the thickness again soon " you\'ve been chopped " acquisition kitchen',
+    'if douches eat dat azzz gurr ... i \'m trippin yea , fsure !',
+    'crab legs with a vintage sack lolll too thiqq love a low key thiqqness',
+    'bro i got waxed by 2 trades this week . i think your definitely on the short list for the same reason - walsh ’s weekly secondaries please',
+    'incredible content BBR_MEMBER . pit loved it little macy ’s day floater in the shot',
+    'trade talk monday let ’s go BBR_MEMBER ! 10 more points ya boy is flaming hot fuck',
+    'teal 4sure teal deal done real deal teal is in we are thinking teal vote for teal or purple bbr ? ? ?',
+    'lol my fave character from westworld is maeve aka xandi newton lolll we got xanley steemer up in here',
+    'get out of his xanny slumber so we can relive some blazers losses ? dope idea but no thanks lol https://twitter.com/seeratsohi/status/1240359989740355584?s=19',
+    'clam . i would start squeezing your abdominals because in about a month they will be the subject of extensive footage at a mall in portland clam newton ! ! ! !,'
+    'yes ! man i wish i was pondering this',
+    'never had a losing record in bbr .. floating like a bellyfish out to sea, back from the beach',
+    'i ’m driving back from the coast now . eta 4 pm so take some rxtra shots and delay things !',
+    'i have a banging headache and the light hurts',
+    'muscle hamster looking litty we muhfuggin inkin gurr we out here inking ass gurr ! we inked gurr done been inked 🍆',
+    'i \'m draft driving lol this is rough ... piercing * * # wantthepiercinh # draftingdrunk',
+    'you would you stupid lil floutie',
+    'hungry rosenbagger ? bring in henry rowengartner !',
+    '• just liked my own post in a classic plot twist. love everything about this BBR_MEMBER ! just incredible 👏'
 ]
 
 PLAYER_RESPONSES = [
