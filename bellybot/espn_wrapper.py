@@ -52,7 +52,7 @@ class ESPNWrapper:
         standings = sorted(final_records, key=lambda i: (i['wins'], i['points_scored']), reverse=True)
 
         printed_standings = ['{}. {} ({} - {}) {} points scored'.format(
-            count, team["name"], team["wins"], team["losses"], team["points_scored"]
+            count, team["name"], team["wins"], team["losses"], round(team["points_scored"], 2)
         ) for count, team in enumerate(standings, 1)]
         text = ['Projected final standings'] + printed_standings
         return '\n'.join(text)

@@ -155,6 +155,8 @@ class Answerer(Responder):
     def how(self):
         if 'nickname' in self.message:
             return self.nickname()
+        if 'how are you' in self.message:
+            return self.give_update()
         return self.give_update()
 
     def what(self):
@@ -306,7 +308,13 @@ class Answerer(Responder):
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def chyaa(self):
-        core = 'chyaaaaa {}'.format(self.sender)
+        chya = 'chya' + 'a'*random.choice([2,3,4,5,6,7,8])
+        core = '{} {}'.format(chya, self.sender)
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
+
+    def eyaww(self):
+        eyaw = 'eyaw' + 'w'*random.choice([2,3,4,5,6,7,8])
+        core = '{}!'.format(eyaw)
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
 
@@ -327,4 +335,5 @@ QUESTION_SWITCHER = {
     'joke': Answerer.joke,
     'right bbot?': Answerer.right,
     'chyaa': Answerer.chyaa,
+    'eyaww': Answerer.eyaww,
 }
