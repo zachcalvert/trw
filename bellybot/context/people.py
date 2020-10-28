@@ -10,6 +10,14 @@ MEMBERS = [
     'ne',
     'j-rock',
     'justin',
+    'jerad',
+    'g-lish',
+    'shane',
+    'ren',
+    'rene',
+    'commish',
+    'clambino',
+    'walshy'
 ]
 
 
