@@ -182,7 +182,7 @@ def gif_search(search_terms):
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
         return None
 
-    index = random.choice(range(20))
+    index = random.choice(range(6))
     try:
         gif = api_response.data[index]
     except IndexError:
