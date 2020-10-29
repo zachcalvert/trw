@@ -143,5 +143,18 @@ TEAM_NAMES = {
  "A Porous of Angels",
  "Chuck Pourous",
  "The 2020 Ford Porous",
- "Porous Burke"
+ "Porous Burke",
+ "Gaseous Clay",
+ 'Matt Gasselbeck',
+ 'Puff Puff Gas',
+ 'Hakeem Thiccs',
+ 'Thiqq Six',
+ 'Mr Thiqq Ass',
+ 'rafael naval 😡',
+ 'Stabernet Sauvignon',
+ 'Dexter\'s Staboratory',
+ 'Stab n Go',
+ 'Stab Calloway',
+ 'Gashed Potatoes',
+ 'pencil gimignano'
 }
