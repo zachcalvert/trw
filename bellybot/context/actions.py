@@ -80,7 +80,7 @@ ACTIONS = {
     "past": "took",
     "present": "is taking",
     "future": "take",
-    "objects": ["pictures", "xannys", "Ls", "that slow Dick", "a knee"],
+    "objects": ["pics", "xannys", "Ls", "that slow Dick", "a knee"],
   },
   "autodraft": {
     "past": "autodrafted",
@@ -98,7 +98,7 @@ ACTIONS = {
     "past": "lost",
     "present": "is losing",
     "future": "lose",
-    "objects": ["his matchup", "it", "again", "his keys", "his phone"],
+    "objects": ["his matchup", "it", "it again", "his keys", "his phone"],
   },
   "black out": {
     "past": "blacked",
@@ -110,13 +110,13 @@ ACTIONS = {
     "past": "fleeced",
     "present": "is fleecing",
     "future": "fleece",
-    "objects": ["me", "my ass"],
+    "objects": ["me", "my ass", "me and my ass"],
   },
   "fucking fleece": {
     "past": "fucking fleeced",
     "present": "is fucking fleecing",
     "future": "fleece",
-    "objects": ["me", "my ass"],
+    "objects": ["me", "my ass", "me and my ass"],
   },
   "eat": {
     "past": "ate",
@@ -134,7 +134,7 @@ ACTIONS = {
     "past": "came",
     "present": "is coming",
     "future": "come",
-    "objects": ["back down to earth", "inside me", "through", "to the pit", "back", "over"],
+    "objects": ["through", "to the pit", "back", "over"],
   },
   "throw": {
     "past": "threw",
@@ -146,7 +146,7 @@ ACTIONS = {
     "past": "waxed",
     "present": "is waxing",
     "future": "wax",
-    "objects": ["my ass", "that ass", "nostalgic"],
+    "objects": ["my ass", "that ass", "that ahh"],
   },
   "rip": {
     "past": "ripped",
@@ -242,7 +242,7 @@ ACTIONS = {
     "past": "was talking",
     "present": "is talking",
     "future": "talk",
-    "objects": ["all kinds of shit", "shit"],
+    "objects": ["all kinds of shit"],
   },
   "do": {
     "past": "did",
@@ -254,7 +254,7 @@ ACTIONS = {
     "past": "killed",
     "present": "is killing",
     "future": "kill",
-    "objects": ["the game", "me", "my ass", "another mickey's"],
+    "objects": ["me", "my ass", "another mickey's"],
   },
   "crack": {
     "past": "cracked",

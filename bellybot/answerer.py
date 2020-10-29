@@ -51,6 +51,10 @@ class Answerer(Responder):
     def _build_answer(self, confirm=True, core=None, suffix=True, emojis=True, exclamation=True, laughing=False):
         answer = ''
 
+        laughs = {'lol', 'lmao', 'haha', 'lmfao'}
+        if any(laugh in self.message for laugh in laughs):
+            laughing = True
+
         if confirm:
             answer += f'{random.choice(YESES)} ' if random.choice([1, 2]) == 2 else ''
         if core:
@@ -276,8 +280,11 @@ class Answerer(Responder):
 
     def nickname(self):
         if 'new nickname' in self.message or 'another nickname' in self.message:
-            new_nickname = TEAM_NAMES.pop()
-            response = 'ok {}, your new nickname is {}'.format(self.sender, new_nickname)
+            try:
+                new_nickname = TEAM_NAMES.pop()
+                response = '{}, your new nickname is {}'.format(self.sender, new_nickname)
+            except IndexError:
+                response = 'Fuck man idk'
             return response
         else:
             return None
@@ -304,7 +311,8 @@ class Answerer(Responder):
         return self.give_update()
 
     def right(self):
-        core = 'fucking right {}!'.format(self.sender)
+        choices = ['fucking right', 'damn straight', 'that\'s right']
+        core = '{} {}'.format(random.choice(choices), self.sender)
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def chyaa(self):
@@ -342,4 +350,6 @@ QUESTION_SWITCHER = {
     'chyaa': Answerer.chyaa,
     'eyaww': Answerer.eyaww,
     'good morning': Answerer.good_morning,
+    'want a': Answerer.wanna,
+    'want to': Answerer.wanna
 }

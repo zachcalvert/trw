@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand, CommandError
 from groupme_messages import MESSAGES
 
 
-with open('trigram_to_trigram_model.json') as f:
+with open('bigram_to_trigram_model.json') as f:
     model = json.load(f)
 
 
@@ -15,18 +15,18 @@ class Command(BaseCommand):
     help = "blah"  # noqa: Django required
 
     def markov_respond(self, message):
-        last_three = ' '.join(message.split()[-3:])
+        last_two = ' '.join(message.split()[-2:])
         response = []
 
-        sentence_length = random.choice(range(3, 15))
+        sentence_length = random.choice(range(12, 15))
         for i in range(sentence_length):
             try:
-                phrase = random.choice(model["trigram_model"][last_three])
+                phrase = random.choice(model["bigram_to_trigram_model"][last_two])
             except KeyError:
                 return None
 
             response.append(phrase)
-            last_three = phrase
+            _, last_two = phrase.split(' ', 1)
 
         return ' '.join(response)
 

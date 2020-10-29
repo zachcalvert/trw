@@ -74,7 +74,7 @@ class TestQuestionsIgnored(BellyBotTestCase):
             mock_send.reset_mock()
 
 
-class TestAnswerer(TestCase):
+class TestAnswerer(BellyBotTestCase):
 
     players = ['Travis Kelce', 'Dalvin Cook', 'Deshaun Watson', 'Brandin Cooks', 'Chase Claypool']
     members = ['shane', 'trav', 'bk', 'rene', 'lish', 'walsh', 'bk', 'vino', 'commish']
@@ -267,6 +267,26 @@ class TestAnswerer(TestCase):
             response = Answerer(sender, question).answer()
             print('{}: {}'.format(sender, question))
             print('belly bot: {}'.format(response))
+
+    @mock.patch('bellybot.Responder.send_message')
+    def test_eyaww(self, mock_send):
+        message = 'bbot eyaww'
+
+        GROUPME_CALLBACK["text"] = message
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+        print(mock_send.call_args)
+        mock_send.reset_mock()
+
+    @mock.patch('bellybot.Responder.send_message')
+    def test_good_morning(self, mock_send):
+        message = 'good morning bbot'
+
+        GROUPME_CALLBACK["text"] = message
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+        print(mock_send.call_args)
+        mock_send.reset_mock()
 
 
 class TestNewNickname(TestCase):
