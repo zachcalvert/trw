@@ -377,7 +377,7 @@ MEMBER_RESPONSES = [
     'bottom power power bottom lmao put some respeck on that bottom good man nothing wrong with being on bottom',
     'fuck the cowboys ready to whoop that yoda bb',
     'how many hours did you spend in there that \'s fucking lit ! ! !',
-    'hahaha touché ! ! well played BBR_MEMBER . a nice bottle of cab there yes',
+    'hahaha well played BBR_MEMBER .',
     'trust the process . trying to weed out that kinda negativity and see whose tryna get wet',
     'greg ’s squad is real temporary greg ’s squad is non consensual can you stop with the all caps 🧢',
     'd , i m a need valentina to get on the phone with mike t and tell him to suck it up later this is a meltdown of epic proportions',
