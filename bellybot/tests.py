@@ -91,7 +91,9 @@ class TestAnswerer(BellyBotTestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            Answerer(sender, question).answer()
+            response = Answerer(sender, question).answer()
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
 
     @mock.patch('bellybot.Responder.send_message')
     def test_why(self, mock_send):
@@ -104,7 +106,9 @@ class TestAnswerer(BellyBotTestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            Answerer(sender, question).answer()
+            response = Answerer(sender, question).answer()
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
 
     @mock.patch('bellybot.Responder.send_message')
     def test_when(self, mock_send):
@@ -116,7 +120,9 @@ class TestAnswerer(BellyBotTestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            Answerer(sender, question).answer()
+            response = Answerer(sender, question).answer()
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
 
     @mock.patch('bellybot.Responder.send_message')
     def test_how(self, mock_send):
@@ -128,7 +134,9 @@ class TestAnswerer(BellyBotTestCase):
         ]
         for question in questions:
             sender = random.choice(self.members)
-            Answerer(sender, question).answer()
+            response = Answerer(sender, question).answer()
+            print('{}: {}'.format(sender, question))
+            print('belly bot: {}'.format(response))
 
     @mock.patch('bellybot.Responder.send_message')
     def test_who(self, mock_send):

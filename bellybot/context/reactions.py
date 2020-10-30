@@ -146,23 +146,18 @@ REACTIONS = [
     'its honestly fucking lit',
     'we lit',
     'its fucking lit',
-    'folks here are heated',
     'im fucking heated',
     'it doesnt help that im high as fuck',
     'it doesnt help that im high as balls',
     'i think a fight is about to break out',
-    'people are throwing hands',
-    'people are pissed',
-    'now everyones fucking',
-    'people are fucking',
-    'a rave just broke out',
+    'im pissed',
     'im about to rage quit',
     'im fucking dead',
     'im dead',
     'im wrecked',
     'now everyone is dying',
     'im dying',
-    'now my hole is a jalapeño',
+    'my hole is a jalapeño',
     'now everyone is leaving',
     'nobody\'s buying it',
     'now everyone\'s in my ass',
@@ -215,3 +210,37 @@ REACTIONS = [
     'blackballed for life',
     'brady on the block'
 ]
+
+
+EMOTIONS = {
+    'positive': [
+        'im chillin',
+        'chilling',
+        'im good',
+        'vibin',
+        'little buzzed, im good',
+        'loving life right now',
+        'im pretty much loving life',
+        'im good',
+        'im doing great',
+        'im feeling good',
+        'pretty damn good',
+        'we lit',
+        'we litty',
+        'we flame',
+        'we flames',
+        'life is good'
+    ],
+    'negative': [
+        'feelin salty',
+        'so fucking salty',
+        'salty as fuck',
+        'honestly so salty',
+        'pissed',
+        'honestly pissed',
+        'so pissed',
+        'so fucking pissed',
+        'just upset',
+        'fucking pissed'
+    ]
+}

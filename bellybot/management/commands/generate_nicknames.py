@@ -34,5 +34,5 @@ class Command(BaseCommand):
         new_nicknames = {"nicknames": list(nicknames)}
         print(new_nicknames)
 
-        with open('nicknames.json', 'w') as f:
-            json.dump(new_nicknames, f)
+        # with open('nicknames.json', 'w') as f:
+        #     json.dump(new_nicknames, f)

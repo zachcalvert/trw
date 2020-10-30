@@ -156,5 +156,6 @@ TEAM_NAMES = {
  'Stab n Go',
  'Stab Calloway',
  'Gashed Potatoes',
- 'pencil gimignano'
+ 'pencil gimignano',
+ 'Porous Yeltsin',
 }

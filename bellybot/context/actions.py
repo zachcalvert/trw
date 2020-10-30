@@ -269,3 +269,55 @@ ACTIONS = {
     "objects": ["covid"],
   }
 }
+
+# if we feel positively about a player, it's because of an action in the primary dict
+# why would we feel positive?
+# player played well and we
+## started them
+## drafted them (in the x round)
+## picked them up
+## claimed them off waivers
+
+
+# if we feel negatively about a player, it's because of an action in the negative
+# why would we feel negative
+# player played poorly and we
+## started them
+## spent a waiver claim on them
+# or player played well and we
+## benched them
+## dropped them
+PLAYER_ACTIONS = {
+  "positive": {
+    "pickup": {
+      "past": ["picked up", "swooped", "grabbed", "snagged", "added"],
+      "future": ["pick up", "swoop", "grab", "snag", "add"],
+    },
+    "start": {
+      "past": ["started", "flexed"],
+      "future": ["start", "flex"]
+    },
+    "claim": {
+      "past": ["claimed"],
+      "future": ["put in a claim for"]
+    }
+  },
+  "negative": {
+    "bench": {
+      "past": ["benched", "didn't start", "sat"],
+      "future": ["bench", "sit"]
+    },
+    "drop": {
+      "past": ["dropped"],
+      "future": ["drop"]
+    },
+    "claim": {
+      "past": ["used my waiver on", "spent my top waiver on"],
+      "future": ["use my waiver on", "spend my waiver on"]
+    },
+    "start": {
+      "past": ["started", "flexed"],
+      "future": ["start", "flex"]
+    },
+  }
+}

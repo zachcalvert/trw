@@ -103,7 +103,7 @@ OTHERS = [
     'Shaq',
     'Fred Skinstone',
     'Stabo Swinney',
-    'Lindsey Buckingham'
+    'Lindsey Buckingham',
     'jesus',
     'the space guttle',
     'indica williams',

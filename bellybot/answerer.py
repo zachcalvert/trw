@@ -1,15 +1,14 @@
 import json
 import os
 import random
-import time
 
 import redis
 
 from bellybot import Responder
-from bellybot.context.actions import ACTIONS
+
 from bellybot.context.people import ALL_PEOPLE
 from bellybot.context.places import PLACES
-from bellybot.context.reactions import ANTICIPATION_PREFIXES, ANTICIPATIONS, REACTION_PREFIXES, REACTIONS, CURRENT_PREFIXES
+from bellybot.context.reactions import EMOTIONS
 from bellybot.context.times import TIME_CONTEXTS
 
 from bellybot.vocab import YESES
@@ -44,7 +43,7 @@ class Answerer(Responder):
             answer = fn(self)
             self.send_message(answer)
         except Exception:
-            answer = self.give_update()
+            answer = self.get_update()
 
         return answer
 
@@ -92,79 +91,47 @@ class Answerer(Responder):
         new_time = times[times.index(when) + 1]
         return new_time
 
-    def create_context(self):
-        subject = random.choice(ALL_PEOPLE)
-        action = random.choice(list(ACTIONS.keys()))
-        object = random.choice(ACTIONS[action]['objects'])
-        location = random.choice(PLACES)
+    def hedge(self):
+        first = ['lol', 'well', '', '']
+        second = ['shit', 'damn', 'dang']
+        third = ['man', 'dude', 'bro', 'my guy']
+        puncs = ['.', ',', '!' '!!']
+        fourth = ['idk', 'i dont know', 'i got no idea', 'couldnt possibly say', 'cant tell ya', 'no idea', 'wish i could say']
 
-        bbot_context = {
-            "who": ["me", subject, random.choice(ALL_PEOPLE)],
-            "where": location,
-            "what": {
-                "subject": subject,
-                "action": action,
-                "object":  object,
-                "anticipation": random.choice(ANTICIPATIONS),
-                "reaction":  random.choice(REACTIONS),
-            },
-            "when": "future",
-        }
-        cache.set("bbot", json.dumps(bbot_context))
-        return bbot_context
+        return '{} {} {}{} {}'.format(
+            random.choice(first),
+            random.choice(second),
+            random.choice(third),
+            random.choice(puncs),
+            random.choice(fourth)
+        )
 
-    def give_update(self):
-        try:
-            context = json.loads(cache.get("bbot"))
-            context['when'] = self._increment_time(context['when'])
-        except (TypeError, IndexError):
-            context = self.create_context()
+    def get_update(self):
+        update = random.choice(EMOTIONS['positive'])
+        return self._build_answer(confirm=False, core=update, suffix=True, emojis=True)
 
-        subject = context['what']['subject']
-        when_helper = random.choice(TIME_CONTEXTS[context['when']])
-        action = ACTIONS[context['what']['action']][context['when']]
-        object = context['what']['object']
-
-        update = f'{subject}'
-        if context['when'] == 'present':
-            update += f" {action} {object} {when_helper}"
-        else:
-            update += f" {when_helper} {action} {object}"
-
-        update = " ".join(update.split())
-
-        if context['when'] == 'future':
-            lead_in = random.choice(ANTICIPATION_PREFIXES)
-            self.send_message(f"{lead_in} {update}")
-            print(update)
-            time.sleep(random.choice([1,2,3]))
-
-            anticipation = f"{context['what']['anticipation']}"
-            answer = self._build_answer(confirm=False, core=anticipation, suffix=True, emojis=True)
-            self.send_message(f"{answer}")
-            print(f"{answer}")
-        elif context['when'] == 'past':
-            lead_in = random.choice(REACTION_PREFIXES)
-            self.send_message(f"{lead_in} {update}")
-            print(f"{lead_in} {update}")
-            time.sleep(random.choice([1,2,3]))
-
-            reaction = context['what']['reaction']
-            answer = self._build_answer(confirm=False, core=reaction, suffix=True, emojis=True)
-            self.send_message(f"{answer}")
-            print(f"{answer}")
-
-        cache.set("bbot", json.dumps(context))
+    def is_checkin(self, message):
+        message = message.replace("'", "").replace(" ", "")
+        if any(checkin in message for checkin in ['howare', 'howsitgoin', 'howsyourday', 'howwedoin', 'whatsgood', 'whatup', 'whatsgoin', 'whatsnew']):
+            return True
+        return False
 
     def how(self):
+        if self.is_checkin(self.message):
+            return self.get_update()
+
         if 'nickname' in self.message:
             return self.nickname()
-        if 'how are you' in self.message:
-            return self.give_update()
-        return self.give_update()
+
+        core = self.hedge()
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def what(self):
-        return self.give_update()
+        if self.is_checkin(self.message):
+            return self.get_update()
+
+        core = self.hedge()
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def when(self):
         core = '{} {}'.format(random.choice(TIMES), self.sender)
@@ -184,20 +151,23 @@ class Answerer(Responder):
                 context = json.loads(cache.get("bbot"))
                 core = ' '.join(context['who'])
             except (KeyError):
-                pass
+                core = 'its just me lol'
         elif 'favorite team' in self.message:
             core = 'the lions'
+        elif ' win ' in self.message:
+            core = self.hedge()
         else:
             core = '{}'.format(random.choice(ALL_PEOPLE))
 
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def why(self):
-        return self.give_update()
+        core = self.hedge()
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def are_you(self):
         if 'how are you' in self.message:
-            return self.give_update()
+            return self.get_update()
 
         _, question = self.message.split('are you')
         core, _ = question.split('?', 1)
