@@ -98,8 +98,6 @@ class BellyBot(Responder):
             return self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
         elif message.startswith('bbot help'):
             return self.send_message(self.build_help_message())
-        elif 'herbert' in message:
-            return self.send_gif(['goat', 'the greatest of all time'])
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
@@ -118,13 +116,6 @@ class BellyBot(Responder):
             elif first_word == 'gif':
                 _, search_terms = message.split('bbot gif ')
                 return self.send_gif([search_terms])
-
-        if ' lions' in message:
-            search = Answerer(sender=sender, message=message).go_lions()
-            success, image = image_search(search)
-            response = 'GO LIONS!'
-
-            return self.send_message(response, image)
 
         if 'bbot' in message:
             if 'thanks' in message or 'thank you' in message or 'thx' in message:
