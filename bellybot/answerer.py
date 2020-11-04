@@ -204,15 +204,12 @@ class Answerer(Responder):
         return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def nickname(self):
-        if 'new nickname' in self.message or 'another nickname' in self.message:
-            try:
-                new_nickname = TEAM_NAMES.pop()
-                response = '{}, your new nickname is {}'.format(self.sender, new_nickname)
-            except IndexError:
-                response = 'Fuck man idk'
-            return response
-        else:
-            return None
+        try:
+            new_nickname = TEAM_NAMES.pop()
+            response = '{}, your new nickname is {}'.format(self.sender, new_nickname)
+        except IndexError:
+            response = self.hedge()
+        return response
 
     def get_player(self):
         for player in NFL_PLAYERS.keys():

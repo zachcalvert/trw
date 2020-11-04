@@ -1,7 +1,7 @@
 import json
 import requests
 
-GROUPME_URL = "https://api.groupme.com/v3/bots/put"
+GROUPME_URL = "https://api.groupme.com/v3/bots/post?token=kUtmZNokfpZvOE8KrOw1tb7cF15wZ3h55Vxk0T34"
 
 
 class Responder:
