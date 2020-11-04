@@ -9,7 +9,6 @@ from bellybot import Responder
 from bellybot.context.people import ALL_PEOPLE
 from bellybot.context.places import PLACES
 from bellybot.context.reactions import EMOTIONS
-from bellybot.context.times import TIME_CONTEXTS
 
 from bellybot.vocab import YESES
 from bellybot.vocab.adverbs import ADVERBS
@@ -86,17 +85,13 @@ class Answerer(Responder):
             .replace('though', '')\
             .replace('yet', '')
 
-    def _increment_time(self, when):
-        times = list(TIME_CONTEXTS.keys())
-        new_time = times[times.index(when) + 1]
-        return new_time
-
     def hedge(self):
         first = ['lol', 'well', '', '']
-        second = ['shit', 'damn', 'dang']
+        second = ['shit', 'damn', 'dang', '', '', '']
         third = ['man', 'dude', 'bro', 'my guy']
         puncs = ['.', ',', '!' '!!']
-        fourth = ['idk', 'i dont know', 'i got no idea', 'couldnt possibly say', 'cant tell ya', 'no idea', 'wish i could say']
+        fourth = ['idk', 'i dont know', 'i got no idea', 'couldnt possibly say', 'couldn\'t tell ya', 'no idea',
+                  'wish i could say', 'i honestly don\'t know', 'honestly got no idea']
 
         return '{} {} {}{} {}'.format(
             random.choice(first),
@@ -134,15 +129,11 @@ class Answerer(Responder):
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def when(self):
-        core = '{} {}'.format(random.choice(TIMES), self.sender)
+        core = '{}'.format(random.choice(TIMES))
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def where(self):
-        if 'where are you' in self.message:
-            context = json.loads(cache.get("bbot"))
-            core = context['where']
-        else:
-            core = '{}'.format(random.choice(PLACES))
+        core = '{}'.format(random.choice(PLACES))
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def who(self):
@@ -168,29 +159,10 @@ class Answerer(Responder):
     def are_you(self):
         if 'how are you' in self.message:
             return self.get_update()
-
-        _, question = self.message.split('are you')
-        core, _ = question.split('?', 1)
-
-        if core:
-            core = self._make_subject_swaps(core)
-            if 'gonna do' in core:
-                core = core.replace('gonna do', 'gonna do something')
-
-        negate = 'not' if random.choice([1, 2]) == 1 else ''
-        core = '{} i am {}{}'.format(self.sender, negate, core)
-
-        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=None, suffix=True, emojis=True)
 
     def did_you(self):
-        _, question = self.message.split('did you')
-        core, _ = question.split('?', 1)
-
-        if core:
-            core = self._make_subject_swaps(core)
-
-        core = '{} i did{}'.format(self.sender, core)
-        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=None, suffix=True, emojis=True)
 
     def do_you(self):
         _, question = self.message.split('do you')
@@ -217,24 +189,7 @@ class Answerer(Responder):
         return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
 
     def will_you(self):
-        conjugations = {
-            1: 'ill',
-            2: 'i\'ll',
-            3: 'i will',
-        }
-
-        _, question = self.message.split('will you')
-        core, _ = question.split('?', 1)
-
-        if core:
-            if core.startswith(' ever'):
-                core = core.replace(' ever', '') if random.choice([1, 2]) == 1 else ' never'
-            if core.startswith(' please'):
-                core = core.replace(' please', '')
-            core = self._make_subject_swaps(core)
-
-        core = '{} {} {}'.format(self.sender, random.choice(list(conjugations.values())), core)
-        return self._build_answer(confirm=True, core=core, suffix=True, emojis=True)
+        return self._build_answer(confirm=True, core=None, suffix=True, emojis=True, laughing=True)
 
     def wanna(self):
         _, question = self.message.split('wanna')
@@ -277,9 +232,6 @@ class Answerer(Responder):
         ]
         return random.choice(lions)
 
-    def joke(self):
-        return self.give_update()
-
     def right(self):
         choices = ['fucking right', 'damn straight', 'that\'s right']
         core = '{} {}'.format(random.choice(choices), self.sender)
@@ -315,7 +267,6 @@ QUESTION_SWITCHER = {
     'will you': Answerer.will_you,
     'wanna': Answerer.wanna,
     'nickname': Answerer.nickname,
-    'joke': Answerer.joke,
     'right bbot?': Answerer.right,
     'chyaa': Answerer.chyaa,
     'eyaww': Answerer.eyaww,

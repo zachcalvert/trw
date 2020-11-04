@@ -321,7 +321,6 @@ class TestFavoriteTeam(BellyBotTestCase):
     messages = [
         'bbot who is your favorite team?',
         'bbot do you like the lions?',
-        'woah the lions won',
     ]
 
     @mock.patch('bellybot.Responder.send_message')

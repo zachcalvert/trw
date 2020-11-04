@@ -5,6 +5,5 @@ ADVERBS = [
     'certainly',
     'most certainly',
     'most definitely',
-    'kinda',
-    'sorta',
+    'for sure'
 ]

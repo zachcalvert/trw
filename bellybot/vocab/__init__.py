@@ -18,13 +18,8 @@ YESES = [
     'lmao yup',
     'yea',
     'yea',
-    'ok',
-    'okay',
-    'alright',
-    'sounds good',
-    'right on',
-    'of course',
-    'fucking right',
-    'yupp',
+    'ah yupp',
+    'ah yup',
     'yup',
+    'yupp'
 ]
