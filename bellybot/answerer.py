@@ -13,11 +13,15 @@ from bellybot.context.reactions import EMOTIONS
 from bellybot.vocab import YESES
 from bellybot.vocab.adverbs import ADVERBS
 from bellybot.vocab.emojis import EMOJIS, LAUGHING
+from bellybot.vocab.named_entities import COUNTRIES, US_CITIES
 from bellybot.vocab.rostered_players import NFL_PLAYERS
 from bellybot.vocab.suffixes import SUFFIXES
 from bellybot.vocab.times import TIMES
 
 from team_names import TEAM_NAMES
+
+
+LOCATIONS = PLACES + COUNTRIES + US_CITIES
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
 cache = redis.StrictRedis(host=redis_host, port=6379)
@@ -79,9 +83,9 @@ class Answerer(Responder):
             .replace(' me ', ' you ')\
             .replace('bbot', '')\
             .replace(' i ', ' you ')\
-            .replace('yours', 'mine')\
+            .replace('yours', 'mine') \
+            .replace('your', 'my') \
             .replace('you', 'me')\
-            .replace('your', 'my')\
             .replace('though', '')\
             .replace('yet', '')
 
@@ -91,15 +95,16 @@ class Answerer(Responder):
         third = ['man', 'dude', 'bro', 'my guy']
         puncs = ['.', ',', '!' '!!']
         fourth = ['idk', 'i dont know', 'i got no idea', 'couldnt possibly say', 'couldn\'t tell ya', 'no idea',
-                  'wish i could say', 'i honestly don\'t know', 'honestly got no idea']
+                  'wish i could say', 'i honestly don\'t know', 'honestly got no idea', 'not sure', 'not really sure']
 
-        return '{} {} {}{} {}'.format(
+        core = '{} {} {}{} {}'.format(
             random.choice(first),
             random.choice(second),
             random.choice(third),
             random.choice(puncs),
             random.choice(fourth)
         )
+        return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def get_update(self):
         update = random.choice(EMOTIONS['positive'])
@@ -133,7 +138,7 @@ class Answerer(Responder):
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def where(self):
-        core = '{}'.format(random.choice(PLACES))
+        core = '{}'.format(random.choice(LOCATIONS))
         return self._build_answer(confirm=False, core=core, suffix=True, emojis=True)
 
     def who(self):

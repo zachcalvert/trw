@@ -18,5 +18,7 @@ TIMES = [
     'halloween',
     'christmas eve',
     'next year',
-    'after chase and status'
+    'after chase and status',
+    'before kickoff on sunday',
+    'during the monday night game',
 ]

@@ -9,5 +9,5 @@ PLACES = [
     'rio',
     'se portland',
     'ne portland',
-    'bend'
+    'bend',
 ]

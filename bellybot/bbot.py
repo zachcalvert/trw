@@ -119,7 +119,7 @@ class BellyBot(Responder):
 
         if 'bbot' in message:
             if 'thanks' in message or 'thank you' in message or 'thx' in message:
-                self.send_gif(['you\'re welcome', 'anytime', 'fist bump'])
+                self.send_gif(['you\'re welcome', 'any time', 'fist bump'])
                 return
             elif 'power rankings' in message:
                 response = espn_wrapper.get_power_rankings()
