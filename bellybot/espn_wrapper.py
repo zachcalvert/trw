@@ -276,11 +276,47 @@ class ESPNWrapper:
         return '\n'.join(text)
 
     def standings(self):
-        standings = []
-        for team in self.league.standings():
-            standings += ['{}: {} - {}'.format(team.team_name, team.wins, team.losses)]
-            text = ['Standings'] + standings
+        scoreboard = self.league.box_scores(week=None)
 
+        results = {
+            team: {
+                'name': team.team_name,
+                'wins': team.wins,
+                'losses': team.losses,
+                'points_scored': team.points_for
+            } for team in self.league.teams
+        }
+
+        for team in self.league.standings():
+            matchup = next(m for m in scoreboard if m.home_team == team or m.away_team == team)
+            print('score is {} - {}'.format(matchup.away_score, matchup.home_score))
+
+            if matchup.away_score != matchup.home_score:
+                print('score is not tied')
+                if matchup.home_team == team:
+                    results[team]['points_scored'] += matchup.home_score
+                    if matchup.home_score > matchup.away_score:
+                        results[team]['wins'] += 1
+                    else:
+                        results[team]['losses'] += 1
+                else:
+                    results[team]['points_scored'] += matchup.away_score
+                    if matchup.away_score > matchup.home_score:
+                        results[team]['wins'] += 1
+                    else:
+                        results[team]['losses'] += 1
+
+        current_standings = []
+        for team in self.league.teams:
+            team_dict = results[team]
+            current_standings.append(team_dict)
+
+        standings = sorted(current_standings, key=lambda i: (i['wins'], i['points_scored']), reverse=True)
+
+        printed_standings = ['{}. {} ({} - {}) {} points scored'.format(
+            count, team["name"], team["wins"], team["losses"], round(team["points_scored"], 2)
+        ) for count, team in enumerate(standings, 1)]
+        text = ['Current standings'] + printed_standings
         return '\n'.join(text)
 
     def pickup(self):
