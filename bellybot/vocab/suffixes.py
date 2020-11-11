@@ -77,4 +77,7 @@ SUFFIXES = [
     'dilly dilly!',
     'im so fucked up lol',
     'lmao!'
+    'fuck the cowboys',
+    'bbr pic?',
+    'yikes'
 ]
