@@ -1,8 +1,8 @@
 import math
 import random
+from operator import attrgetter
 
 from espn_api.football import League
-
 
 POSSIBLE_DRIFTS = []
 POSSIBILITIES = {1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 4, 7: 4, 8: 4, 9: 4, 10: 3, 11: 3, 12: 3, 13: 3, 14: 2, 15: 2, 16: 2,
@@ -10,6 +10,32 @@ POSSIBILITIES = {1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 4, 7: 4, 8: 4, 9: 4, 10: 3, 11
 
 for k, v in POSSIBILITIES.items():
     POSSIBLE_DRIFTS += [k] * v
+
+USER_TEAM_MAP = {
+    '4689709': 5,
+    '30833338': 8,
+    '22026356': 4,
+    '30837253': 6,
+    '30803449': 3,
+    '30837259': 9,
+    '4037223': 12,
+    '87582812': 2,
+    '30837255': 11,
+    '30837252': 1,
+}
+
+TEAM_USER_MAP = {
+    5: '4689709',
+    8: '30833338',
+    4: '22026356',
+    6: '30837253',
+    3: '30803449',
+    9: '30837259',
+    12: '4037223',
+    2: '87582812',
+    11: '30837255',
+    1: '30837252'
+}
 
 
 class ESPNWrapper:
@@ -339,3 +365,109 @@ class ESPNWrapper:
             intro, player.name, player.projected_points, player.pro_opponent)
 
         return message
+
+    def _create_trade(self, team):
+        random.shuffle(self.league.teams)
+        partner = next(t for t in self.league.teams if t.team_name != team.team_name)
+
+        target = next((p for p in partner.roster if p.posRank < 5), None)
+        if not target:
+            target = min(partner.roster, key=attrgetter('posRank'))
+        target_projected = target.stats[9]['projected_points']
+
+        gives = [p for p in team.roster if p.position == target.position and p.posRank > target.posRank]
+        main_give = min(gives, key=attrgetter('posRank'))
+        main_give_projected = main_give.stats[9]['projected_points']
+
+        if target.position == 'WR':
+            secondary_position = 'RB'
+        else:
+            secondary_position = 'WR'
+
+        secondary_gives = sorted([p for p in team.roster if p.position == secondary_position], key=lambda x: x.posRank)
+
+        try:
+            secondary_give = secondary_gives[random.choice([1,2,3])]
+        except KeyError:
+            try:
+                secondary_give = secondary_gives[random.choice([1, 2])]
+            except  KeyError:
+                secondary_give = secondary_gives[1]
+
+        return {
+            'receive': [target],
+            'give': [main_give, secondary_give],
+            'partner': partner
+        }
+
+    def recommend_trade(self, user_id):
+        from bellybot.bbot import USER_MAP
+
+        team_id = USER_TEAM_MAP[user_id]
+        team = next((t for t in self.league.teams if t.team_id == team_id), None)
+        if not team:
+            return None
+
+        trade = self._create_trade(team)
+        partner_id = TEAM_USER_MAP[trade['partner'].team_id]
+        partner_nick = random.choice(USER_MAP[partner_id])
+
+        msg = '{} {} {} and {} to {} in exchange for {}'.format(
+            random.choice(TRADE_PREFIXES),
+            random.choice(TRADE_VERBS),
+            trade['give'][0].name,
+            trade['give'][1].name,
+            partner_nick,
+            trade['receive'][0].name
+        )
+
+        if random.choice([1,2]) == 1:
+            n = random.choice([1, 2, 3])
+            emojis = ' '.join(random.sample(TRADE_EMOJIS, n))
+            msg += ' {}'.format(emojis)
+
+        return msg
+
+
+
+TRADE_PREFIXES = [
+    'Here\'s one to ponder:',
+    'How about you',
+    'How\'s about you',
+    'Perhaps you wanna',
+    'Maybe you wanna',
+    'You might try to',
+    'Hmmm, maybe',
+    'Seems like you could',
+    'Ok,'
+]
+
+TRADE_VERBS = [
+    'send',
+    'trade',
+    'send',
+    'trade',
+    'gift',
+    'offer',
+    'offer',
+    'priority mail'
+]
+
+TRADE_EMOJIS = [
+    '😎😎😎', '😎😎', '😎',
+    '😎 😎', '😎',
+    '🔥 🔥 🔥', '🔥',
+    '🔥 🔥 🔥', '🔥',
+    '🧀 🧀 🧀', '🧀',
+    '🧀 🧀 🧀', '🧀',
+    '👏 👏 👏', '👏',
+    '🌊 🌊', '🌊',
+    '💯 💯', '💯',
+    '😘 😘', '😘',
+    '🍆 🍆', '🍆',
+    '🤤🤤', '🤤',
+    '🏌🏌🏌', '🏌🏌', '🏌',
+    '🏌🏌🏌', '🏌🏌', '🏌',
+    '📈📈📈', '📈📈', '📈',
+    '🤝🤝🤝', '🤝🤝', '🤝'
+]

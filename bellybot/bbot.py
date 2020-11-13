@@ -24,15 +24,15 @@ nlp = spacy.load("en_core_web_sm")
 
 
 USER_MAP = {
-    '4689709': ["lish", "greg"],
+    '4689709': ["lish", "greg", "lishy", "fishy lishy"],
     '30833338': ["ne", "rene"],
     '22026356': ["shane", "shanye"],
-    '30837253': ["jerad", "j-rock"],
+    '30837253': ["jerad", "j-rock", "rock"],
     '30803449': ["ze", "vino", "zamsies"],
     '30837254': ["cam", "clam", "clambino"],
-    '30837259': ["walsh"],
+    '30837259': ["walsh", "walshy"],
     '4037223': ["trav"],
-    '87582812': ['justin', 'j-shaw'],
+    '87582812': ['justin', 'j-shaw', 'ol thumb punch'],
     '30837255': ['bk'],
     '30837252': ['D', 'commish', 'squirma'],
 }
@@ -141,6 +141,8 @@ class BellyBot(Responder):
                 response = espn_wrapper.get_average_points_scored()
             elif 'waiver pickup' in message:
                 response = espn_wrapper.pickup()
+            elif 'trade' in message:
+                response = espn_wrapper.recommend_trade(user_id)
             elif Answerer.should_answer(message):
                 return Answerer(sender=sender, message=message).answer()
             else:

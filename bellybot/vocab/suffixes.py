@@ -1,6 +1,6 @@
 SUFFIXES = [
     'lets gooooo!',
-    'scoducks'
+    'scoducks',
     'lol',
     'it gets better',
     'better get that ass',

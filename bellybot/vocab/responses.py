@@ -46,8 +46,6 @@ MEMBER_RESPONSES = [
     'should i propose or are we switching back to 0.5 pt ppr ? need to know',
     'motorboat some tits while I find out BBR_MEMBER',
     'no one else cares about your self - fleece doing your best colorado buffs impersonation jah feel',
-    'i\'m gon na be so pissed if i actually pull out a win i do what i can do lol',
-    'i am outraged with a capital outie that view looks nice though ! dammmn what the actual fuck . 😂 😂',
     'sports emmy is in the mail today from my bank because they over charged me ! ya boi ai n’t married',
     'he ’s up on the block if anyone wants you guys see jets are trying to move bell ? ( would n\'t)',
     'who ’s got a nice thiqq receiver for me ? ?',
@@ -393,12 +391,11 @@ MEMBER_RESPONSES = [
     'Always wondered what piercing a baby brain President who ca n’t lead a country would do',
     'Witten is ballsack . Cowboys cupcake tour is over . Dangle is for a 2x loser Go Falcons',
     'He probably slated all of Tucson 🍆 # BDN BDN',
-    'BBR_MEMBER 😂 😂 hook a xan lets fuck'
+    'BBR_MEMBER 😂 😂 hook a xan 😂 😂 lets bang'
 ]
 
 PLAYER_RESPONSES = [
-    'BBR_MEMBER? NFL_PLAYER is about to drop 69 points lol',
-    'hot take 🔥 🔥 🌊 🌊 ! somehow he whips dat thiqqness NFL_PLAYER eatin fo sho',
+    'hot take 🔥 🔥 🌊 🌊 ! NFL_PLAYER eatin fo sho',
     'yaaaaaasssssss ! ! ! ! ! ! hoping for a NFL_PLAYER tut hey hey',
     'holy fuck NFL_PLAYER in the league should be sponsored by tums',
     'dude i got hot for NFL_PLAYER for about a week its fucked',
