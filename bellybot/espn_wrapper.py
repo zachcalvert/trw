@@ -367,37 +367,58 @@ class ESPNWrapper:
         return message
 
     def _create_trade(self, team):
+        sends = set()
+        receives = set()
+
         random.shuffle(self.league.teams)
         partner = next(t for t in self.league.teams if t.team_name != team.team_name)
+        partners_roster = sorted([p for p in partner.roster if p.position not in ['K', 'D/ST']], key=lambda x: x.posRank)
+        target = partners_roster[random.choice([1,2])]
+        receives.add(target.name)
 
-        target = next((p for p in partner.roster if p.posRank < 5), None)
-        if not target:
-            target = min(partner.roster, key=attrgetter('posRank'))
-        target_projected = target.stats[9]['projected_points']
+        senders_players = [p for p in team.roster if p.position == target.position and p.posRank > target.posRank]
+        if senders_players:
+            main_send = min(senders_players, key=attrgetter('posRank'))
+        else:
+            main_send = next(p for p in team.roster if p.position == target.position)
 
-        gives = [p for p in team.roster if p.position == target.position and p.posRank > target.posRank]
-        main_give = min(gives, key=attrgetter('posRank'))
-        main_give_projected = main_give.stats[9]['projected_points']
+        sends.add(main_send.name)
 
         if target.position == 'WR':
             secondary_position = 'RB'
         else:
             secondary_position = 'WR'
 
-        secondary_gives = sorted([p for p in team.roster if p.position == secondary_position], key=lambda x: x.posRank)
+        secondary_sends = sorted([p for p in team.roster if p.position == secondary_position], key=lambda x: x.posRank)
 
         try:
-            secondary_give = secondary_gives[random.choice([1,2,3])]
+            secondary_send = secondary_sends[random.choice([1,2,3])]
         except KeyError:
             try:
-                secondary_give = secondary_gives[random.choice([1, 2])]
-            except  KeyError:
-                secondary_give = secondary_gives[1]
+                secondary_send = secondary_sends[random.choice([1, 2])]
+            except KeyError:
+                secondary_send = secondary_sends[1]
+        sends.add(secondary_send.name)
+
+        if random.choice([1,2,3]) != 1:
+            nth_best_player = random.choice([6,7,8,9])
+            gives = sorted([p for p in team.roster], key=lambda x: x.posRank)
+            third_send = gives[nth_best_player]
+            if third_send in sends:
+                third_send = gives[nth_best_player+1]
+            sends.add(third_send.name)
+
+            targets = sorted([p for p in partner.roster], key=lambda x: x.posRank)
+            second_target = targets[nth_best_player]
+            receives.add(second_target.name)
+        else:
+            receives.add('someone else')
+
 
         return {
-            'receive': [target],
-            'give': [main_give, secondary_give],
-            'partner': partner
+            'partner': partner,
+            'receive': receives,
+            'send': sends,
         }
 
     def recommend_trade(self, user_id):
@@ -412,14 +433,18 @@ class ESPNWrapper:
         partner_id = TEAM_USER_MAP[trade['partner'].team_id]
         partner_nick = random.choice(USER_MAP[partner_id])
 
-        msg = '{} {} {} and {} to {} in exchange for {}'.format(
+        sending_players = [player for player in trade['send']]
+        receiving_players = [player for player in trade['receive']]
+        sends = '{} and {}'.format(', '.join(sending_players[:-1]), sending_players[-1])
+        receives = '{} and {}'.format(', '.join(receiving_players[:-1]), receiving_players[-1])
+
+        msg = '{} {} {} to {} in exchange for {}'.format(
             random.choice(TRADE_PREFIXES),
             random.choice(TRADE_VERBS),
-            trade['give'][0].name,
-            trade['give'][1].name,
+            sends,
             partner_nick,
-            trade['receive'][0].name
-        )
+            receives
+        ).lower()
 
         if random.choice([1,2]) == 1:
             n = random.choice([1, 2, 3])
@@ -427,7 +452,6 @@ class ESPNWrapper:
             msg += ' {}'.format(emojis)
 
         return msg
-
 
 
 TRADE_PREFIXES = [
@@ -439,7 +463,9 @@ TRADE_PREFIXES = [
     'You might try to',
     'Hmmm, maybe',
     'Seems like you could',
-    'Ok,'
+    'Ok,',
+    'You could'
+
 ]
 
 TRADE_VERBS = [
@@ -450,7 +476,9 @@ TRADE_VERBS = [
     'gift',
     'offer',
     'offer',
-    'priority mail'
+    'priority mail',
+    'overnight',
+    'ship'
 ]
 
 TRADE_EMOJIS = [

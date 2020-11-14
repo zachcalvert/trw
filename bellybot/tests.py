@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.test import TestCase
 
 from bellybot.answerer import Answerer
+from bellybot.bbot import USER_MAP
 
 GROUPME_CALLBACK = {
   "attachments": [],
@@ -18,7 +19,7 @@ GROUPME_CALLBACK = {
   "source_guid": "GUID",
   "system": False,
   "text": "Hello world",
-  "user_id": "30837252"
+  "user_id": random.choice(list(USER_MAP.keys()))
 }
 
 headers = {'Content-Type': 'application/json'}
@@ -387,15 +388,15 @@ class TestEspnWrapper(TestCase):
         print(mock_send.call_args)
         mock_send.reset_mock()
 
-    @mock.patch('bellybot.Responder.send_message')
-    def test_final_standings(self, mock_send):
-        message = 'bbot final standings'
-
-        GROUPME_CALLBACK["text"] = message
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
-        print(mock_send.call_args)
-        mock_send.reset_mock()
+    # @mock.patch('bellybot.Responder.send_message')
+    # def test_final_standings(self, mock_send):
+    #     message = 'bbot final standings'
+    #
+    #     GROUPME_CALLBACK["text"] = message
+    #     self.client.post(self.url, GROUPME_CALLBACK)
+    #     mock_send.assert_called_once()
+    #     print(mock_send.call_args)
+    #     mock_send.reset_mock()
 
     @mock.patch('bellybot.Responder.send_message')
     def test_trade(self, mock_send):
