@@ -86,6 +86,10 @@ class BellyBot(Responder):
         message = message.lower()
         print('message is {}'.format(message))
 
+        all_caps = True if user_id == '4689709' else False
+
+        print('user is {}, so all_caps is {}'.format(user_id, all_caps))
+
         if random.choice([1,2]) == 1:
             try:
                 sender = random.choice(USER_MAP[user_id])
@@ -93,11 +97,11 @@ class BellyBot(Responder):
                 pass
 
         if message.startswith('bad bot'):
-            return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future")
+            return self.send_message(f"sorry {sender}! Ill try not to send messages like that in the future", all_caps=all_caps)
         elif message.startswith('good bot'):
             return self.send_gif(['thank you', 'thanks', 'success', 'you rule', 'yay', 'yessss'])
         elif message.startswith('bbot help'):
-            return self.send_message(self.build_help_message())
+            return self.send_message(self.build_help_message(), all_caps=all_caps)
 
         if message.startswith('bbot '):
             _, command = message.split('bbot ', 1)
@@ -144,10 +148,10 @@ class BellyBot(Responder):
             elif 'trade' in message:
                 response = espn_wrapper.recommend_trade(user_id)
             elif Answerer.should_answer(message):
-                return Answerer(sender=sender, message=message).answer()
+                return Answerer(sender=sender, message=message, all_caps=all_caps).answer()
             else:
                 response = self.generate_bbot_response(sender, message)
-            return self.send_message(response)
+            return self.send_message(response, all_caps=all_caps)
 
         print('no bbot in this message')
         return

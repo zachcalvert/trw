@@ -9,7 +9,10 @@ class Responder:
     def __init__(self):
         self.identifier = "5cfd3e22f775c8db35033e9dd4"
 
-    def send_message(self, message, image=None):
+    def send_message(self, message, image=None, all_caps=False):
+        if all_caps:
+            message = message.upper()
+
         body = {
             "bot_id": self.identifier,
             "text": message

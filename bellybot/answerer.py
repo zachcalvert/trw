@@ -29,12 +29,14 @@ cache = redis.StrictRedis(host=redis_host, port=6379)
 
 class Answerer(Responder):
 
-    def __init__(self, sender, message):
+    def __init__(self, sender, message, all_caps=False):
         super().__init__()
         self.sender = sender
         self.message = message
         self.trigger = next((phrase for phrase in QUESTION_SWITCHER.keys() if phrase in message), None)
         self.player = self.get_player()
+        self.all_caps = all_caps
+        print('Answerer init: all caps is {}'.format(self.all_caps))
 
     @staticmethod
     def should_answer(message):
@@ -44,7 +46,7 @@ class Answerer(Responder):
         fn = QUESTION_SWITCHER[self.trigger]
         try:
             answer = fn(self)
-            self.send_message(answer)
+            self.send_message(answer, all_caps=self.all_caps)
         except Exception:
             answer = self.get_update()
 

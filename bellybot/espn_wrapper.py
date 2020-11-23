@@ -414,7 +414,6 @@ class ESPNWrapper:
         else:
             receives.add('someone else')
 
-
         return {
             'partner': partner,
             'receive': receives,
@@ -452,6 +451,34 @@ class ESPNWrapper:
             msg += ' {}'.format(emojis)
 
         return msg
+
+
+POSITION_TIERS = {
+    'QB': [3,8,12,18],
+    'RB': []
+}
+
+
+def trade_value(player):
+    """
+    Input:
+           PosRank
+           Average points per game
+           Projected points next game
+           ADP
+    :Output:
+           a number
+    """
+    position_rank = player.posRank
+    rank_bonus = 101 - player.posRank**2
+    if rank_bonus < 0:
+        rank_bonus = 0
+
+    rank_bonus /= 10
+
+    average_points =  player.total_points / 10
+    expected_average = player.projected_total_points / 16
+    next_week_projected =  player.stats[9]['projected_points']
 
 
 TRADE_PREFIXES = [

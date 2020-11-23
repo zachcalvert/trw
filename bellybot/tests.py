@@ -48,6 +48,7 @@ class TestBbotResponse(BellyBotTestCase):
     def test_get_bbot_from_message(self, mock_send):
         for member in self.members:
             GROUPME_CALLBACK["name"] = member
+            GROUPME_CALLBACK["user_id"] = random.choice(list(USER_MAP.keys()))
             GROUPME_CALLBACK["text"] = "i think bbot is really confused"
             self.client.post(self.url, GROUPME_CALLBACK)
             mock_send.assert_called_once()
@@ -290,7 +291,7 @@ class TestAnswerer(BellyBotTestCase):
     @mock.patch('bellybot.Responder.send_message')
     def test_good_morning(self, mock_send):
         message = 'good morning bbot'
-
+        GROUPME_CALLBACK["user_id"] = random.choice(list(USER_MAP.keys()))
         GROUPME_CALLBACK["text"] = message
         self.client.post(self.url, GROUPME_CALLBACK)
         mock_send.assert_called_once()
@@ -317,6 +318,24 @@ class TestNewNickname(TestCase):
             print('belly bot: {}'.format(response))
 
 
+class TestAllCapsForLish(BellyBotTestCase):
+
+    messages = [
+        'bbot who is your favorite team?',
+        'whatup bbot',
+    ]
+
+    @mock.patch('bellybot.Responder.send_message')
+    def test_lish_responses(self, mock_send):
+        for message in self.messages:
+            GROUPME_CALLBACK["text"] = message
+            GROUPME_CALLBACK["user_id"] = '4689709'
+            self.client.post(self.url, GROUPME_CALLBACK)
+            mock_send.assert_called_once()
+            print(mock_send.call_args)
+            mock_send.reset_mock()
+
+
 class TestFavoriteTeam(BellyBotTestCase):
 
     messages = [
@@ -338,25 +357,25 @@ class TestEspnWrapper(TestCase):
 
     url = reverse('new_message')
 
-    @mock.patch('bellybot.Responder.send_message')
-    def test_trophies(self, mock_send):
-        message = 'bbot week 7 trophies'
-
-        GROUPME_CALLBACK["text"] = message
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
-        print(mock_send.call_args)
-        mock_send.reset_mock()
-
-    @mock.patch('bellybot.Responder.send_message')
-    def test_matchups(self, mock_send):
-        message = 'bbot week 8 matchups'
-
-        GROUPME_CALLBACK["text"] = message
-        self.client.post(self.url, GROUPME_CALLBACK)
-        mock_send.assert_called_once()
-        print(mock_send.call_args)
-        mock_send.reset_mock()
+    # @mock.patch('bellybot.Responder.send_message')
+    # def test_trophies(self, mock_send):
+    #     message = 'bbot week 7 trophies'
+    #
+    #     GROUPME_CALLBACK["text"] = message
+    #     self.client.post(self.url, GROUPME_CALLBACK)
+    #     mock_send.assert_called_once()
+    #     print(mock_send.call_args)
+    #     mock_send.reset_mock()
+    #
+    # @mock.patch('bellybot.Responder.send_message')
+    # def test_matchups(self, mock_send):
+    #     message = 'bbot week 8 matchups'
+    #
+    #     GROUPME_CALLBACK["text"] = message
+    #     self.client.post(self.url, GROUPME_CALLBACK)
+    #     mock_send.assert_called_once()
+    #     print(mock_send.call_args)
+    #     mock_send.reset_mock()
 
     @mock.patch('bellybot.Responder.send_message')
     def test_average_scores(self, mock_send):
