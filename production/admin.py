@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import format_html
 from adminsortable2.admin import SortableAdminMixin
 
 from .forms import WorkOrderForm
@@ -12,9 +14,13 @@ class WorkOrderCheckpointInline(admin.StackedInline):
 
 class WorkOrderAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = WorkOrderForm
-    list_display = ['__str__', 'active', 'qad', 'published', 'stocked', 'goal', 'stock_date', 'factory', 'last_updated', 'priority']
+    list_display = ['__str__', 'active', 'qad', 'published', 'stocked', 'goal', 'stock_date', 'factory', 'last_updated', 'priority', 'update_link']
     list_filter = ('factory',)
     inlines = [WorkOrderCheckpointInline]
+
+    def update_link(self, obj):
+        url = reverse("update_work_order", args=[obj.pk])
+        return format_html('<a href="{}">Update counts</a>', url)
 
 
 class WorkOrderInline(admin.TabularInline):

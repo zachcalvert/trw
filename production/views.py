@@ -1,9 +1,11 @@
 from datetime import datetime
 
 from django.db.models import Max, Min
-from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.views.generic.edit import FormView, UpdateView
 
+from production.forms import UpdateWorkOrderForm
 from production.models import Factory, WorkOrder
 
 
@@ -63,3 +65,31 @@ def dashboard(request, factory=None):
 
 def referrer_test(request):
     return render(request, 'production/referrer_test.html')
+
+
+class UpdateWorkOrderView(FormView):
+    form_class = UpdateWorkOrderForm
+    template_name = 'admin/production/update_work_order.html'
+    success_url = '/admin/production/workorder/'
+
+    def dispatch(self, *args, **kwargs):
+        self.workorder = get_object_or_404(WorkOrder, pk=kwargs['pk'])
+        return super().dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        qad = form.cleaned_data['qad_items']
+        published = form.cleaned_data['published_items']
+        stocked = form.cleaned_data['stocked_items']
+
+        form.update_work_order(self.workorder, qad, published, stocked)
+        return super().form_valid(form)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['title'] = f'Update {self.workorder.name} counts'
+        context['site_header'] = 'TRW Admin'
+        context['has_permission'] = True
+        context['workorder'] = self.workorder
+
+        return context

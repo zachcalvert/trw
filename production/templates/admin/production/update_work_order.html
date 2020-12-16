@@ -1,0 +1,26 @@
+{% extends 'admin/base_site.html' %}
+{% load admin_urls admin_static admin_modify %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Home</a>
+  <a href="{% url 'admin:app_list' app_label='production' %}">Production</a>
+
+  Update {{ workorder.name }} counts
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+<br />
+<br />
+The counts for this work order were last updated on {{ workorder.last_updated }}
+{% endblock %}
