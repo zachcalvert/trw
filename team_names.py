@@ -184,7 +184,6 @@ TEAM_NAMES = {
     'whoopi holeddberg',
     'the amityspille horror',
     'gashheed wallace',
-    'steve gash',
     'once upon a time in flexxico',
     'thicck-ass',
     'prince of persia: xandds of time',

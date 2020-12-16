@@ -418,6 +418,16 @@ class TestEspnWrapper(TestCase):
     #     mock_send.reset_mock()
 
     @mock.patch('bellybot.Responder.send_message')
+    def test_final_standings(self, mock_send):
+        message = 'bbot standings'
+
+        GROUPME_CALLBACK["text"] = message
+        self.client.post(self.url, GROUPME_CALLBACK)
+        mock_send.assert_called_once()
+        print(mock_send.call_args)
+        mock_send.reset_mock()
+
+    @mock.patch('bellybot.Responder.send_message')
     def test_trade(self, mock_send):
         message = 'bbot trade'
 

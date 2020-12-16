@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand, CommandError
 from groupme_messages import MESSAGES
 
 
-with open('bigram_to_trigram_model.json') as f:
+with open('bigram_to_bigram_model.json') as f:
     model = json.load(f)
 
 
@@ -21,12 +21,12 @@ class Command(BaseCommand):
         sentence_length = random.choice(range(12, 15))
         for i in range(sentence_length):
             try:
-                phrase = random.choice(model["bigram_to_trigram_model"][last_two])
+                phrase = random.choice(model["bigram_model"][last_two])
             except KeyError:
                 return None
 
             response.append(phrase)
-            _, last_two = phrase.split(' ', 1)
+            last_two = phrase
 
         return ' '.join(response)
 

@@ -8,10 +8,22 @@ NAMES = PLAYERS + NFL_TEAMS + COLLEGE_TEAMS + NBA_PLAYERS + MOVIES + ACTORS
 PLACES = COUNTRIES + US_CITIES
 
 PUN_LOOKUPS = {
-    'ash': 'gash', 'ass': 'gash', 'ab': 'stab', "urc": "lurk", "irk": "lurk", "irch": "birch", "orris": "porous", "orus": "porous", "and": "xand",
-    "boy": "yaboy", "boi": "yaboy", "alt": "salt", "orty": "forty", "ordy": "forty", "ick": "thicc", "ich": "thicc",
-    "icc": "thicc", "il": "spill", "ex": "flex", "old": "holed", "oled": "holed", "ia": "chyaa", "lee": "fleece",
-    "inc": "ink", "ink": "drink", "ug": "chug", "ing": "ink", "ire": "fire", "ahm": "bomb"
+    'ash': 'gash', 'ass': 'gash',
+    'ab': 'stab',
+    "alt": "salt", "ault": "salt",
+    "and": "xand",
+    "boi": "yaboy",
+    "boy": "yaboy",
+    "ick": "thicc", "ich": "thicc", "icc": "thicc",
+    "ill": "spill",
+    "in": "thin",
+    "ex": "flex",
+    "old": "holed", "oled": "holed",
+    "ia": "chyaa",
+    "lee": "fleece",
+    "inc": "ink", "ink": "drink",
+    "ire": "fire",
+    "ahm": "bomb"
 }
 
 

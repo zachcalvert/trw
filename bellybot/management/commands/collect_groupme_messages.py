@@ -24,37 +24,37 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        # starting_message_id = None
-        # groupme_messages = []
-        # for i in range(312):
-        #
-        #     messages_url = f"{BASE_URL}groups/{GROUP_ID}/messages?token={TOKEN}&limit=100"
-        #
-        #     if starting_message_id:
-        #         messages_url += f"&before_id={starting_message_id}"
-        #
-        #     response = requests.get(messages_url)
-        #
-        #     if response.status_code == 200:
-        #         content = json.loads(response.content.decode())
-        #         message_list = content['response']['messages']
-        #
-        #         for message in message_list:
-        #             if message['sender_type'] != 'bot' and message['text']:
-        #                 groupme_messages.append('{}'.format(message['text'].lower().replace('\n', '')))
-        #
-        #             try:
-        #                 next_message = message_list[message_list.index(message) + 1]
-        #             except IndexError:
-        #                 starting_message_id = message['id']
-        #                 continue
-        #
-        #     else:
-        #         print(response)
-        #
-        #     print('retrieved {} out of 500 batches'.format(i))
-        #
-        # print(groupme_messages)
+        starting_message_id = None
+        groupme_messages = []
+        for i in range(75):
+
+            messages_url = f"{BASE_URL}groups/{GROUP_ID}/messages?token={TOKEN}&limit=100"
+
+            if starting_message_id:
+                messages_url += f"&before_id={starting_message_id}"
+
+            response = requests.get(messages_url)
+
+            if response.status_code == 200:
+                content = json.loads(response.content.decode())
+                message_list = content['response']['messages']
+
+                for message in message_list:
+                    if message['sender_type'] != 'bot' and message['text']:
+                        groupme_messages.append('{}'.format(message['text'].lower().replace('\n', '')))
+
+                    try:
+                        next_message = message_list[message_list.index(message) + 1]
+                    except IndexError:
+                        starting_message_id = message['id']
+                        continue
+
+            else:
+                print(response)
+
+            print('retrieved {} out of 500 batches'.format(i))
+
+        print(groupme_messages)
 
         # tokenize each message in the list
         tokens = []
@@ -67,12 +67,12 @@ class Command(BaseCommand):
             print(f'adding token {count} to model')
             try:
                 key = ' '.join([str(tokens[count]), str(tokens[count+1])])
-                model[key].append(' '.join([str(tokens[count+2]), str(tokens[count+3]), str(tokens[count+4])]))
+                model[key].append(' '.join([str(tokens[count+2]), str(tokens[count+3])]))
             except IndexError:
                 pass
 
         print(model)
-        model_json = {"bigram_to_trigram_model": model}
+        model_json = {"bigram_to_bigram": model}
 
-        with open('bigram_to_trigram_model.json', 'w') as f:
+        with open('recent_model.json', 'w') as f:
             json.dump(model_json, f)

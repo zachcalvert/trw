@@ -252,7 +252,6 @@ MEMBER_RESPONSES = [
     'the seasons been cray already ! ! ! ! ! ! ! ! ! i won ! 😂 👌 #anticipated',
     'BBR_MEMBER straight fleecing the bbr squaw > dani dustmuffin',
     'give me a sweet lickery kiss BBR_MEMBER !!',
-    'damn the navel cave diggers came to play',
     'the chat ! i wonder if they would pierce the squirma',
     'let ’s dumb it down. im getting head with the bbr wish list : ( 1 carry , 0 yds )',
     'almost as embarrassing as these election results wow 😳 proof BBR_MEMBER hates trading',
