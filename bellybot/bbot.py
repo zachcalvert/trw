@@ -174,13 +174,13 @@ def image_search(search_terms):
 
 def gif_search(search_terms):
     try:
-        api_response = giphy_api_instance.gifs_search_get(GIPHY_API_KEY + "k1nOk2cOsKF3naPtlZF", search_terms, limit=5)
+        api_response = giphy_api_instance.gifs_search_get(GIPHY_API_KEY + "k1nOk2cOsKF3naPtlZF", search_terms, limit=10)
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
         return None
 
     try:
-        gif = api_response.data[0]
+        gif = api_response.data[random.choice(range(0,9))]
     except IndexError:
         return None
     url = gif.images.downsized_large.url
