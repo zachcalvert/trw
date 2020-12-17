@@ -77,9 +77,9 @@ class UpdateWorkOrderView(FormView):
         return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
-        qad = form.cleaned_data['qad_items']
-        published = form.cleaned_data['published_items']
-        stocked = form.cleaned_data['stocked_items']
+        qad = form.cleaned_data['qad_items'] or 0
+        published = form.cleaned_data['published_items'] or 0
+        stocked = form.cleaned_data['stocked_items'] or 0
 
         form.update_work_order(self.workorder, qad, published, stocked)
         return super().form_valid(form)

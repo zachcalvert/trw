@@ -4,9 +4,9 @@ from production.models import WorkOrder
 
 
 class UpdateWorkOrderForm(forms.Form):
-    qad_items = forms.CharField(label='Items QA\'d')
-    published_items = forms.CharField(label='Items published')
-    stocked_items = forms.CharField(label='Items stocked')
+    qad_items = forms.CharField(label='Items QA\'d', required=False)
+    published_items = forms.CharField(label='Items published', required=False)
+    stocked_items = forms.CharField(label='Items stocked', required=False)
 
     def update_work_order(self, work_order, qad, published, stocked):
         work_order.qad += int(qad)
