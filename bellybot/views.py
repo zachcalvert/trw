@@ -28,6 +28,7 @@ def new_message(request):
     if content["sender_type"] != "bot":
         bot = BellyBot()
         bot.respond(sender, user_id, message_content)
+        print(message_content)
 
         if "bass" in message_content:
             print('someone mentioned the bass god')

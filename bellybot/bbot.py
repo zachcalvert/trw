@@ -95,8 +95,6 @@ class BellyBot(Responder):
 
         all_caps = True if user_id == '4689709' else False
 
-        print('user is {}, so all_caps is {}'.format(user_id, all_caps))
-
         if random.choice([1,2]) == 1:
             try:
                 sender = random.choice(USER_MAP[user_id])
