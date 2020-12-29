@@ -158,10 +158,9 @@ class BellyBot(Responder):
                 return Answerer(sender=sender, message=message, all_caps=all_caps).answer()
             else:
                 response = self.generate_bbot_response(sender, message)
-            return self.send_message(response, all_caps=all_caps)
+            self.send_message(response, all_caps=all_caps)
 
         print('no bbot in this message')
-        return
 
 
 def image_search(search_terms):
