@@ -34,6 +34,8 @@ def new_message(request):
             conversation_id = content['group_id']
             message_id = content['message_id']
             bot.like_message(conversation_id, message_id)
+        else:
+            print('no bass god')
 
     return HttpResponse(status=204)
 
