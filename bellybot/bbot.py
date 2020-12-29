@@ -85,7 +85,9 @@ class BellyBot(Responder):
     def like_message(self, conversation_id, message_id):
         like_url = f"/messages/{conversation_id}/{message_id}/like"
         headers = {'Content-Type': 'Application/json'}
-        requests.post(like_url, data={}, headers=headers)
+        print(f'liking message, posting to {like_url}')
+        response = requests.post(like_url, data={}, headers=headers)
+        print(response)
 
     def respond(self, sender, user_id, message):
         message = message.lower()

@@ -30,11 +30,13 @@ def new_message(request):
         bot.respond(sender, user_id, message_content)
 
         if "bass" in message_content:
+            print('someone mentioned the bass god')
             conversation_id = content['group_id']
             message_id = content['message_id']
             bot.like_message(conversation_id, message_id)
 
     return HttpResponse(status=204)
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
