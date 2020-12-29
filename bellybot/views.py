@@ -26,7 +26,13 @@ def new_message(request):
         return HttpResponse(status=204)
 
     if content["sender_type"] != "bot":
-        BellyBot().respond(sender, user_id, message_content)
+        bot = BellyBot()
+        bot.respond(sender, user_id, message_content)
+
+        if "bass" in message_content:
+            conversation_id = content['group_id']
+            message_id = content['message_id']
+            bot.like_message(conversation_id, message_id)
 
     return HttpResponse(status=204)
 

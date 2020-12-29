@@ -82,6 +82,11 @@ class BellyBot(Responder):
         text = ['Hi! These are the commands I know:'] + commands
         return '\n'.join(text)
 
+    def like_message(self, conversation_id, message_id):
+        like_url = f"/messages/{conversation_id}/{message_id}/like"
+        headers = {'Content-Type': 'Application/json'}
+        requests.post(like_url, data={}, headers=headers)
+
     def respond(self, sender, user_id, message):
         message = message.lower()
         print('message is {}'.format(message))
