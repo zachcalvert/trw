@@ -5,8 +5,13 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic.edit import FormView, UpdateView
 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+
 from production.forms import UpdateWorkOrderForm
 from production.models import Factory, WorkOrder
+from production.serializers import WorkOrderSerializer
 
 
 def dashboard(request, factory=None):
@@ -93,3 +98,13 @@ class UpdateWorkOrderView(FormView):
         context['workorder'] = self.workorder
 
         return context
+
+
+@api_view(['GET'])
+def workorders_list(request):
+    if request.method == 'GET':
+        data = WorkOrder.objects.filter(active=True)
+
+        serializer = WorkOrderSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
