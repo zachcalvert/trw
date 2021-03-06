@@ -16,9 +16,9 @@ export const WorkOrder = (props)  => {
   })
 
   const pages = [
-    ({ style }) => <animated.div style={{ ...style }}>{workOrder.name}</animated.div>,
-    ({ style }) => <animated.div style={{ ...style }}>Published target {workOrder.ideal_published}</animated.div>,
-    ({ style }) => <animated.div style={{ ...style }}>Published actual {workOrder.published}</animated.div>,
+    ({ style }) => <animated.div style={{ ...style }}><Typography variant='h6'>{workOrder.name}</Typography></animated.div>,
+    ({ style }) => <animated.div style={{ ...style }}><Typography variant='h2'>{workOrder.ideal_published}<Typography variant='h6'>target</Typography></Typography></animated.div>,
+    ({ style }) => <animated.div style={{ ...style }}><Typography variant='h2'>{workOrder.published}<Typography variant='h6'>actual</Typography></Typography></animated.div>,
   ]
 
   useEffect(() => void setInterval(() => set(state => (state + 1) % 3), 3000), [])
