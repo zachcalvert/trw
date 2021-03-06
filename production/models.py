@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
 
@@ -66,6 +68,26 @@ class WorkOrder(models.Model):
     @property
     def short_stock_date(self):
         return '{}/{}'.format(self.stock_date.month, self.stock_date.day)
+
+    def get_ideal_published(self):
+        today = datetime.today()
+
+        if self.checkpoints.filter(date=today).exists():
+            return self.checkpoints.filter(date=today).first().goal
+
+        last_checkpoint = self.checkpoints.filter(date__lt=today).order_by('-date').first()
+        start = last_checkpoint.date if last_checkpoint else self.start_date
+        start_amount = last_checkpoint.goal if last_checkpoint else 0
+
+        next_checkpoint = self.checkpoints.filter(date__gt=today).order_by('date').first()
+        end = next_checkpoint.date if next_checkpoint else self.stock_date
+        end_amount = next_checkpoint.goal if next_checkpoint else self.goal
+
+        days = (end - start).days
+        amount_done = end_amount - start_amount
+        ideal = start_amount + (amount_done//days)
+
+        return ideal
 
     def save(self, *args, **kwargs):
         if (self.qad != self.__original_qad or self.published != self.__original_published or self.stocked != self.__original_stocked):

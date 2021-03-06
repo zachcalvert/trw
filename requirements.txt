@@ -9,3 +9,6 @@ mock
 redis==3.5.3
 requests
 spacy
+
+djangorestframework
+django-cors-headers

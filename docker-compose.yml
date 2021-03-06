@@ -18,6 +18,16 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  client:
+    build:
+      context: ./client
+    volumes:
+      - ./client/:/code
+    ports:
+      - 3000:3000
+    depends_on:
+      - web
+    tty: true
   redis:
     image: redis
 
