@@ -6,8 +6,8 @@ WORKDIR /code
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /code/node_modules/.bin:$PATH
-ARG REACT_APP_SOCKET_HOST
-ENV REACT_APP_SOCKET_HOST http://localhost:5000
+ARG API_URL
+ENV API_URL http://165.232.55.249:8000/api/
 
 # install app dependencies
 COPY package.json ./
