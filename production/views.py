@@ -104,7 +104,5 @@ class UpdateWorkOrderView(FormView):
 def workorders_list(request):
     if request.method == 'GET':
         data = WorkOrder.objects.filter(active=True)
-
         serializer = WorkOrderSerializer(data, context={'request': request}, many=True)
-
         return Response(serializer.data)

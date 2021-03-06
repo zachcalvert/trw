@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import axios from "axios";
+
 import { API_URL } from "../constants";
+import { WorkOrder } from './WorkOrders/WorkOrder.jsx'
 
 
 export const Dashboard = ()  => {
@@ -10,7 +11,6 @@ export const Dashboard = ()  => {
   useEffect(() => {
     async function fetchWorkOrders() {
       const { data } = await axios.get(API_URL);
-      console.log(data);
       setWorkOrders(data);
     }
     fetchWorkOrders();
@@ -18,10 +18,8 @@ export const Dashboard = ()  => {
 
   return (
     <>
-      {workOrders.map(workorder => (
-        <div key={workorder.name} className={`workorder workorder-${workorder.name}`}>
-          {workorder.name}
-        </div>
+      {workOrders.map(workOrder => (
+        <WorkOrder workOrder={workOrder} />
       ))}
     </>
   )
