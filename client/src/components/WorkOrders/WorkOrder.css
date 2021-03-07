@@ -1,17 +1,18 @@
 .workorder {
-    padding: 20px;
-    height: 100%;
-    width: 200px;
-    display: inline-grid;
-    transform: rotate(-90deg);
+  padding: 20px;
+  height: 100%;
+  width: 225px;
+  display: inline-grid;
+  transform: rotate(-90deg);
+  text-align: center;
 }
 
 .MuiLinearProgress-root {
   height: 20px!important;
   margin-top: auto;
-  margin-left: -127px;
+  margin-left: -126px;
   top: 83px;
-  width: calc(100vh - 320px)!important;
+  width: 60vh;
 }
 
 .bubble-text-wrapper{ 
@@ -69,4 +70,12 @@
   color: white;
   will-change: transform, opacity;
   text-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+}
+
+.red-progress.MuiLinearProgress-colorPrimary {
+  background-color: #EFBCBC;
+}
+
+.blue-progress.MuiLinearProgress-colorPrimary {
+  background-color: #90caf9;
 }
