@@ -28,6 +28,10 @@
   color: #DC143C;
 }
 
+.ahead {
+  color: #337147;
+}
+
 .bubble {
   width: 175px;
   height: 175px;
@@ -56,8 +60,8 @@
   width: 100%;
 }
 
-.blue {
-  background: #3f51b5;
+.green {
+  background: #337147;
 }
 
 .red {
@@ -68,6 +72,6 @@
   background-color: #EFBCBC;
 }
 
-.light-blue {
-  background-color: #90caf9;
+.light-green {
+  background-color: #B2D0B4;
 }

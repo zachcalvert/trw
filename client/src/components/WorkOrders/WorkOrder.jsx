@@ -14,10 +14,10 @@ export const WorkOrder = (props)  => {
   return (
     <Paper className="workorder">
     
-      <div className={integrity ? 'vertical-track light-blue' : 'vertical-track light-red'}>
-      <div className={integrity ? 'vertical-progress blue' : 'vertical-progress red'} style={{ height: `${height}%` }}>
-        <div className={integrity ? 'today-status' : 'today-status behind'} style={{ bottom: `${height}%)` }}>
-          <Typography variant='h6'>{todayStatus}</Typography>
+      <div className={integrity ? 'vertical-track light-green' : 'vertical-track light-red'}>
+      <div className={integrity ? 'vertical-progress green' : 'vertical-progress red'} style={{ height: `${height}%` }}>
+        <div className={integrity ? 'today-status ahead' : 'today-status behind'} style={{ bottom: `${height}%)` }}>
+          <Typography variant='h6'>{integrity && '+'}{todayStatus}</Typography>
         </div>
       </div>
 
@@ -27,7 +27,7 @@ export const WorkOrder = (props)  => {
         ))}
        </div>
       
-      <div className={integrity ? 'bubble blue' : 'bubble red'}>
+      <div className={integrity ? 'bubble green' : 'bubble red'}>
         <div className='valign'>
           <Typography variant='h4'>{workOrder.name}</Typography>
         </div>
