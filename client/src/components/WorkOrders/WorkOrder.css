@@ -12,7 +12,7 @@
   width: 60px;
   margin: auto auto 235px;
   height: calc(100% - 235px)!important;
-  border: 1px solid #3D3D3D;
+  border: 1px solid #7A7A7A;
   border-bottom: none;
   z-index: 2;
 }
@@ -42,9 +42,9 @@
   position: absolute;
   color: white;
   left: 50%;
-  bottom: 0;
+  bottom: -1px;
   transform: translate(-50%, -50%);
-  border: 1px solid #3D3D3D;
+  border: 1px solid #7A7A7A;
 }
 
 .valign {
