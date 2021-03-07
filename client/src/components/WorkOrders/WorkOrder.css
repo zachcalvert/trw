@@ -3,52 +3,35 @@
   height: 100%;
   width: 225px;
   display: inline-grid;
-  transform: rotate(-90deg);
   text-align: center;
+  position: relative;
 }
 
-.MuiLinearProgress-root {
+.vertical-progress {
   height: 20px!important;
-  margin-top: auto;
-  margin-left: -126px;
-  top: 83px;
-  width: 60vh;
+  margin: auto;
+  width: 30px;
+  height: calc(100% - 10em)!important;
+  background-color: #3f51b5;
 }
 
-.bubble-text-wrapper{ 
+.bubble {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   position: absolute;
-  height: 100%;
-  width: 100%;
   color: white;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, -50%);
 }
 
-.valign {
-  position: relative;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
-}
-
-.simple-trans-main > div {
-  will-change: transform, opacity;
-}
-
-.blue-bubble {
-  width: 150px;
-  height: 150px;
+.blue {
   background: #3f51b5;
-  border-radius: 50%;
-  margin-left: -275px;
-  position: relative;
 }
 
-.red-bubble {
-  width: 150px;
-  height: 150px;
+.red {
   background: #DC143C;
-  border-radius: 50%;
-  margin-left: -275px;
-  position: relative;
 }
 
 .workorder-summary {
@@ -58,18 +41,6 @@
 
 .red-progress .MuiLinearProgress-barColorPrimary {
   background-color: #DC143C;
-}
-
-.simple-trans-main > div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  will-change: transform, opacity;
-  text-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
 }
 
 .red-progress.MuiLinearProgress-colorPrimary {

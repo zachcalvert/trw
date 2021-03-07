@@ -108,3 +108,6 @@ class WorkOrderCheckPoint(models.Model):
     @property
     def short_date(self):
         return '{}/{}'.format(self.date.month, self.date.day)
+
+    def get_percent_of_total(self):
+        return self.percent_of_total

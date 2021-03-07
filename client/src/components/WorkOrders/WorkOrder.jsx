@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinearProgress, Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 
 import { Checkpoint } from '../Checkpoints/Checkpoint.jsx'
 
@@ -10,18 +10,18 @@ export const WorkOrder = (props)  => {
   const height = (workOrder.published / workOrder.goal) * 100;
   const integrity = workOrder.published > workOrder.ideal_published;
 
-  return (
-    <div className="workorder">
-    
-      {workOrder.checkpoints.map((checkpoint, index) => {
-        <div key={index}>
-          <Checkpoint checkpoint={checkpoint} />
-        </div>
-      })}
+  console.log({workOrder})
 
-      <LinearProgress className={integrity ? 'blue-progress' : 'red-progress'}  variant="determinate" value={height} />
+  return (
+    <Paper className="workorder">
+
+      {workOrder.checkpoints.map(checkpoint => (
+        <Checkpoint checkpoint={checkpoint} />
+      ))}
+    
+      <div className={integrity ? 'vertical-progress' : 'vertical-progress red'}></div>
       
-      <div className={integrity ? 'blue-bubble' : 'red-bubble'}>
+      <div className={integrity ? 'blue bubble' : 'red bubble'}>
         <div className='bubble-text-wrapper'>
           <div className='valign'>
             <Typography variant='h6'>{workOrder.name}</Typography>
@@ -29,6 +29,6 @@ export const WorkOrder = (props)  => {
         </div>
       </div>
     
-    </div>
+    </Paper>
   )
 };
