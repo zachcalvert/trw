@@ -10,13 +10,16 @@
 .vertical-track {
   position: relative;
   width: 60px;
-  margin: auto auto 220px;
-  height: calc(100% - 220px)!important;
+  margin: auto auto 235px;
+  height: calc(100% - 235px)!important;
+  border: 1px solid #3D3D3D;
+  border-bottom: none;
+  z-index: 2;
 }
 
 .vertical-progress {
   position: absolute;
-  width: 60px;
+  width: 58px;
   bottom: 0px;
 }
 
@@ -41,6 +44,7 @@
   left: 50%;
   bottom: 0;
   transform: translate(-50%, -50%);
+  border: 1px solid #3D3D3D;
 }
 
 .valign {
