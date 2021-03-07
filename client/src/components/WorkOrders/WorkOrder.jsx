@@ -10,7 +10,6 @@ export const WorkOrder = (props)  => {
   const integrity = workOrder.published >= workOrder.ideal_published;
   const todayStatus = workOrder.published - workOrder.ideal_published;
   const empty = workOrder.published === 0;
-  const full = workOrder.published === workOrder.goal;
 
   return (
     <Paper className="workorder">

@@ -9,16 +9,18 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - pgdata:/var/lib/postgresql/data/
-  web:
-    build: .
+  django:
+    build:
+      context: ./server
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - .:/code/server
     ports:
       - "8000:8000"
     depends_on:
       - db
-  client:
+    tty: true
+  react:
     build:
       context: ./client
     volumes:
@@ -26,10 +28,8 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - web
+      - django
     tty: true
-  redis:
-    image: redis
 
 volumes:
   pgdata:
