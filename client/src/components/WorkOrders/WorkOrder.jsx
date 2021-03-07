@@ -7,19 +7,20 @@ import './WorkOrder.css';
 
 export const WorkOrder = (props)  => {
   const { workOrder } = props;
+  const height = (workOrder.published / workOrder.goal) * 100;
   const integrity = workOrder.published > workOrder.ideal_published;
 
   return (
     <Paper className="workorder">
-
-      {workOrder.checkpoints.map(checkpoint => (
-        <Checkpoint checkpoint={checkpoint} />
-      ))}
     
-      <div className={integrity ? 'vertical-track light-blue' : 'vertical-track light-red'} />
-      {/* <div className={integrity ? 'vertical-progress blue' : 'vertical-progress red'}
-           style={{ height: `${height}%` }}
-       /> */}
+      <div className={integrity ? 'vertical-track light-blue' : 'vertical-track light-red'}>
+        <div className={integrity ? 'vertical-progress blue' : 'vertical-progress red'}
+            style={{ height: `${height}%` }}
+        />
+        {workOrder.checkpoints.map(checkpoint => (
+          <Checkpoint checkpoint={checkpoint} />
+        ))}
+       </div>
       
       <div className={integrity ? 'bubble blue' : 'bubble red'}>
         <div className='valign'>

@@ -8,7 +8,7 @@ export const Checkpoint = (props)  => {
   const { short_date } = checkpoint;
 
   return (
-    <div className="checkpoint" style={{ bottom: `${percent_of_total}vh` }}>
+    <div className="checkpoint" style={{ top: `calc(100% - ${percent_of_total}%)` }}>
       <Typography variant='overline' style={{ height: percent_of_total }}variant='subtitle'>
         { short_date }&nbsp;&nbsp;----&nbsp;&nbsp;{ checkpoint.goal }
       </Typography>

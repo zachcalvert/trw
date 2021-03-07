@@ -16,12 +16,9 @@
 
 .vertical-progress {
   position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 30px;
-  bottom: -77px;
+  bottom: 0;
 }
-
 .bubble {
   width: 150px;
   height: 150px;
