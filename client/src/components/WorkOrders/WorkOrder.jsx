@@ -10,6 +10,7 @@ export const WorkOrder = (props)  => {
   const height = (workOrder.published / workOrder.goal) * 100;
   const integrity = workOrder.published >= workOrder.ideal_published;
   const todayStatus = workOrder.published - workOrder.ideal_published;
+  const empty = workOrder.published === 0;
 
   return (
     <Paper className="workorder">
@@ -27,7 +28,7 @@ export const WorkOrder = (props)  => {
         ))}
        </div>
       
-      <div className={integrity ? 'bubble green' : 'bubble red'}>
+      <div className={integrity ? 'bubble green' : empty ? 'bubble light-red' : 'bubble red'}>
         <div className='valign'>
           <Typography variant='h4'>{workOrder.name}</Typography>
         </div>
