@@ -88,6 +88,26 @@ class WorkOrder(models.Model):
         ideal = start_amount + (amount_done//days)
 
         return ideal
+    
+    def get_checkpoints(self):
+        markers = [
+            {
+                'goal': self.goal,
+                'percent_of_total': 100,
+                'short_date': self.short_stock_date
+            }
+        ]
+
+        for checkpoint in self.checkpoints.all():
+            markers.append(
+                {
+                    'goal': checkpoint.goal,
+                    'percent_of_total': checkpoint.percent_of_total,
+                    'short_date': checkpoint.short_date
+                }
+            )
+        
+        return markers
 
     def save(self, *args, **kwargs):
         if (self.qad != self.__original_qad or self.published != self.__original_published or self.stocked != self.__original_stocked):

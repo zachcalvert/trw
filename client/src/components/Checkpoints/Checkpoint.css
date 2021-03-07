@@ -1,4 +1,7 @@
 .checkpoint {
   position: absolute;
-  transform: rotate(90deg);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  width: 130px;
 }

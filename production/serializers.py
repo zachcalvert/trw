@@ -7,7 +7,7 @@ class CheckpointSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkOrderCheckPoint
-        fields = ['goal', 'date', 'percent_of_total']
+        fields = ['goal', 'short_date', 'percent_of_total']
 
     def get_percent_of_total(self, obj):
         return obj.get_percent_of_total()
@@ -15,7 +15,7 @@ class CheckpointSerializer(serializers.ModelSerializer):
 
 class WorkOrderSerializer(serializers.ModelSerializer):
     ideal_published = serializers.SerializerMethodField()
-    checkpoints = CheckpointSerializer(many=True, read_only=True)
+    checkpoints = serializers.SerializerMethodField()
 
     class Meta:
         model = WorkOrder 
@@ -23,3 +23,6 @@ class WorkOrderSerializer(serializers.ModelSerializer):
 
     def get_ideal_published(self, obj):
         return obj.get_ideal_published()
+
+    def get_checkpoints(self, obj):
+        return obj.get_checkpoints()

@@ -1,13 +1,4 @@
-.flexbox {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-around;
-  transform: rotate(-90deg);
+.MuiGrid-root {
+  height: 100%;
 }
 
-.flexbox .col {
-  flex: 1;
-}

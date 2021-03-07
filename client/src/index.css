@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 50px;
+  padding: 40px 40px 0;
   background-color: whitesmoke!important;
 }
 
@@ -27,6 +27,6 @@ code {
   height: 100%;
 }
 
-.MuiGrid-spacing-xs-2 {
+.MuiGrid-spacing-xs-5 {
   height: 100%;
 }

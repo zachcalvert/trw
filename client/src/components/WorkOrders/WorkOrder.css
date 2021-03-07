@@ -7,12 +7,19 @@
   position: relative;
 }
 
-.vertical-progress {
-  height: 20px!important;
-  margin: auto;
+.vertical-track {
+  position: relative;
   width: 30px;
-  height: calc(100% - 10em)!important;
-  background-color: #3f51b5;
+  margin: auto auto 160px;
+  height: calc(100% - 220px)!important;
+}
+
+.vertical-progress {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  bottom: -77px;
 }
 
 .bubble {
@@ -22,8 +29,15 @@
   position: absolute;
   color: white;
   left: 50%;
-  bottom: 0px;
+  bottom: -40px;
   transform: translate(-50%, -50%);
+}
+
+.valign {
+  position: relative;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .blue {
@@ -34,19 +48,10 @@
   background: #DC143C;
 }
 
-.workorder-summary {
-  transform: rotate(90deg);
-  color: white;
-}
-
-.red-progress .MuiLinearProgress-barColorPrimary {
-  background-color: #DC143C;
-}
-
-.red-progress.MuiLinearProgress-colorPrimary {
+.light-red {
   background-color: #EFBCBC;
 }
 
-.blue-progress.MuiLinearProgress-colorPrimary {
+.light-blue {
   background-color: #90caf9;
 }
