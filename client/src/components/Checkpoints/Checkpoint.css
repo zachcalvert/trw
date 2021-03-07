@@ -5,3 +5,11 @@
   z-index: 11;
   width: 130px;
 }
+
+.date {
+  margin-left: -60px;
+}
+
+.goal {
+  margin-left: 60px;
+}

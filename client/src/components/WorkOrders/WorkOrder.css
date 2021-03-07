@@ -9,24 +9,33 @@
 
 .vertical-track {
   position: relative;
-  width: 30px;
-  margin: auto auto 160px;
+  width: 60px;
+  margin: auto auto 220px;
   height: calc(100% - 220px)!important;
 }
 
 .vertical-progress {
   position: absolute;
-  width: 30px;
-  bottom: 0;
+  width: 60px;
+  bottom: 0px;
 }
+
+.today-status {
+  margin-top: -30px;
+}
+
+.behind {
+  color: #DC143C;
+}
+
 .bubble {
-  width: 150px;
-  height: 150px;
+  width: 175px;
+  height: 175px;
   border-radius: 50%;
   position: absolute;
   color: white;
   left: 50%;
-  bottom: -40px;
+  bottom: 0;
   transform: translate(-50%, -50%);
 }
 
@@ -35,6 +44,16 @@
   width: 100%;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.workorder-summary {
+  position:absolute;
+  left: 50%;
+  bottom: -35px;
+  transform: translate(-50%, -50%);
+  display: inherit;
+  height: 80px;
+  width: 100%;
 }
 
 .blue {

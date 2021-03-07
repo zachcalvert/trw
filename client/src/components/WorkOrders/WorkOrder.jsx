@@ -8,15 +8,20 @@ import './WorkOrder.css';
 export const WorkOrder = (props)  => {
   const { workOrder } = props;
   const height = (workOrder.published / workOrder.goal) * 100;
-  const integrity = workOrder.published > workOrder.ideal_published;
+  const integrity = workOrder.published >= workOrder.ideal_published;
+  const todayStatus = workOrder.published - workOrder.ideal_published;
 
   return (
     <Paper className="workorder">
     
       <div className={integrity ? 'vertical-track light-blue' : 'vertical-track light-red'}>
-        <div className={integrity ? 'vertical-progress blue' : 'vertical-progress red'}
-            style={{ height: `${height}%` }}
-        />
+      <div className={integrity ? 'vertical-progress blue' : 'vertical-progress red'} style={{ height: `${height}%` }}>
+        <div className={integrity ? 'today-status' : 'today-status behind'} style={{ bottom: `${height}%)` }}>
+          <Typography variant='h6'>{todayStatus}</Typography>
+        </div>
+      </div>
+
+
         {workOrder.checkpoints.map(checkpoint => (
           <Checkpoint checkpoint={checkpoint} />
         ))}
@@ -24,8 +29,14 @@ export const WorkOrder = (props)  => {
       
       <div className={integrity ? 'bubble blue' : 'bubble red'}>
         <div className='valign'>
-          <Typography variant='h6'>{workOrder.name}</Typography>
+          <Typography variant='h4'>{workOrder.name}</Typography>
         </div>
+      </div>
+
+      <div className='workorder-summary'>
+        <Typography variant='button'>Stocked: {workOrder.stocked}</Typography>
+        <Typography variant='button'>Published: {workOrder.published}</Typography>
+        <Typography variant='button'>QA'd: {workOrder.qad}</Typography>
       </div>
     
     </Paper>

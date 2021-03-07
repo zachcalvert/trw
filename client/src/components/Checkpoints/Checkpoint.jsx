@@ -8,10 +8,17 @@ export const Checkpoint = (props)  => {
   const { short_date } = checkpoint;
 
   return (
-    <div className="checkpoint" style={{ top: `calc(100% - ${percent_of_total}%)` }}>
-      <Typography variant='overline' style={{ height: percent_of_total }}variant='subtitle'>
-        { short_date }&nbsp;&nbsp;----&nbsp;&nbsp;{ checkpoint.goal }
-      </Typography>
-    </div>
+    <>
+      <div className="checkpoint date" style={{ top: `calc(100% - ${percent_of_total}%)` }}>
+        <Typography variant='overline'>
+          { short_date }
+        </Typography>
+      </div>
+      <div className="checkpoint goal" style={{ top: `calc(100% - ${percent_of_total}%)` }}>
+        <Typography variant='overline'>
+          { checkpoint.goal }
+        </Typography>
+      </div>
+    </>
   )
 };
