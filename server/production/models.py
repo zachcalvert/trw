@@ -72,7 +72,7 @@ class WorkOrder(models.Model):
     def get_ideal_stocked(self):
         today = datetime.today().date()
 
-        if self.end_date <= datetime.today():
+        if self.stock_date <= datetime.today():
             return self.goal
 
         if self.checkpoints.filter(date=today).exists():
