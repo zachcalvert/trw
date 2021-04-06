@@ -87,10 +87,12 @@ class WorkOrder(models.Model):
         end_amount = next_checkpoint.goal if next_checkpoint else self.goal
 
         days = (today - start).days
-        amount_done = end_amount - start_amount
-        ideal = start_amount + (amount_done//days)
-
-        return ideal
+        if days > 0:
+            amount_done = end_amount - start_amount
+            ideal = start_amount + (amount_done//days)
+            return ideal
+        else:
+            return end_amount
     
     def get_checkpoints(self):
         markers = [
