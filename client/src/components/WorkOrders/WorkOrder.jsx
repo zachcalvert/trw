@@ -6,10 +6,10 @@ import './WorkOrder.css';
 
 export const WorkOrder = (props)  => {
   const { workOrder } = props;
-  const height = (workOrder.published / workOrder.goal) * 100;
-  const integrity = workOrder.published >= workOrder.ideal_published;
-  const todayStatus = workOrder.published - workOrder.ideal_published;
-  const empty = workOrder.published === 0;
+  const height = (workOrder.stocked / workOrder.goal) * 100;
+  const integrity = workOrder.stocked >= workOrder.ideal_stocked;
+  const todayStatus = workOrder.stocked - workOrder.ideal_stocked;
+  const empty = workOrder.stocked === 0;
 
   return (
     <Paper className="workorder">

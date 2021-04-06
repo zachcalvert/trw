@@ -69,8 +69,11 @@ class WorkOrder(models.Model):
     def short_stock_date(self):
         return '{}/{}'.format(self.stock_date.month, self.stock_date.day)
 
-    def get_ideal_published(self):
-        today = datetime.today()
+    def get_ideal_stocked(self):
+        today = datetime.today().date()
+
+        if self.end_date <= datetime.today():
+            return self.goal
 
         if self.checkpoints.filter(date=today).exists():
             return self.checkpoints.filter(date=today).first().goal
@@ -83,7 +86,7 @@ class WorkOrder(models.Model):
         end = next_checkpoint.date if next_checkpoint else self.stock_date
         end_amount = next_checkpoint.goal if next_checkpoint else self.goal
 
-        days = (end - start).days
+        days = (today - start).days
         amount_done = end_amount - start_amount
         ideal = start_amount + (amount_done//days)
 

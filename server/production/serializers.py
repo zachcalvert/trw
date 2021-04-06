@@ -14,15 +14,15 @@ class CheckpointSerializer(serializers.ModelSerializer):
 
 
 class WorkOrderSerializer(serializers.ModelSerializer):
-    ideal_published = serializers.SerializerMethodField()
+    ideal_stocked = serializers.SerializerMethodField()
     checkpoints = serializers.SerializerMethodField()
 
     class Meta:
         model = WorkOrder 
-        fields = ('name', 'factory', 'start_date', 'stock_date', 'qad', 'published', 'stocked', 'goal', 'priority', 'ideal_published', 'checkpoints')
+        fields = ('name', 'factory', 'start_date', 'stock_date', 'qad', 'published', 'stocked', 'goal', 'priority', 'ideal_stocked', 'checkpoints')
 
-    def get_ideal_published(self, obj):
-        return obj.get_ideal_published()
+    def get_ideal_stocked(self, obj):
+        return obj.get_ideal_stocked()
 
     def get_checkpoints(self, obj):
         return obj.get_checkpoints()
