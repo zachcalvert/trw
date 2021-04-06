@@ -75,6 +75,9 @@ class WorkOrder(models.Model):
         if self.stock_date <= today:
             return self.goal
 
+        if self.start_date >= today:
+            return 0
+
         if self.checkpoints.filter(date=today).exists():
             return self.checkpoints.filter(date=today).first().goal
 
@@ -93,6 +96,8 @@ class WorkOrder(models.Model):
             return ideal
         else:
             return end_amount
+
+
     
     def get_checkpoints(self):
         markers = [
