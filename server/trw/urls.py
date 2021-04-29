@@ -11,4 +11,4 @@ urlpatterns = [
 
 admin.site.site_header = "TRW Admin"
 admin.site.site_title = "TRW Admin Portal"
-admin.site.index_title = "Welcome to the TRW Work Order Admin"
+admin.site.index_title = "TRW Admin"
